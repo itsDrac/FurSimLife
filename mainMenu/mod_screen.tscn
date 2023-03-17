@@ -1,0 +1,216 @@
+[gd_scene load_steps=10 format=3 uid="uid://gybn8tsjs71e"]
+
+[ext_resource type="Texture2D" uid="uid://681e281nyaih" path="res://assests/images/save_60.png" id="1_bwvc7"]
+[ext_resource type="Texture2D" uid="uid://dh5ubfpea0bxp" path="res://assests/images/cross_60.png" id="1_nwl6u"]
+[ext_resource type="Texture2D" uid="uid://i4ylr4s758dm" path="res://assests/images/save_60_green.png" id="2_l41wq"]
+[ext_resource type="ButtonGroup" uid="uid://l1n0wl6krr6a" path="res://mainMenu/assets/playerModBG.tres" id="3_1e7i6"]
+[ext_resource type="Texture2D" uid="uid://dlatnonajcvow" path="res://assests/images/cross_60_red.png" id="4_eddf6"]
+[ext_resource type="ButtonGroup" uid="uid://bx5pqfyafrwu6" path="res://mainMenu/assets/assetsModBG.tres" id="4_ktqgl"]
+[ext_resource type="ButtonGroup" uid="uid://bigok5d4v05ur" path="res://mainMenu/assets/worldModBG.tres" id="5_w7n1k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_usoyo"]
+bg_color = Color(0.211765, 0.266667, 0.266667, 0.698039)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr150"]
+bg_color = Color(0, 0.203922, 0, 1)
+border_width_top = 28
+border_width_bottom = 28
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[node name="ModScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 60.0
+offset_top = 60.0
+offset_right = 1860.0
+offset_bottom = 1020.0
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_usoyo")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="VSeprator" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="Button" type="Button" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 38
+text = "Get"
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "FurryPlayerSkin"
+
+[node name="TextureButton" type="TextureButton" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_bwvc7")
+texture_hover = ExtResource("2_l41wq")
+
+[node name="VSeprator2" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="PlayerModContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VSeprator" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Player"
+
+[node name="VSeprator2" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="CheckBox" type="CheckBox" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("3_1e7i6")
+text = "Default"
+icon_alignment = 1
+expand_icon = true
+
+[node name="AssetsModContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/AssetsModContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VSeprator" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/AssetsModContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/AssetsModContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "Assets"
+
+[node name="VSeprator2" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/AssetsModContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="CheckBox2" type="CheckBox" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/AssetsModContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("4_ktqgl")
+text = "Default"
+icon_alignment = 1
+expand_icon = true
+
+[node name="WorldModContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/WorldModContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VSeprator" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/WorldModContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/WorldModContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "World"
+
+[node name="VSeprator2" type="Panel" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/WorldModContainer/HBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
+
+[node name="CheckBox3" type="CheckBox" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/WorldModContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+button_pressed = true
+button_group = ExtResource("5_w7n1k")
+text = "Default"
+icon_alignment = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.0
+offset_top = -60.0
+offset_right = 180.0
+offset_bottom = 60.0
+grow_horizontal = 2
+text = "Mod"
+horizontal_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 0
+texture_normal = ExtResource("1_nwl6u")
+texture_hover = ExtResource("4_eddf6")
