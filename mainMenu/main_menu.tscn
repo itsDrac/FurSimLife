@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d06nv2b8oabho"]
+[gd_scene load_steps=7 format=3 uid="uid://d06nv2b8oabho"]
 
 [ext_resource type="Theme" uid="uid://g7btrlrjueuf" path="res://assests/resources/mainMenu.theme" id="1_m65da"]
 [ext_resource type="Texture2D" uid="uid://d4lvnyh51to0s" path="res://mainMenu/assets/Mainmenu_bg.png" id="2_up8oy"]
 [ext_resource type="PackedScene" uid="uid://gybn8tsjs71e" path="res://mainMenu/mod_screen.tscn" id="3_wvro5"]
+[ext_resource type="PackedScene" uid="uid://bewktqs68gct3" path="res://mainMenu/setting_screen.tscn" id="4_xqpdh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fchm0"]
 bg_color = Color(0.219608, 0.341176, 0.215686, 0.698039)
@@ -93,3 +94,7 @@ offset_bottom = 660.0
 text = "Exit"
 
 [node name="ModScreen" parent="." instance=ExtResource("3_wvro5")]
+visible = false
+
+[node name="SettingScreen" parent="." instance=ExtResource("4_xqpdh")]
+layout_mode = 1
