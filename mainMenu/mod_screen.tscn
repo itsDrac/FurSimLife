@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://gybn8tsjs71e"]
+[gd_scene load_steps=11 format=3 uid="uid://gybn8tsjs71e"]
 
 [ext_resource type="Texture2D" uid="uid://681e281nyaih" path="res://assests/images/save_60.png" id="1_bwvc7"]
+[ext_resource type="Script" path="res://mainMenu/scripts/mod_screen.gd" id="1_ib3ci"]
 [ext_resource type="Texture2D" uid="uid://dh5ubfpea0bxp" path="res://assests/images/cross_60.png" id="1_nwl6u"]
 [ext_resource type="Texture2D" uid="uid://i4ylr4s758dm" path="res://assests/images/save_60_green.png" id="2_l41wq"]
 [ext_resource type="ButtonGroup" uid="uid://l1n0wl6krr6a" path="res://mainMenu/assets/playerModBG.tres" id="3_1e7i6"]
@@ -24,6 +25,7 @@ offset_left = 60.0
 offset_top = 60.0
 offset_right = 1860.0
 offset_bottom = 1020.0
+script = ExtResource("1_ib3ci")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

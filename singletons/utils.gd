@@ -3,7 +3,7 @@ extends Node2D
 func _ready():
 	pass
 
-func change_scene(from: Node2D, to: Node2D, task: Callable = func(): return, a:=[]) -> void:
+func change_scene(from: Node, to: Node, task: Callable = func(a): return, a:=[]) -> void:
 	"""
 	swap scene `from` node `to` node.
 	args:

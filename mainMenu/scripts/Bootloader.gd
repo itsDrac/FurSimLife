@@ -19,3 +19,5 @@ func _ready():
 	await get_tree().create_timer(3.0).timeout
 	ap.play_backwards("fade")
 	await ap.animation_finished
+	var menu = preload("res://mainMenu/main_menu.tscn").instantiate()
+	Utils.change_scene(self, menu)

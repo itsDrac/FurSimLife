@@ -2,7 +2,7 @@ extends Control
 
 @onready var window_mode: OptionButton = $Panel/CenterContainer/GridContainer/WindowMode
 @onready var window_res: OptionButton = $Panel/CenterContainer/GridContainer/WindowRes
-
+@onready var cross = $Panel/TextureButton
 @onready var _window: Window = get_window()
 
 const resolution = {
@@ -20,9 +20,9 @@ func _ready():
 	setup_window_mode()
 	window_res.item_selected.connect(_window_res_selected)
 	setup_window_res()
-	var cr = _window.size
-	print(resolution.values().find(cr))
-	window_res.selected = resolution.values().find(cr)
+	var cres = _window.size
+	window_res.selected = resolution.values().find(cres)
+	cross.pressed.connect(func(): visible = false)
 	
 #	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 #	get_tree().reload_current_scene()
