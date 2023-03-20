@@ -80,12 +80,18 @@ signal role_changed (r)
 	set(val):
 		role_reputation = clamp(val, 0, 100)
 
-var fertility: float
-var virility: float
+var fertility: float :
+	get: return fertility
+	set(val): fertility = val if not gender == GENDERS.MALE else 0 
+var virility: float :
+	get: return virility
+	set(val): virility = val if gender == GENDERS.MALE else 0 
 var pregnancy: bool :
 	get: return pregnancy
-	set(val): pregnancy = _set_pregnancy(val)
-var relationship_with_player: int
+	set(val): pregnancy = val if not gender == GENDERS.MALE else false 
+var relationship_with_player: int :
+	get: return relationship_with_player
+	set(val): relationship_with_player = val if type == TYPES.NPC else 0
 var egges
 var egges_in_vagina
 var egges_in_ass
@@ -134,28 +140,26 @@ func _to_string():
 func _init():
 	print("printing from chracter stats")
 
-static func _set_pregnancy(val):
-
 # Sets random states to passed CharacterStats (`res`) object
 static func genrate_stats(res: CharacterStats, _name: StringName, _type: TYPES = TYPES.NPC):
 	res.name = _name
 	res.type = _type
 	res.gender = randi_range(GENDERS.FEMALE, GENDERS.MALE+1)
 	res.role = randi_range(ROLES.MONARCHY,ROLES.NUN+1)
-	res.health = randi_range(0, 101)
-	res.attack = randi_range(0, 6)
-	res.strength = randi_range(0, 6)
-	res.defense = randi_range(0, 6)
-	res.agility = randi_range(0, 6)
-	res.intelligence = randi_range(0, 6)
-	res.magic_power = randi_range(0, 6)
-	res.role_reputation = randi_range(0, 101)
-	res.fertility
-	res.virility
-	res.pregnancy
+	res.health = randi_range(0, 100)
+	res.attack = randi_range(0, 5)
+	res.strength = randi_range(0, 5)
+	res.defense = randi_range(0, 5)
+	res.agility = randi_range(0, 5)
+	res.intelligence = randi_range(0, 5)
+	res.magic_power = randi_range(0, 5)
+	res.role_reputation = randi_range(0, 100)
+	res.fertility = randf()
+	res.virility = randf()
+	res.pregnancy = [true,false].pick_random()
 	res.relationship_with_player = randi_range(0,101) if res.type == TYPES.NPC else 0 
-	res.egges
-	res.egges_in_vagina
-	res.children
-	res.monster_children
+	res.egges = randi_range(0,5)
+	res.egges_in_vagina = randi_range(0,5)
+	res.children = randi_range(0,5)
+	res.monster_children = randi_range(0,5)
 	
