@@ -117,6 +117,66 @@ enum PIERCING {
 	IS_NOSE_PIERCED,
 }
 
+enum SKIN_COLOR {
+	HAS_PALESKIN
+}
+
+enum HAIR {
+	HAS_PONYTAIL1,
+	HAS_PONYTAIL2,
+	HAS_PONYTAIL3,
+	HAS_STRAIGHTH1,
+	HAS_STRAIGHTH2,
+	HAS_STRAIGHTH3,
+}
+
+enum WEARABLE {
+	HAS_SHORTSLEEVESHIRT1B0,
+	HAS_LONGSLEEVESHIRT1B0,
+	HAS_SHORTSHIRT1B0,
+	HAS_SHORTSLEEVESHIRT1B1,
+	HAS_LONGSLEEVESHIRT1B1,
+	HAS_SHORTSHIRT1B1,
+	HAS_SHORTSLEEVESHIRT1B2,
+	HAS_LONGSLEEVESHIRT1B2,
+	HAS_SHORTSHIRT1B2,
+	HAS_SHORTSLEEVESHIRT1B3,
+	HAS_LONGSLEEVESHIRT1B3,
+	HAS_SHORTSHIRT1B3,
+	HAS_SHORTSLEEVESHIRT1B4,
+	HAS_LONGSLEEVESHIRT1B4,
+	HAS_SHORTSHIRT1B4,
+	HAS_SHORTSLEEVESHIRT1B5,
+	HAS_LONGSLEEVESHIRT1B5,
+	HAS_SHORTSHIRT1B5,
+	HAS_PANTS1,
+	HAS_SHORTS1,
+	HAS_SKIRT1,
+	HAS_UNDERWEAR1,
+	HAS_BRA1B0,
+	HAS_BRA1B1,
+	HAS_BRA1B2,
+	HAS_BRA1B3,
+	HAS_BRA1B4,
+	HAS_BRA1B5,
+	HAS_BRACELET1,
+	HAS_ANKLEBRACELET,
+	HAS_COLLAR1,
+	HAS_COLLAR2,
+	HAS_COLLAR3,
+	HAS_COLLARTAG1,
+	HAS_COLLARTAG2,
+	HAS_PAINTEDNAILSRED,
+	HAS_NECKLACE,
+	HAS_NECKLACEJEWEL1,
+	HAS_NECKLACEJEWEL2,
+	HAS_RINGTHUMBS,
+	HAS_RINGINDEX,
+	HAS_RINGMIDDLE,
+	HAS_RINGRING,
+	HAS_RINGPINKY,
+}
+
 @export var gender: GENDER
 @export var race: RACE
 @export var butt_size: BUTT_SIZE
@@ -129,7 +189,10 @@ enum PIERCING {
 @export var eggpregbelly: EGGPREGBELLY
 @export var eggpregbelly_anal: EGGPREGBELLY_ANAL
 @export var age: AGE
-@export var piercing: PIERCING
+@export var piercing: Array[PIERCING]
+@export var skin_color: SKIN_COLOR
+@export var hair: HAIR
+@export var wearable: Array[WEARABLE]
 
 func _to_string():
 	return "CharacterTag {
@@ -146,6 +209,9 @@ func _to_string():
 		Eggpregbelly anal: {eggpregbelly_anal}
 		Age: {age}
 		Piercing: {piercing}
+		Skin color: {skin_color}
+		Hair: {hair}
+		Wearable: {wearable}
 	}".format({
 	"gender": GENDER.find_key(self.gender),
 	"race": RACE.find_key(self.race),
@@ -159,7 +225,10 @@ func _to_string():
 	"eggpregbelly": EGGPREGBELLY.find_key(self.eggpregbelly),
 	"eggpregbelly_anal": EGGPREGBELLY_ANAL.find_key(self.eggpregbelly_anal),
 	"age": AGE.find_key(self.age),
-	"piercing": PIERCING.find_key(self.piercing)
+	"piercing": self.piercing.map(func(n): return PIERCING.find_key(n)),
+	"skin_color": self.skin_color,
+	"hair": self.hair,
+	"wearable": self.wearable.map(func(n): return WEARABLE.find_key(n)),
 	})
 
 func add_tags(res: CharacterStats):
@@ -175,4 +244,15 @@ func add_tags(res: CharacterStats):
 	self.eggpregbelly = randi_range(EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE0, EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE5)
 	self.eggpregbelly_anal = randi_range(EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE0, EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE5)
 	self.age = randi_range(AGE.IS_YOUNGADULT, AGE.IS_OLDADULT)
-	self.piercing = randi_range(PIERCING.IS_NIPPLE_PIERCED, PIERCING.IS_NOSE_PIERCED)
+	self.piercing = [randi_range(PIERCING.IS_NIPPLE_PIERCED, PIERCING.IS_NOSE_PIERCED)]
+	self.skin_color = randi_range(SKIN_COLOR.HAS_PALESKIN, SKIN_COLOR.HAS_PALESKIN)
+	self.hair = randi_range(HAIR.HAS_PONYTAIL1, HAIR.HAS_STRAIGHTH3)
+	self.wearable = [randi_range(WEARABLE.HAS_SHORTSLEEVESHIRT1B0, WEARABLE.HAS_RINGPINKY)]
+
+func append_piercing(pie: PIERCING):
+	if not pie in self.piercing:
+		self.piercing.append(pie)
+
+func append_wearable(wea: WEARABLE):
+	if not wea in self.wearable:
+		self.wearable.append(wea)

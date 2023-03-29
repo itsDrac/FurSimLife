@@ -104,9 +104,10 @@ signal role_changed (r)
 	get: return eggs
 	set(val): eggs = val if self.race == RACE.MOTHKIN else 0
 @export var eggs_duration: int
-#@export var eggs_in_vagina: int
-#@export var eggs_in_vagina_duration: int
-#@export var eggs_in_ass: int
+@export var eggs_in_vagina: int
+@export var eggs_in_vagina_duration: int
+@export var eggs_in_ass: int
+@export var eggs_in_ass_duration: int
 @export var children: int
 @export var monster_children: int
 @export var job: int
@@ -135,6 +136,10 @@ func _to_string():
 	Relationship with player: {rwp}
 	Eggs: {eggs}
 	Eggs duration {eggs_duration}
+	Eggs in vagina {eiv}
+	Eggs in ass {eia}
+	Eggs in vagina duration {eivd}
+	Eggs in ass duration {eiad}
 	Children: {children}
 	Monster children: {mchildren}
 	Job: {job}
@@ -159,9 +164,11 @@ func _to_string():
 	"pregnancy_duration": self.pregnancy_duration,
 	"rwp": self.relationship_with_player,
 	"eggs": self.eggs,
-#	"eiv": self.eggs_in_vagina,
-#	"eia": self.eggs_in_ass,
 	"eggs_duration": self.eggs_duration,
+	"eiv": self.eggs_in_vagina,
+	"eia": self.eggs_in_ass,
+	"eivd": self.eggs_in_vagina_duration,
+	"eiad": self.eggs_in_ass_duration,
 	"children": self.children,
 	"mchildren": self.monster_children,
 	"job": CharacterJob.get_job_name(self),
@@ -190,8 +197,10 @@ static func genrate_stats(res: CharacterStats, _name: StringName, _type: TYPES =
 	res.relationship_with_player = 40
 	res.eggs = randi_range(0,5)
 	res.eggs_duration = 0
-#	res.eggs_in_vagina = randi_range(0,5)
-#	res.eggs_in_ass = randi_range(0,5)
+	res.eggs_in_vagina = randi_range(0,5)
+	res.eggs_in_vagina_duration = 0
+	res.eggs_in_ass = randi_range(0,5)
+	res.eggs_in_ass_duration = 0
 	res.children = 0
 	res.monster_children = 0
 	res.job = CharacterJob.assign_job(res)
