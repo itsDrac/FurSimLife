@@ -1,0 +1,11 @@
+[Sprite_Markers]
+
+Row_1: female_front
+Row_2: female_side
+Row_3: female_back
+Row_4: futa_front
+Row_5: futa_side
+Row_6: futa_back
+Row_7: male_front
+Row_8: male_side
+Row_9: male_back

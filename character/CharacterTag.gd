@@ -177,6 +177,13 @@ enum WEARABLE {
 	HAS_RINGPINKY,
 }
 
+enum FRONT_HAIR {
+	HAS_FRONTHAIR1,
+	HAS_FRONTHAIR2,
+	HAS_FRONTHAIR3,
+	HAS_FRONTHAIR4,
+}
+
 @export var gender: GENDER
 @export var race: RACE
 @export var butt_size: BUTT_SIZE
@@ -193,6 +200,7 @@ enum WEARABLE {
 @export var skin_color: SKIN_COLOR
 @export var hair: HAIR
 @export var wearable: Array[WEARABLE]
+@export var front_hair: FRONT_HAIR
 
 func _to_string():
 	return "CharacterTag {
@@ -211,24 +219,26 @@ func _to_string():
 		Piercing: {piercing}
 		Skin color: {skin_color}
 		Hair: {hair}
+		Front hair: {front_hair}
 		Wearable: {wearable}
 	}".format({
-	"gender": GENDER.find_key(self.gender),
-	"race": RACE.find_key(self.race),
-	"butt_size": BUTT_SIZE.find_key(self.butt_size),
-	"breast_size": BREAST_SIZE.find_key(self.breast_size),
-	"genital": GENITAL.find_key(self.genital),
-	"testicle_size": TESTICLE_SIZE.find_key(self.testicle_size),
-	"vaginal_orifices": VAGINAL_ORIFICES.find_key(self.vaginal_orifices),
-	"anus_orifices": ANUS_ORIFICES.find_key(self.anus_orifices),
-	"pergbelly": PREGBELLY.find_key(self.pergbelly),
-	"eggpregbelly": EGGPREGBELLY.find_key(self.eggpregbelly),
-	"eggpregbelly_anal": EGGPREGBELLY_ANAL.find_key(self.eggpregbelly_anal),
-	"age": AGE.find_key(self.age),
-	"piercing": self.piercing.map(func(n): return PIERCING.find_key(n)),
-	"skin_color": self.skin_color,
-	"hair": self.hair,
-	"wearable": self.wearable.map(func(n): return WEARABLE.find_key(n)),
+		"gender": GENDER.find_key(self.gender),
+		"race": RACE.find_key(self.race),
+		"butt_size": BUTT_SIZE.find_key(self.butt_size),
+		"breast_size": BREAST_SIZE.find_key(self.breast_size),
+		"genital": GENITAL.find_key(self.genital),
+		"testicle_size": TESTICLE_SIZE.find_key(self.testicle_size),
+		"vaginal_orifices": VAGINAL_ORIFICES.find_key(self.vaginal_orifices),
+		"anus_orifices": ANUS_ORIFICES.find_key(self.anus_orifices),
+		"pergbelly": PREGBELLY.find_key(self.pergbelly),
+		"eggpregbelly": EGGPREGBELLY.find_key(self.eggpregbelly),
+		"eggpregbelly_anal": EGGPREGBELLY_ANAL.find_key(self.eggpregbelly_anal),
+		"age": AGE.find_key(self.age),
+		"piercing": self.piercing.map(func(n): return PIERCING.find_key(n)),
+		"skin_color": SKIN_COLOR.find_key(self.skin_color),
+		"hair": HAIR.find_key(self.hair),
+		"front_hair": FRONT_HAIR.find_key(self.front_hair),
+		"wearable": self.wearable.map(func(n): return WEARABLE.find_key(n)),
 	})
 
 func add_tags(res: CharacterStats):
@@ -248,6 +258,7 @@ func add_tags(res: CharacterStats):
 	self.skin_color = randi_range(SKIN_COLOR.HAS_PALESKIN, SKIN_COLOR.HAS_PALESKIN)
 	self.hair = randi_range(HAIR.HAS_PONYTAIL1, HAIR.HAS_STRAIGHTH3)
 	self.wearable = [randi_range(WEARABLE.HAS_SHORTSLEEVESHIRT1B0, WEARABLE.HAS_RINGPINKY)]
+	self.front_hair = randi_range(FRONT_HAIR.HAS_FRONTHAIR1, FRONT_HAIR.HAS_FRONTHAIR4)
 
 func append_piercing(pie: PIERCING):
 	if not pie in self.piercing:
@@ -256,3 +267,8 @@ func append_piercing(pie: PIERCING):
 func append_wearable(wea: WEARABLE):
 	if not wea in self.wearable:
 		self.wearable.append(wea)
+
+func get_column(of: StringName):
+	match of:
+		BUTT_SIZE:
+			pass
