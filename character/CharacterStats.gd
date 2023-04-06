@@ -1,6 +1,13 @@
 extends Resource
 
 class_name CharacterStats
+
+enum VIEW {
+	FRONT,
+	SIDE,
+	BACK
+}
+
 enum TYPES {
 	PLAYER,
 	NPC

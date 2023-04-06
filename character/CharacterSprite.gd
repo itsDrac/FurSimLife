@@ -2,40 +2,24 @@ extends Resource
 class_name CharacterSprite
 
 var race_config
-var sprites: Dictionary
+var base_sprites: Dictionary
 var race: Dictionary
 
 var butt_size: Dictionary
 var breast_size: Dictionary
-var genital: Dictionary
-var testicle_size: Dictionary
-var vaginal_orifices: Dictionary
-var anus_orifices: Dictionary
-var pergbelly: Dictionary
-var eggpregbelly: Dictionary
-var eggpregbelly_anal: Dictionary
-var age: Dictionary
-var piercing: Dictionary
-var skin_color: Dictionary
-var hair: Dictionary
-var wearable: Dictionary
-var front_hair: Dictionary
 
-signal hair_changed (hair_type)
+signal breast_size_changed (breast_type)
 signal butt_size_changed (butt_type)
+signal base_breast_view_changed (sp)
 
 func _init():
-	hair_changed.connect(change_hair)
+	breast_size_changed.connect(change_breast)
 	butt_size_changed.connect(change_butt_size)
+	base_breast_view_changed.connect(change_z_index)
 	race_config = ConfigFile.new()
 	race_config.load("res://character/sprites/config.cfg")
 	if race_config.has_section("Race"):
 		return
-#		for r in race_config.get_section_keys("Race"):
-#			match r:
-#				"IS_HUMAN":
-#					_load_base_sprites(race_config.get_value("Race", "IS_HUMAN"))
-	pass
 
 
 func _get_sptire(path) -> ImageTexture:
@@ -51,136 +35,77 @@ func _load_base_sprites(folder_name):
 			var sprite_name = config_file.get_value("Base_Sprites",key)
 			var texture_path = "res://character/sprites/"+folder_name+"/"+sprite_name
 			var base_texture = _get_sptire(texture_path)
-#			race[key] = base_texture
-			match key:
-				"Base_Torso","Base_Hair","Face_Iris","Face_EyeLashes","Face_EyeBrow","Face_EyeBall":
-					race[key] = base_texture
-				"Base_ButtSize1","Base_ButtSize2","Base_ButtSize3":
-					butt_size[key] = base_texture
-				"Hair_PonyTail1","Hair_PonyTail2","Hair_PonyTail3":
-					hair[key] = base_texture
-				"Base_Breast":
-					breast_size[key] = base_texture
-#				"Base_Torso":
-#					var sprite_name = config_file.get_value("Base_Sprites","Base_Torso")
-#					var texture_path = "res://character/sprites/"+folder_name+"/"+sprite_name
-#					var base_texture = _get_sptire(texture_path)
-#					race["base_torso"] = base_texture
-#				"Base_Hair":
-#					var sprite_name = config_file.get_value("Base_Sprites","Base_Torso")
-#					var texture_path = "res://character/sprites/"+folder_name+"/"+sprite_name
-#					var base_texture = _get_sptire(texture_path)
-#					race["base_torso"] = base_texture
+			race[key] = base_texture
+
+func _setup_human(tags):
+	for texture in race:
+		var sp: Sprite2D = Sprite2D.new()
+		sp.centered = false
+		match texture:
+			"Base_Torso":
+				sp.texture = race[texture]
+				sp.name = texture
+				sp.hframes = 1
+				sp.vframes = 9
+				base_sprites[texture] = sp
+			"Base_Hair":
+				sp.texture = race[texture]
+				sp.name = texture
+				sp.hframes = 1
+				sp.vframes = 9
+				sp.z_index = 1
+				base_sprites[texture] = sp
+			"Face_EyeBall":
+				sp.texture = race[texture]
+				sp.name = texture
+				sp.hframes = 1
+				sp.vframes = 9
+				base_sprites[texture] = sp
+			"Base_Butt":
+				sp.texture = race[texture]
+				sp.name = "Base_Butt"
+				sp.hframes = 3
+				sp.vframes = 9
+				base_sprites[texture] = sp
+				butt_size_changed.emit(tags.butt_size)
+			"Base_Breast":
+				sp.texture = race[texture]
+				sp.name = texture
+				sp.hframes = 6
+				sp.vframes = 9
+				sp.z_index = 1 # -1 if back view.
+				sp.frame_changed.connect(func(): base_breast_view_changed.emit(sp))
+				base_sprites[texture] = sp
+				breast_size_changed.emit(tags.breast_size)
+	
 
 func load_sprite(tags: CharacterTag):
 	
 	match tags.race:
 		CharacterTag.RACE.IS_HUMAN:
 			_load_base_sprites(race_config.get_value("Race", "IS_HUMAN"))
-			for texture in race:
-				var sp = Sprite2D.new()
-				sp.centered = false
-				sp.texture = race[texture]
-				sp.name = texture
-				sp.hframes = 6
-				sp.vframes = 9
-				sprites[texture] = [sp, null]
-	match tags.butt_size:
-		CharacterTag.BUTT_SIZE.IS_BUTT_SIZE1:
-			var sp = Sprite2D.new()
-			sp.centered = false
-			sp.texture = butt_size["Base_ButtSize1"]
-			sp.name = "Base_ButtSize"
-			sp.hframes = 6
-			sp.vframes = 9
-			sprites["Base_ButtSize"] = [sp, null]
-		CharacterTag.BUTT_SIZE.IS_BUTT_SIZE2:
-			var sp = Sprite2D.new()
-			sp.centered = false
-			sp.texture = butt_size["Base_ButtSize2"]
-			sp.name = "Base_ButtSize"
-			sp.hframes = 6
-			sp.vframes = 9
-			sprites["Base_ButtSize"] = [sp, null]
-		CharacterTag.BUTT_SIZE.IS_BUTT_SIZE3:
-			var sp = Sprite2D.new()
-			sp.centered = false
-			sp.texture = butt_size["Base_ButtSize3"]
-			sp.name = "Base_ButtSize"
-			sp.hframes = 6
-			sp.vframes = 9
-			sprites["Base_ButtSize"] = [sp, null]
-	match tags.hair:
-		CharacterTag.HAIR.HAS_PONYTAIL1:
-			var sp = Sprite2D.new()
-			sp.centered = false
-			sp.texture = hair["Hair_PonyTail1"]
-			sp.name = "Hair"
-			sp.hframes = 6
-			sp.vframes = 9
-			sprites["Hair"] = [sp, "Base_Hair"]
-		CharacterTag.HAIR.HAS_PONYTAIL2:
-			var sp = Sprite2D.new()
-			sp.centered = false
-			sp.texture = hair["Hair_PonyTail2"]
-			sp.name = "Hair"
-			sp.hframes = 6
-			sp.vframes = 9
-			sprites["Hair"] = [sp, "Base_Hair"]
-		CharacterTag.HAIR.HAS_PONYTAIL3:
-			var sp = Sprite2D.new()
-			sp.centered = false
-			sp.texture = hair["Hair_PonyTail3"]
-			sp.name = "Hair"
-			sp.hframes = 6
-			sp.vframes = 9
-			sprites["Hair"] = [sp, "Base_Hair"]
-	match tags.breast_size:
-		_:
-			var sp = Sprite2D.new()
-			sp.centered = false
-			sp.texture = breast_size["Base_Breast"]
-			sp.name = "BreastSize"
-			sp.hframes = 6
-			sp.vframes = 9
-			sprites["Base_Breast"] = [sp, "Base_Torso"]
+			_setup_human(tags)
+	
 
-#	return sprites
-
-func change_hair(hair_type):
-	if not sprites.has("Hair"):
+func change_breast(breast_type):
+	if not base_sprites.has("Base_Breast"):
 		return
-	print(sprites)
-	var sp: Sprite2D = sprites["Hair"][0]
-	print(sp)
-	match hair_type:
-		CharacterTag.HAIR.HAS_PONYTAIL1:
-			sp.texture = hair["Hair_PonyTail1"]
-		CharacterTag.HAIR.HAS_PONYTAIL2:
-			sp.texture = hair["Hair_PonyTail2"]
-		CharacterTag.HAIR.HAS_PONYTAIL3:
-			sp.texture = hair["Hair_PonyTail3"]
+	var sp : Sprite2D = base_sprites["Base_Breast"]
+	sp.frame_coords.x = breast_type
 
 func change_butt_size(butt_type):
-	if not sprites.has("Base_ButtSize"):
+	if not base_sprites.has("Base_Butt"):
 		return
-	var sp : Sprite2D = sprites["Base_ButtSize"][0]
-	
-	match butt_type:
-		CharacterTag.HAIR.HAS_PONYTAIL1:
-			sp.texture = butt_size["Base_ButtSize1"]
-		CharacterTag.HAIR.HAS_PONYTAIL2:
-			sp.texture = butt_size["Base_ButtSize2"]
-		CharacterTag.HAIR.HAS_PONYTAIL3:
-			sp.texture = butt_size["Base_ButtSize3"]
+	var sp : Sprite2D = base_sprites["Base_Butt"]
+	sp.frame_coords.x = butt_type
 
 
-
-
-
-
-
-
+func change_z_index(sp: Sprite2D):
+	match sp.frame_coords.y:
+		2,5,8:
+			sp.z_index = -1
+		0,3,6:
+			sp.z_index = 1
 
 
 
