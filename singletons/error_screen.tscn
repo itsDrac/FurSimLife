@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://0g18vrmf2sbe"]
+
+[ext_resource type="LabelSettings" uid="uid://bp7b6044dtcs" path="res://assests/resources/headingLabel.res" id="1_v1cr5"]
+[ext_resource type="Script" path="res://singletons/error_screen.gd" id="1_xbig6"]
+[ext_resource type="FontFile" uid="uid://b6830q6gmgmtl" path="res://assests/fonts/PressStart2P.fontdata" id="3_rlsep"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdmtm"]
+bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b22mh"]
+bg_color = Color(0.215686, 0.278431, 0.278431, 1)
+
+[node name="ErrorScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xbig6")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sdmtm")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(800, 600)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Error"
+label_settings = ExtResource("1_v1cr5")
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_b22mh")
+
+[node name="Error" type="Label" parent="CenterContainer/VBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "System Crash"
+label_settings = ExtResource("1_v1cr5")
+
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -97.0
+offset_right = 150.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_rlsep")
+theme_override_font_sizes/font_size = 32
+text = "Exit Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Panel/ExitButton" to="." method="_on_exit_button_pressed"]
