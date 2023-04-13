@@ -4,7 +4,7 @@ class_name CharacterSprite
 var race_config
 var base_sprites: Dictionary
 var race: Dictionary
-
+var mod: CharacterMod
 var butt_size: Dictionary
 var breast_size: Dictionary
 
@@ -20,6 +20,7 @@ func _init():
 	race_config.load("res://character/sprites/config.cfg")
 	if race_config.has_section("Race"):
 		return
+	
 
 
 func _get_sptire(path) -> ImageTexture:
@@ -79,18 +80,23 @@ func _setup_human(tags):
 				breast_size_changed.emit(tags.breast_size)
 	
 
-func load_sprite(tags: CharacterTag):
-	
+func load_sprite(tags: CharacterTag, mod_name="Default"):
 	match tags.race:
 		CharacterTag.RACE.IS_HUMAN:
 			_load_base_sprites(race_config.get_value("Race", "IS_HUMAN"))
 			_setup_human(tags)
+			mod = CharacterMod.new()
+			mod.load_human_sprites(mod_name)
+			mod.setup_human_sprites(tags, base_sprites)
 	
 
 func change_breast(breast_type):
 	if not base_sprites.has("Base_Breast"):
 		return
 	var sp : Sprite2D = base_sprites["Base_Breast"]
+#	for s in sp.get_children():
+#		print(s)
+#		s.frame_coords.x = breast_type
 	sp.frame_coords.x = breast_type
 
 func change_butt_size(butt_type):
