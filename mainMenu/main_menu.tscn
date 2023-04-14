@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d06nv2b8oabho"]
+[gd_scene load_steps=10 format=3 uid="uid://d06nv2b8oabho"]
 
 [ext_resource type="Theme" uid="uid://g7btrlrjueuf" path="res://assests/resources/mainMenu.theme" id="1_m65da"]
 [ext_resource type="Script" path="res://mainMenu/scripts/main_menu.gd" id="2_83vur"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://gybn8tsjs71e" path="res://mainMenu/mod_screen.tscn" id="3_wvro5"]
 [ext_resource type="PackedScene" uid="uid://bewktqs68gct3" path="res://mainMenu/setting_screen.tscn" id="4_xqpdh"]
 [ext_resource type="PackedScene" uid="uid://8wxrs87am2os" path="res://mainMenu/warning_screen.tscn" id="6_6mafp"]
+[ext_resource type="PackedScene" uid="uid://blg7tyrqaak1f" path="res://player/Showcase_Player.tscn" id="7_1onop"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fchm0"]
 bg_color = Color(0.219608, 0.341176, 0.215686, 0.698039)
@@ -106,3 +107,4 @@ layout_mode = 1
 [node name="WarningScreen" parent="." instance=ExtResource("6_6mafp")]
 visible = false
 layout_mode = 1
+player_scene = ExtResource("7_1onop")
