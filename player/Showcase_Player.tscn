@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://blg7tyrqaak1f"]
+
+[ext_resource type="PackedScene" uid="uid://cithh81cex1er" path="res://player/Player.tscn" id="1_7nc3r"]
+[ext_resource type="Script" path="res://player/Showcase_Player.gd" id="1_w4rgl"]
+
+[node name="ShowcasePlayer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w4rgl")
+
+[node name="Player" parent="." instance=ExtResource("1_7nc3r")]
+
+[node name="Player2" parent="." instance=ExtResource("1_7nc3r")]
+position = Vector2(500, 0)
+
+[node name="Player3" parent="." instance=ExtResource("1_7nc3r")]
+position = Vector2(1000, 0)
+
+[node name="Player4" parent="." instance=ExtResource("1_7nc3r")]
+position = Vector2(1500, 0)
+
+[node name="OptionButton" type="OptionButton" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+offset_left = 32.0
+offset_top = 500.0
+offset_right = 1888.0
+offset_bottom = 600.0
+size_flags_vertical = 0
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]
