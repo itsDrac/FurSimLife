@@ -186,10 +186,16 @@ enum FRONT_HAIR {
 
 @export var gender: GENDER
 @export var race: RACE
-@export var butt_size: BUTT_SIZE
-@export var breast_size: BREAST_SIZE
+@export var butt_size: BUTT_SIZE :
+	get: return butt_size
+	set(val): butt_size = BUTT_SIZE.IS_BUTT_SIZE1 if gender == GENDER.IS_MALE else val
+@export var breast_size: BREAST_SIZE :
+	get: return breast_size
+	set(val): breast_size = BREAST_SIZE.IS_BREAST_SIZE0 if gender == GENDER.IS_MALE else val
 @export var genital: GENITAL
-@export var testicle_size: TESTICLE_SIZE
+@export var testicle_size: TESTICLE_SIZE:
+	get: return testicle_size
+	set(val): testicle_size = val if gender == GENDER.IS_FUTA else TESTICLE_SIZE.HAS_TESTICLE_SIZE0
 @export var vaginal_orifices: VAGINAL_ORIFICES
 @export var anus_orifices: ANUS_ORIFICES
 @export var pergbelly: PREGBELLY
@@ -250,9 +256,9 @@ func add_tags(res: CharacterStats):
 	self.testicle_size = randi_range(TESTICLE_SIZE.HAS_TESTICLE_SIZE0,TESTICLE_SIZE.HAS_TESTICLE_SIZE4)
 	self.vaginal_orifices = randi_range(VAGINAL_ORIFICES.HAS_VAGINAL_ORIFICES_SIZE0,VAGINAL_ORIFICES.HAS_VAGINAL_ORIFICES_SIZE3)
 	self.anus_orifices = randi_range(ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE0,ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE3)
-	self.pergbelly = randi_range(PREGBELLY.HAS_PREGBELLY_SIZE0, PREGBELLY.HAS_PREGBELLY_SIZE5)
-	self.eggpregbelly = randi_range(EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE0, EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE5)
-	self.eggpregbelly_anal = randi_range(EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE0, EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE5)
+	self.pergbelly = randi_range(PREGBELLY.HAS_PREGBELLY_SIZE1, PREGBELLY.HAS_PREGBELLY_SIZE5) if res.pregnancy else PREGBELLY.HAS_PREGBELLY_SIZE0
+	self.eggpregbelly = randi_range(EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE1, EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE5) if res.eggs else EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE1
+	self.eggpregbelly_anal = randi_range(EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE1, EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE5) if res.eggs_in_ass else EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE1
 	self.age = randi_range(AGE.IS_YOUNGADULT, AGE.IS_OLDADULT)
 	self.piercing = [randi_range(PIERCING.IS_NIPPLE_PIERCED, PIERCING.IS_NOSE_PIERCED)]
 	self.skin_color = randi_range(SKIN_COLOR.HAS_PALESKIN, SKIN_COLOR.HAS_PALESKIN)
