@@ -20,10 +20,10 @@ static func get_mod_list():
 		return mod_config.get_section_keys("Character")
 	
 
-func _get_sptire(path):
-	var image = Image.load_from_file(path)
-	var texture = ImageTexture.create_from_image(image)
-	return texture
+func _get_sptire(path) -> CompressedTexture2D:
+	var image = load(path)
+#	var texture = ImageTexture.create_from_image(image)
+	return image
 	
 
 func load_human_sprites(folder_name):

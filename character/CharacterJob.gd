@@ -71,6 +71,13 @@ enum TOWN_GUARD {
 	RAIDER
 
 }
+
+enum CRIMINAL {
+	THIEF,
+	BANDIT,
+	RAIDER,
+}
+
 enum ACADEMY_STUDENT {
 	NORMAL_CLASS_STUDENT,
 	HIGH_CLASS_STUDENT,
@@ -131,6 +138,8 @@ static func assign_job(res: CharacterStats):
 			return ADVENTUER.values().pick_random()
 		CharacterStats.ROLES.TOWN_GUARD:
 			return TOWN_GUARD.values().pick_random()
+		CharacterStats.ROLES.CRIMINAL:
+			return CRIMINAL.values().pick_random()
 		CharacterStats.ROLES.ACADEMY_STUDENT:
 			return ACADEMY_STUDENT.values().pick_random()
 		CharacterStats.ROLES.ACADEMY_PROFESSOR:
@@ -139,6 +148,8 @@ static func assign_job(res: CharacterStats):
 			return MAGE.values().pick_random()
 		CharacterStats.ROLES.KNIGHT:
 			return KNIGHT.values().pick_random()
+		CharacterStats.ROLES.NUN:
+			return NUN.values().pick_random()
 
 static func get_job_name(res):
 	match res.role:
@@ -165,3 +176,5 @@ static func get_job_name(res):
 			return MAGE.find_key(res.job)
 		CharacterStats.ROLES.KNIGHT:
 			return KNIGHT.find_key(res.job)
+		CharacterStats.ROLES.NUN:
+			return NUN.find_key(res.job)

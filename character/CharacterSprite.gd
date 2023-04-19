@@ -17,18 +17,22 @@ func _init():
 	butt_size_changed.connect(change_butt_size)
 	base_breast_view_changed.connect(change_z_index)
 	race_config = ConfigFile.new()
-	race_config.load("res://character/sprites/config.cfg")
+	var err = race_config.load("res://character/sprites/config.cfg")
+	print_debug(race_config.get_sections())
+	if err != OK:
+		Utils.show_error_screen("Could not load base sprite")
+	
 	if race_config.has_section("Race"):
-		return
+		print_debug(race_config.get_value("Race", "IS_HUMAN"))
 	
 
 
-func _get_sptire(path) -> ImageTexture:
-	var image = Image.load_from_file(path)
-	var texture = ImageTexture.create_from_image(image)
-	return texture
+func _get_sptire(path) -> CompressedTexture2D:
+	var image = load(path)
+#	var texture = ImageTexture.create_from_image(image)
+	return image
 
-func _load_base_sprites(folder_name):
+func _load_base_sprites(folder_name: StringName):
 	var config_file = ConfigFile.new()
 	config_file.load("res://character/sprites/"+folder_name+"/config.cfg")
 	if config_file.has_section("Base_Sprites"):
@@ -95,7 +99,7 @@ func change_breast(breast_type):
 		return
 	var sp : Sprite2D = base_sprites["Base_Breast"]
 #	for s in sp.get_children():
-#		print(s)
+#		print_debug(s)
 #		s.frame_coords.x = breast_type
 	sp.frame_coords.x = breast_type
 
