@@ -172,6 +172,8 @@ static func get_job_name(res):
 			return ACADEMY_STUDENT.find_key(res.job)
 		CharacterStats.ROLES.ACADEMY_PROFESSOR:
 			return ACADEMY_PROFESSOR.find_key(res.job)
+		CharacterStats.ROLES.CRIMINAL:
+			return CRIMINAL.find_key(res.job)
 		CharacterStats.ROLES.MAGE:
 			return MAGE.find_key(res.job)
 		CharacterStats.ROLES.KNIGHT:
