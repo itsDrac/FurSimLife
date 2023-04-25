@@ -198,7 +198,7 @@ enum FRONT_HAIR {
 	set(val): testicle_size = val if gender == GENDER.IS_FUTA else TESTICLE_SIZE.HAS_TESTICLE_SIZE0
 @export var vaginal_orifices: VAGINAL_ORIFICES
 @export var anus_orifices: ANUS_ORIFICES
-@export var pergbelly: PREGBELLY
+@export var pregbelly: PREGBELLY
 @export var eggpregbelly: EGGPREGBELLY
 @export var eggpregbelly_anal: EGGPREGBELLY_ANAL
 @export var age: AGE
@@ -218,7 +218,7 @@ func _to_string():
 		Testicle size: {testicle_size}
 		Vaginal orifices: {vaginal_orifices}
 		Anus orifices: {anus_orifices}
-		Pergbelly: {pergbelly}
+		Pregbelly: {pregbelly}
 		Eggpregbelly: {eggpregbelly}
 		Eggpregbelly anal: {eggpregbelly_anal}
 		Age: {age}
@@ -236,7 +236,7 @@ func _to_string():
 		"testicle_size": TESTICLE_SIZE.find_key(self.testicle_size),
 		"vaginal_orifices": VAGINAL_ORIFICES.find_key(self.vaginal_orifices),
 		"anus_orifices": ANUS_ORIFICES.find_key(self.anus_orifices),
-		"pergbelly": PREGBELLY.find_key(self.pergbelly),
+		"pregbelly": PREGBELLY.find_key(self.pregbelly),
 		"eggpregbelly": EGGPREGBELLY.find_key(self.eggpregbelly),
 		"eggpregbelly_anal": EGGPREGBELLY_ANAL.find_key(self.eggpregbelly_anal),
 		"age": AGE.find_key(self.age),
@@ -254,11 +254,11 @@ func add_tags(res: CharacterStats):
 	self.breast_size = randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
 	self.genital = randi_range(GENITAL.Has_vagina,GENITAL.HAS_HARD_PENIS)
 	self.testicle_size = randi_range(TESTICLE_SIZE.HAS_TESTICLE_SIZE0,TESTICLE_SIZE.HAS_TESTICLE_SIZE4)
-	self.vaginal_orifices = randi_range(VAGINAL_ORIFICES.HAS_VAGINAL_ORIFICES_SIZE0,VAGINAL_ORIFICES.HAS_VAGINAL_ORIFICES_SIZE3)
-	self.anus_orifices = randi_range(ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE0,ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE3)
-	self.pergbelly = randi_range(PREGBELLY.HAS_PREGBELLY_SIZE1, PREGBELLY.HAS_PREGBELLY_SIZE5) if res.pregnancy else PREGBELLY.HAS_PREGBELLY_SIZE0
-	self.eggpregbelly = randi_range(EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE1, EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE5) if res.eggs else EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE1
-	self.eggpregbelly_anal = randi_range(EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE1, EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE5) if res.eggs_in_ass else EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE1
+	self.vaginal_orifices = VAGINAL_ORIFICES.HAS_VAGINAL_ORIFICES_SIZE0
+	self.anus_orifices = ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE0
+	self.pregbelly = randi_range(PREGBELLY.HAS_PREGBELLY_SIZE1, PREGBELLY.HAS_PREGBELLY_SIZE5) if res.pregnancy else PREGBELLY.HAS_PREGBELLY_SIZE0
+	self.eggpregbelly = randi_range(EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE1, EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE5) if res.eggs else EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE0
+	self.eggpregbelly_anal = randi_range(EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE1, EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE5) if res.eggs_in_ass else EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE0
 	self.age = randi_range(AGE.IS_YOUNGADULT, AGE.IS_OLDADULT)
 	self.piercing = [randi_range(PIERCING.IS_NIPPLE_PIERCED, PIERCING.IS_NOSE_PIERCED)]
 	self.skin_color = randi_range(SKIN_COLOR.HAS_PALESKIN, SKIN_COLOR.HAS_PALESKIN)
