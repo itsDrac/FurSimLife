@@ -76,11 +76,20 @@ func setup_human_sprites(tags,base_sprites):
 				s.texture = textures[key]
 				s.z_index = -2
 				s.frame_coords.x=tags.hair
-				base_s.frame_changed.connect(func(): change_hair_view(base_s.frame_coords))
+				base_s.frame_changed.connect(func(): change_hair_view(base_s.frame_coords, s))
 				sprites[key] = s
 #				base_s.frame_changed.connect(func(): change_z_index(s))
 				base_s.add_child(s)
 #				change_frame.emit(s, base_s.frame)
+			"Hair_Fronthair":
+				var base_s = base_sprites["Base_Hair"]
+				s.hframes = 4
+				s.vframes = base_s.vframes
+				s.texture = textures[key]
+				s.frame_coords.x=tags.front_hair
+				base_s.frame_changed.connect(func(): change_hair_view(base_s.frame_coords , s))
+				sprites[key] = s
+				base_s.add_child(s)
 			"Underwear", "Pants", "Skirts":
 				var base_s = base_sprites["Base_Butt"]
 				s.hframes = base_s.hframes
@@ -101,13 +110,20 @@ func change_z_index(sp: Sprite2D):
 		0,3,6:
 			sp.z_index = -2
 
-func change_hair_view(fc):
-	if not sprites.has("Hair_Backhair"):
+func change_hair_view(fc, s):
+	if not s is Sprite2D:
 		return
-	var s = sprites["Hair_Backhair"]
 	s.frame_coords.y = fc.y
-	match fc.y:
-		2,5,8:
-			s.z_index = 0
-		0,3,6:
-			s.z_index = -2
+	if s.name == "Hair_Backhair":
+		match fc.y:
+			2,5,8:
+				s.z_index = 0
+			0,3,6:
+				s.z_index = -2
+	
+	elif s.name == "Hair_Fronthair":
+		match fc.y:
+			2,5,8:
+				s.z_index = -2
+			0,3,6:
+				s.z_index = 0

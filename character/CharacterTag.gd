@@ -29,26 +29,44 @@ enum BREAST_SIZE {
 	IS_BREAST_SIZE5,
 }
 
-enum GENITAL {
-	Has_vagina,
+enum PENIS {
+HAS_PENIS_SIZE0,
 
-	HAS_H_PENIS_SIZE1,
-	HAS_H_PENIS_SIZE2,
-	HAS_H_PENIS_SIZE3,
-	HAS_H_PENIS_SIZE4,
+HAS_SOFT_H_PENIS_SIZE1,
+HAS_SOFT_H_PENIS_SIZE2,
+HAS_SOFT_H_PENIS_SIZE3,
+HAS_SOFT_H_PENIS_SIZE4,
 
-	HAS_C_PENIS_SIZE1,
-	HAS_C_PENIS_SIZE2,
-	HAS_C_PENIS_SIZE3,
-	HAS_C_PENIS_SIZE4,
+HAS_HARD_H_PENIS_SIZE1,
+HAS_HARD_H_PENIS_SIZE2,
+HAS_HARD_H_PENIS_SIZE3,
+HAS_HARD_H_PENIS_SIZE4,
 
-	HAS_OVIPOSITOR_SIZE1,
-	HAS_OVIPOSITOR_SIZE2,
-	HAS_OVIPOSITOR_SIZE3,
-	HAS_OVIPOSITOR_SIZE4,
+HAS_SOFT_C_PENIS_SIZE1,
+HAS_SOFT_C_PENIS_SIZE2,
+HAS_SOFT_C_PENIS_SIZE3,
+HAS_SOFT_C_PENIS_SIZE4,
 
-	HAS_SOFT_PENIS,
-	HAS_HARD_PENIS,
+HAS_HARD_C_PENIS_SIZE1,
+HAS_HARD_C_PENIS_SIZE2,
+HAS_HARD_C_PENIS_SIZE3,
+HAS_HARD_C_PENIS_SIZE4,
+}
+
+enum VAGINA {
+HAS_VAGINAL_ORIFICE_SIZE0,
+HAS_VAGINAL_ORIFICE_SIZE1,
+HAS_VAGINAL_ORIFICE_SIZE2,
+HAS_VAGINAL_ORIFICE_SIZE3,
+HAS_VAGINAL_ORIFICE_SIZE4,
+}
+
+enum OVIPOSITOR {
+HAS_OVIPOSITOR_SIZE0,
+HAS_OVIPOSITOR_SIZE1,
+HAS_OVIPOSITOR_SIZE2,
+HAS_OVIPOSITOR_SIZE3,
+HAS_OVIPOSITOR_SIZE4,
 }
 
 enum TESTICLE_SIZE {
@@ -177,6 +195,8 @@ enum WEARABLE {
 	HAS_RINGPINKY,
 }
 
+
+
 enum FRONT_HAIR {
 	HAS_FRONTHAIR1,
 	HAS_FRONTHAIR2,
@@ -192,7 +212,15 @@ enum FRONT_HAIR {
 @export var breast_size: BREAST_SIZE :
 	get: return breast_size
 	set(val): breast_size = BREAST_SIZE.IS_BREAST_SIZE0 if gender == GENDER.IS_MALE else val
-@export var genital: GENITAL
+@export var penis: PENIS :
+	get: return penis
+	set(val): penis = set_penis(val)
+@export var vagina: VAGINA :
+	get: return vagina
+	set(val): vagina = set_vagina(val)
+@export var ovipositor: OVIPOSITOR :
+	get: return ovipositor
+	set(val): ovipositor = set_ovipositor(val)
 @export var testicle_size: TESTICLE_SIZE:
 	get: return testicle_size
 	set(val): testicle_size = val if gender == GENDER.IS_FUTA else TESTICLE_SIZE.HAS_TESTICLE_SIZE0
@@ -214,7 +242,9 @@ func _to_string():
 		Race: {race}
 		Butt size: {butt_size}
 		Breast size: {breast_size}
-		Genital: {genital}
+		penis: {penis}
+		Vagina: {vagina}
+		Ovipositor: {ovipositor}
 		Testicle size: {testicle_size}
 		Vaginal orifices: {vaginal_orifices}
 		Anus orifices: {anus_orifices}
@@ -232,7 +262,9 @@ func _to_string():
 		"race": RACE.find_key(self.race),
 		"butt_size": BUTT_SIZE.find_key(self.butt_size),
 		"breast_size": BREAST_SIZE.find_key(self.breast_size),
-		"genital": GENITAL.find_key(self.genital),
+		"penis": PENIS.find_key(self.penis),
+		"vagina": VAGINA.find_key(self.vagina),
+		"ovipositor": OVIPOSITOR.find_key(self.ovipositor),
 		"testicle_size": TESTICLE_SIZE.find_key(self.testicle_size),
 		"vaginal_orifices": VAGINAL_ORIFICES.find_key(self.vaginal_orifices),
 		"anus_orifices": ANUS_ORIFICES.find_key(self.anus_orifices),
@@ -248,11 +280,13 @@ func _to_string():
 	})
 
 func add_tags(res: CharacterStats):
-	self.gender = GENDER.find_key(res.gender)
-	self.race = RACE.find_key(res.race)
+	self.gender = GENDER.get(GENDER.find_key(res.gender))
+	self.race = RACE.get(RACE.find_key(res.race))
 	self.butt_size = randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
 	self.breast_size = randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
-	self.genital = randi_range(GENITAL.Has_vagina,GENITAL.HAS_HARD_PENIS)
+	self.penis = PENIS.HAS_HARD_C_PENIS_SIZE1
+	self.vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0
+	self.ovipositor = OVIPOSITOR.HAS_OVIPOSITOR_SIZE0
 	self.testicle_size = randi_range(TESTICLE_SIZE.HAS_TESTICLE_SIZE0,TESTICLE_SIZE.HAS_TESTICLE_SIZE4)
 	self.vaginal_orifices = VAGINAL_ORIFICES.HAS_VAGINAL_ORIFICES_SIZE0
 	self.anus_orifices = ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE0
@@ -278,3 +312,24 @@ func get_column(of: StringName):
 	match of:
 		BUTT_SIZE:
 			pass
+
+func set_penis(val):
+	if self.gender == GENDER.IS_FEMALE:
+		return PENIS.HAS_PENIS_SIZE0
+	var t = int(val == PENIS.HAS_PENIS_SIZE0) + val
+	return t
+
+func set_vagina(val):
+	var t
+	if self.gender == GENDER.IS_MALE:
+		t = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0
+		return t
+	t = int(val == VAGINA.HAS_VAGINAL_ORIFICE_SIZE0) + val
+	return t
+
+func set_ovipositor (val):
+	if not self.race == RACE.IS_MOTHKIN:
+		return OVIPOSITOR.HAS_OVIPOSITOR_SIZE0
+	if not self.gender == GENDER.IS_FEMALE:
+		return OVIPOSITOR.HAS_OVIPOSITOR_SIZE0
+	return val
