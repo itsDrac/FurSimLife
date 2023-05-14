@@ -26,11 +26,11 @@ func make_player():
 func change_view(view: CharacterStats.VIEW):
 	var row: int
 	match player.gender:
-		CharacterStats.GENDERS.FEMALE:
+		CharacterStats.GENDER.FEMALE:
 			row = 0 + view
-		CharacterStats.GENDERS.MALE:
+		CharacterStats.GENDER.MALE:
 			row = 3 + view
-		CharacterStats.GENDERS.FUTA:
+		CharacterStats.GENDER.FUTA:
 			row = 6 + view
 	for sprite in player_sprite.base_sprites:
 		var s: Sprite2D = player_sprite.base_sprites[sprite]

@@ -1,8 +1,9 @@
-extends Resource
+extends CharacterTag
 class_name CharacterMod
 
+# will have to call this from Tags script on which part would be loaded.(Not everything have to be loaded)
 
-var gender
+
 var sprites: Dictionary
 var textures: Dictionary
 

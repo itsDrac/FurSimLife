@@ -56,8 +56,8 @@ enum ADVENTUER {
 	ARCHER,
 	HEALER,
 	HERO,
-	HEROINE,
 	SAINT,
+	HEROINE,
 	SAINTESS
 
 }
@@ -111,31 +111,48 @@ enum KNIGHT {
 enum NUN {
 	PRIEST,
 	NUN
-
 }
 
-static func assign_job(res: CharacterStats):
+var res: CharacterStats
+var job
+func setup_res(stats:CharacterStats):
+	self.res=stats
+	res.role_changed.connect(update_job)
+
+
+func _ready():
+	print("CharacterJob Ready function")
+
+func update_job():
+	job = assign_job()
+
+func assign_job():
 	match res.role:
 		
 		CharacterStats.ROLES.MONARCHY:
-			if res.gender == CharacterTag.GENDER.IS_MALE:
+			if res.gender == CharacterStats.GENDER.MALE:
 				return [MONARCHY.KING,MONARCHY.HEIR_PRINCE,MONARCHY.PRINCE].pick_random()
 			else :
 				return [MONARCHY.QUEEN, MONARCHY.HEIR_PRINCESS,MONARCHY.PRINCESS].pick_random()
 		CharacterStats.ROLES.BARNO:
-			if res.gender == CharacterTag.GENDER.IS_MALE:
-				return [BARNO.BARON, BARNO.FALLEN_BARON, BARNO.HEIR_SON_OF_BARON, BARNO.HEIR_DAUGHTER_OF_BARON, BARNO.SON_OF_BARON, BARNO.DAUGHTER_OF_BARON].pick_random()
+			if res.gender == CharacterStats.GENDER.MALE:
+				# Baron, Fallen Baron, Son of Baron(heir), Son of Baroness(heir), Son of Baron, Son of Baroness
+				return [BARNO.BARON, BARNO.FALLEN_BARON, BARNO.HEIR_SON_OF_BARON, BARNO.SON_OF_BARON, BARNO.SON_OF_BARONESS].pick_random()
 			else :
-				return [BARNO.BARONESS, BARNO.FALLEN_BARONESS, BARNO.HEIR_SON_OF_BARONESS, BARNO.HEIR_DAUGHTER_OF_BARONESS, BARNO.SON_OF_BARONESS, BARNO.DAUGHTER_OF_BARONESS].pick_random()
+				#  Baroness, Fallen Baroness, Daughter of Baron(heir), Daughter of Baroness(heir), Daughter of Baron, Daughter of Baroness,
+				return [BARNO.BARONESS, BARNO.FALLEN_BARONESS, BARNO.HEIR_DAUGHTER_OF_BARON, BARNO.HEIR_DAUGHTER_OF_BARONESS, BARNO.DAUGHTER_OF_BARON, BARNO.DAUGHTER_OF_BARONESS].pick_random()
 		CharacterStats.ROLES.MAID:
-			if not res.gender == CharacterTag.GENDER.IS_MALE:
+			if not res.gender == CharacterStats.GENDER.MALE:
 				return MAID.values().pick_random()
 		CharacterStats.ROLES.MERCHANT:
 			return MERCHANT.values().pick_random()
 		CharacterStats.ROLES.VILLAGER:
 			return VILLAGER.values().pick_random()
 		CharacterStats.ROLES.ADVENTUER:
-			return ADVENTUER.values().pick_random()
+			if res.gender == CharacterStats.GENDER.MALE:
+				return randi_range(ADVENTUER.KNIGHT, ADVENTUER.SAINT)
+			else:
+				return [ADVENTUER.ARCHER, ADVENTUER.HEALER, ADVENTUER.HEROINE, ADVENTUER.KNIGHT, ADVENTUER.MAGE, ADVENTUER.SAINTESS].pick_random()
 		CharacterStats.ROLES.TOWN_GUARD:
 			return TOWN_GUARD.values().pick_random()
 		CharacterStats.ROLES.CRIMINAL:
@@ -149,34 +166,37 @@ static func assign_job(res: CharacterStats):
 		CharacterStats.ROLES.KNIGHT:
 			return KNIGHT.values().pick_random()
 		CharacterStats.ROLES.NUN:
-			return NUN.values().pick_random()
+			if res.gender == CharacterStats.GENDER.MALE:
+				return NUN.PRIEST
+			else:
+				return NUN.NUN
 
-static func get_job_name(res):
+func get_job_name():
 	match res.role:
 		
 		CharacterStats.ROLES.MONARCHY:
-			return MONARCHY.find_key(res.job)
+			return MONARCHY.find_key(job)
 		CharacterStats.ROLES.BARNO:
-			return BARNO.find_key(res.job)
+			return BARNO.find_key(job)
 		CharacterStats.ROLES.MAID:
-			return BARNO.find_key(res.job)
+			return BARNO.find_key(job)
 		CharacterStats.ROLES.MERCHANT:
-			return MERCHANT.find_key(res.job)
+			return MERCHANT.find_key(job)
 		CharacterStats.ROLES.VILLAGER:
-			return VILLAGER.find_key(res.job)
+			return VILLAGER.find_key(job)
 		CharacterStats.ROLES.ADVENTUER:
-			return ADVENTUER.find_key(res.job)
+			return ADVENTUER.find_key(job)
 		CharacterStats.ROLES.TOWN_GUARD:
-			return TOWN_GUARD.find_key(res.job)
+			return TOWN_GUARD.find_key(job)
 		CharacterStats.ROLES.ACADEMY_STUDENT:
-			return ACADEMY_STUDENT.find_key(res.job)
+			return ACADEMY_STUDENT.find_key(job)
 		CharacterStats.ROLES.ACADEMY_PROFESSOR:
-			return ACADEMY_PROFESSOR.find_key(res.job)
+			return ACADEMY_PROFESSOR.find_key(job)
 		CharacterStats.ROLES.CRIMINAL:
-			return CRIMINAL.find_key(res.job)
+			return CRIMINAL.find_key(job)
 		CharacterStats.ROLES.MAGE:
-			return MAGE.find_key(res.job)
+			return MAGE.find_key(job)
 		CharacterStats.ROLES.KNIGHT:
-			return KNIGHT.find_key(res.job)
+			return KNIGHT.find_key(job)
 		CharacterStats.ROLES.NUN:
-			return NUN.find_key(res.job)
+			return NUN.find_key(job)

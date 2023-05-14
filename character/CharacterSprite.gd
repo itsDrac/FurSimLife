@@ -1,12 +1,10 @@
-extends Resource
+extends CharacterTag
 class_name CharacterSprite
 
 var race_config
 var base_sprites: Dictionary
-var race: Dictionary
+var sprites: Dictionary
 var mod: CharacterMod
-var butt_size: Dictionary
-var breast_size: Dictionary
 
 signal breast_size_changed (breast_type)
 signal butt_size_changed (butt_type)
@@ -40,41 +38,41 @@ func _load_base_sprites(folder_name: StringName):
 			var sprite_name = config_file.get_value("Base_Sprites",key)
 			var texture_path = "res://character/sprites/"+folder_name+"/"+sprite_name
 			var base_texture = _get_sptire(texture_path)
-			race[key] = base_texture
+			sprites[key] = base_texture
 
 func _setup_human(tags):
-	for texture in race:
+	for texture in sprites:
 		var sp: Sprite2D = Sprite2D.new()
 		sp.centered = false
 		match texture:
 			"Base_Torso":
-				sp.texture = race[texture]
+				sp.texture = sprites[texture]
 				sp.name = texture
 				sp.hframes = 1
 				sp.vframes = 9
 				base_sprites[texture] = sp
 			"Base_Hair":
-				sp.texture = race[texture]
+				sp.texture = sprites[texture]
 				sp.name = texture
 				sp.hframes = 1
 				sp.vframes = 9
 				sp.z_index = 1
 				base_sprites[texture] = sp
 			"Face_EyeBall":
-				sp.texture = race[texture]
+				sp.texture = sprites[texture]
 				sp.name = texture
 				sp.hframes = 1
 				sp.vframes = 9
 				base_sprites[texture] = sp
 			"Base_Butt":
-				sp.texture = race[texture]
+				sp.texture = sprites[texture]
 				sp.name = "Base_Butt"
 				sp.hframes = 3
 				sp.vframes = 9
 				base_sprites[texture] = sp
 				butt_size_changed.emit(tags.butt_size)
 			"Base_Breast":
-				sp.texture = race[texture]
+				sp.texture = sprites[texture]
 				sp.name = texture
 				sp.hframes = 6
 				sp.vframes = 9
