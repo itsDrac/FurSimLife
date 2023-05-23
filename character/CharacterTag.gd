@@ -176,14 +176,22 @@ enum MAKEUP {
 }
 
 signal butt_size_changed
+signal breast_size_changed
+signal ovipositor_changed
+signal anus_orifices_size_change
+signal vagina_size_change
 
 @export_category("Character Tag")
 @export var butt_size: BUTT_SIZE :
 	get: return butt_size
-	set(val): butt_size = BUTT_SIZE.IS_BUTT_SIZE1 if gender == CharacterStats.GENDER.MALE else val
+	set(val): 
+		butt_size = BUTT_SIZE.IS_BUTT_SIZE1 if gender == CharacterStats.GENDER.MALE else val
+		butt_size_changed.emit()
 @export var breast_size: BREAST_SIZE :
 	get: return breast_size
-	set(val): breast_size = BREAST_SIZE.IS_BREAST_SIZE0 if gender == CharacterStats.GENDER.MALE else val
+	set(val): 
+		breast_size = BREAST_SIZE.IS_BREAST_SIZE0 if gender == CharacterStats.GENDER.MALE else val
+		breast_size_changed.emit()
 @export var penis: PENIS :
 	get: return penis
 	set(val): penis = set_penis(val)
@@ -192,14 +200,22 @@ signal butt_size_changed
 	set(val): penis_size = set_penis_size(val)
 @export var vagina: VAGINA :
 	get: return vagina
-	set(val): vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0 if self.gender == CharacterStats.GENDER.MALE else int(val == VAGINA.HAS_VAGINAL_ORIFICE_SIZE0) + val
+	set(val): 
+		vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0 if self.gender == CharacterStats.GENDER.MALE else int(val == VAGINA.HAS_VAGINAL_ORIFICE_SIZE0) + val
+		vagina_size_change.emit()
 @export var ovipositor: OVIPOSITOR :
 	get: return ovipositor
-	set(val): ovipositor = set_ovipositor(val)
-@export var testicle_size: TESTICLE_SIZE:
+	set(val):
+		ovipositor = set_ovipositor(val)
+		ovipositor_changed.emit()
+@export var testicle_size: TESTICLE_SIZE :
 	get: return testicle_size
 	set(val): testicle_size = set_testicle_size(val)
-@export var anus_orifices: ANUS_ORIFICES
+@export var anus_orifices: ANUS_ORIFICES :
+	get: return anus_orifices
+	set(val):
+		anus_orifices = val
+		anus_orifices_size_change.emit()
 @export var pregbelly: PREGBELLY:
 	get: return pregbelly
 	set(val): pregbelly = set_pregbelly(val)
@@ -273,10 +289,10 @@ func _to_string():
 })
 
 func add_tags():
-	self.butt_size = randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
+	self.butt_size = BUTT_SIZE.IS_BUTT_SIZE2#randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
 	self.breast_size = randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
 	self.penis = PENIS.HAS_CANINE_PENIS
-	self.penis_size = PENIS_SIZE.HAS_SOFT_PENIS_SIZE1
+	self.penis_size = randi_range(PENIS_SIZE.HAS_SOFT_PENIS_SIZE1, PENIS_SIZE.HAS_SOFT_PENIS_SIZE4)
 	self.vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0
 	self.ovipositor = OVIPOSITOR.HAS_OVIPOSITOR_SIZE0
 	self.testicle_size = randi_range(TESTICLE_SIZE.HAS_TESTICLE_SIZE0,TESTICLE_SIZE.HAS_TESTICLE_SIZE4)
@@ -337,7 +353,6 @@ func set_penis(val):
 	return val
 
 func set_penis_size(val):
-	print("set penis size")
 	if self.gender == CharacterStats.GENDER.FEMALE:
 		return PENIS_SIZE.HAS_PENIS_SIZE0
 	return int(val == PENIS_SIZE.HAS_PENIS_SIZE0) + val

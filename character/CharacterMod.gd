@@ -1,18 +1,18 @@
-extends CharacterTag
+extends CharacterSprite
 class_name CharacterMod
 
 # will have to call this from Tags script on which part would be loaded.(Not everything have to be loaded)
 
 
-var sprites: Dictionary
+var mod_sprites: Dictionary
 var textures: Dictionary
 
 signal change_frame
 
 func _init():
+	super()
 	change_frame.connect(change_frame_of)
 	load_human_sprites("Default")
-
 
 static func get_mod_list():
 	var mod_config = ConfigFile.new()
@@ -21,11 +21,12 @@ static func get_mod_list():
 		return mod_config.get_section_keys("Character")
 	
 
-func _get_sptire(path) -> CompressedTexture2D:
-	var image = load(path)
-#	var texture = ImageTexture.create_from_image(image)
-	return image
-	
+func load_sprites(folder_name):
+	var mod_config = ConfigFile.new()
+	mod_config.load("res://mods/%s/%s/%s/config.cfg"\
+	%[folder_name, RACE.find_key(race), GENDER.find_key(gender)])
+	if not mod_config.has_section("Mod_Sprites"):
+		Utils.show_error_screen("Could not load mod sprites")
 
 func load_human_sprites(folder_name):
 	var config_file = ConfigFile.new()
@@ -38,11 +39,11 @@ func load_human_sprites(folder_name):
 				var a: Array 
 				for i in sprite_name:
 					var texture_path = "res://mods/"+folder_name+"/Human/"+i
-					a.append( _get_sptire(texture_path))
+#					a.append( _get_sptire(texture_path))
 				base_texture = a
 			else:
 				var texture_path = "res://mods/"+folder_name+"/Human/"+sprite_name
-				base_texture = _get_sptire(texture_path)
+#				base_texture = _get_sptire(texture_path)
 			textures[key] = base_texture
 		
 func setup_human_sprites(tags,base_sprites):

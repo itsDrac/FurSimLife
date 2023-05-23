@@ -21,9 +21,9 @@ enum RACE {
 }
 
 enum GENDER {
-	FEMALE,
-	FUTA,
-	MALE
+	FEMALE=0,
+	FUTA=3,
+	MALE=7
 }
 
 enum ROLES {
@@ -46,14 +46,18 @@ enum NOTI {
 	PREGNANCY_CHANGED = 0
 }
 
-
+signal view_changed
 signal type_changed (t)
 signal gender_changed (g)
 signal role_changed
 signal pregnancy_changed
 
 @export_category("Character Stats")
-@export var tmp = randi() % 20
+@export var view: VIEW :
+	get: return view
+	set(val):
+		view = val
+		view_changed.emit()
 @export var name: StringName
 @export var type: TYPES :
 	get: return type
@@ -132,8 +136,8 @@ func _to_string():
 	return "CharacterStats {
 	Name: {name}
 	Type: {type}
-	Gender: {gender}
 	Race {race}
+	Gender: {gender}
 	Role: {role}
 	Health: {health}
 	Attack: {attack}
@@ -191,8 +195,9 @@ func _to_string():
 func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
-	gender = GENDER.MALE#randi_range(GENDER.FEMALE, GENDER.MALE)
-	race = RACE.HUMAN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
+	view = 0
+	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
+	gender = GENDER.FEMALE#randi_range(GENDER.FEMALE, GENDER.MALE)
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
 	health = randi_range(45, 100) if type == TYPES.NPC else 100
 	attack = randi_range(1, 5)

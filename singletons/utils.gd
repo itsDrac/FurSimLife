@@ -24,7 +24,7 @@ func change_scene(from: Node, to: Node, task: Callable = func(a): return, a:=[])
 	from.queue_free()
 
 func show_error_screen(msg):
-	error_screen
+#	error_screen
 	add_child(error_screen)
 	error_screen.error.text = str(msg)
 
