@@ -17,8 +17,8 @@ enum BREAST_SIZE {
 }
 
 enum PENIS {
-	HAS_HUMAN_PENIS,
-	HAS_CANINE_PENIS, 
+	HAS_CANINE_PENIS = 0, 
+	HAS_HUMAN_PENIS = 8,
 }
 
 enum PENIS_SIZE {
@@ -99,7 +99,7 @@ enum AGE {
 	IS_OLDADULT,
 }
 
-enum PIERCING {
+enum PIERCING { # 1 Char has multiple of this 
 	IS_NIPPLE_PIERCED, # This is dependedent on BREAST_SIZE the frame for this is equal as breat frame
 	IS_VAGINAL_PIERCED,
 	IS_ANAL_PIERCED,
@@ -150,7 +150,7 @@ enum FRONT_HAIR {
 	HAS_FRONTHAIR4,
 }
 
-enum ACCESSORIES {
+enum ACCESSORIES { # 1 Char has multiple of this 
 	HAS_BRACELET1,
 	HAS_ANKLEBRACELET,
 	HAS_COLLAR1,
@@ -175,11 +175,15 @@ enum MAKEUP {
 	HAS_BLUSH,
 }
 
+signal tags_updated
 signal butt_size_changed
 signal breast_size_changed
 signal ovipositor_changed
 signal anus_orifices_size_change
 signal vagina_size_change
+signal testicle_size_changed
+signal upper_body_wearable_changed
+signal lower_body_wearable_changed
 
 @export_category("Character Tag")
 @export var butt_size: BUTT_SIZE :
@@ -230,14 +234,23 @@ signal vagina_size_change
 @export var hair: HAIR
 @export var front_hair: FRONT_HAIR
 @export var piercing: Array[PIERCING] = []
-@export var upper_body_wearable: UPPER_BODY_WEARABLE
-@export var lower_body_wearable: LOWER_BODY_WEARABLE
+@export var upper_body_wearable: QArray = QArray.new()
+#	get: return upper_body_wearable
+#	set(val):
+#		upper_body_wearable = val
+#		upper_body_wearable_changed.emit()
+@export var lower_body_wearable: LOWER_BODY_WEARABLE :
+	get: return lower_body_wearable
+	set(val):
+		lower_body_wearable = val
+		lower_body_wearable_changed.emit()
 @export var accessories: Array[ACCESSORIES] = []
 @export var makeup: Array[MAKEUP] = []
 @export var has_bulge: bool = false if gender == GENDER.FEMALE else true # dependent on Penis size
 
 func _init():
 	super()
+	stats_genrated.connect(add_tags)
 	pregnancy_changed.connect(func (): pregbelly=pregbelly)
 
 func _to_string():
@@ -289,8 +302,8 @@ func _to_string():
 })
 
 func add_tags():
-	self.butt_size = BUTT_SIZE.IS_BUTT_SIZE2#randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
-	self.breast_size = randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
+	self.butt_size = randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
+	self.breast_size = BREAST_SIZE.IS_BREAST_SIZE5#randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
 	self.penis = PENIS.HAS_CANINE_PENIS
 	self.penis_size = randi_range(PENIS_SIZE.HAS_SOFT_PENIS_SIZE1, PENIS_SIZE.HAS_SOFT_PENIS_SIZE4)
 	self.vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0
@@ -304,9 +317,10 @@ func add_tags():
 	self.skin_color = randi_range(SKIN_COLOR.HAS_PALESKIN, SKIN_COLOR.HAS_PALESKIN)
 	self.hair = randi_range(HAIR.HAS_PONYTAIL1, HAIR.HAS_STRAIGHTH3)
 	self.front_hair = randi_range(FRONT_HAIR.HAS_FRONTHAIR1, FRONT_HAIR.HAS_FRONTHAIR4)
-	self.upper_body_wearable = UPPER_BODY_WEARABLE.values().pick_random()
-	self.lower_body_wearable = LOWER_BODY_WEARABLE.values().pick_random()
+	self.upper_body_wearable.add(UPPER_BODY_WEARABLE.IS_SHORT_SLEEVE_SHIRT)#UPPER_BODY_WEARABLE.values().pick_random()
+	self.lower_body_wearable = LOWER_BODY_WEARABLE.IS_SKIRT#LOWER_BODY_WEARABLE.values().pick_random()
 	self.has_bulge = false
+	tags_updated.emit()
 
 # Set Tags functions
 func append_piercing(pie: PIERCING):

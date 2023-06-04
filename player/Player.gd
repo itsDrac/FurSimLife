@@ -13,13 +13,21 @@ func _ready():
 
 
 func make_player():
-	player = CharacterStats.new()
-	CharacterStats.genrate_stats(player, "Drac", CharacterStats.TYPES.PLAYER)
-	player_sprite = CharacterSprite.new()
-	player_sprite.load_sprite(player.tag)
-	for sp in player_sprite.base_sprites:
-		var s = player_sprite.base_sprites[sp]
-		add_child(s)
+#	player = CharacterStats.new()
+#	CharacterStats.genrate_stats(player, "Drac", CharacterStats.TYPES.PLAYER)
+#	player_sprite = CharacterSprite.new()
+#	player_sprite.load_sprite(player.tag)
+#	for sp in player_sprite.base_sprites:
+#		var s = player_sprite.base_sprites[sp]
+#		add_child(s)
+#	print(player)
+	player = CharacterMod.new()
+	player.load_config("Default")
+	player.genrate_stats("Drac",CharacterStats.TYPES.PLAYER)
+#	char.add_tags()
+#	char.setup_mod()
+	for sprite in player.base_sprites:
+		add_child(player.base_sprites[sprite])
 	print(player)
 
 

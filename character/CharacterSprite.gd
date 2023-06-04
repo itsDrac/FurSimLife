@@ -4,25 +4,17 @@ class_name CharacterSprite
 var race_config
 var base_sprites: Dictionary
 var sprites: Dictionary
-var mod: CharacterMod
 
 
 func _init():
 	super()
+	tags_updated.connect(setup_sprite)
 	race_config = ConfigFile.new()
 	var err = race_config.load("res://character/sprites/config.cfg")
 	if err != OK:
 		Utils.show_error_screen("Could not load base sprite")
 	# Connecting Signals:
 	view_changed.connect(update_view)
-	
-#	breast_size_changed.connect(change_breast)
-##	butt_size_changed.connect(change_butt_size)
-#	base_breast_view_changed.connect(change_z_index)
-#
-#	if race_config.has_section("Race"):
-#		print_debug(race_config.get_value("Race", "IS_HUMAN"))
-	
 
 func _load_sprite():
 	var folder_name: StringName
@@ -45,7 +37,7 @@ func _load_base_sprites(folder_name: StringName):
 			var base_texture = load(texture_path)
 			sprites[key] = base_texture
 
-func setup():
+func setup_sprite():
 	_load_sprite()
 	for texture in sprites:
 		var sp = Sprite2D.new()
@@ -53,21 +45,40 @@ func setup():
 		sp.texture = sprites[texture]
 		sp.name = texture
 		match texture:
-			"Base_Torso", "Base_Nose":
+			"Base_Torso", "Face_EyeBall":
 				sp.hframes = 1
 				sp.vframes = 9
 				sp.frame_coords.y = gender+view
 				base_sprites[texture] = sp
-			"Base_Hair":
+			"Base_ArmBackSide", "Base_ArmUpperSide":
 				sp.hframes = 1
 				sp.vframes = 9
-#				sp.z_index = 1
 				sp.frame_coords.y = gender+view
+				sp.z_index = 3
 				base_sprites[texture] = sp
-			"Face_EyeBall":
+			"Base_ArmLowerSide":
 				sp.hframes = 1
 				sp.vframes = 9
 				sp.frame_coords.y = gender+view
+				sp.z_index = 2
+				base_sprites[texture] = sp
+			"Base_Hair","Face_EyeBall", "Base_Nose":
+				sp.hframes = 1
+				sp.vframes = 9
+				sp.frame_coords.y = gender+view
+				sp.z_index = 1
+				base_sprites[texture] = sp
+			"Base_Antenna":
+				sp.hframes = 1
+				sp.vframes = 9
+				sp.frame_coords.y = gender+view
+				sp.z_index = 2
+				base_sprites[texture] = sp
+			"Base_Tail", "Base_Ear":
+				sp.hframes = 1
+				sp.vframes = 9
+				sp.frame_coords.y = gender+view
+				sp.z_index = -1
 				base_sprites[texture] = sp
 			"Base_Butt":
 				sp.hframes = 3
@@ -78,100 +89,76 @@ func setup():
 			"Base_Breast":
 				sp.hframes = 6
 				sp.vframes = 9
+				sp.z_index = 1
 				base_sprites[texture] = sp
 				breast_size_changed.connect(func(): _set_frame(sp, breast_size))
 				breast_size_changed.emit()
-			"Base_Antenna":
-				sp.hframes = 1
-				sp.vframes = 9
-				sp.frame_coords.y = gender+view
-				base_sprites[texture] = sp
-			"Base_ArmBackSide", "Base_ArmLowerSide", "Base_ArmUpperSide":
-				sp.hframes = 1
-				sp.vframes = 9
-				sp.frame_coords.y = gender+view
-				base_sprites[texture] = sp
 			"Base_Wing":
 				sp.hframes = 1
 				sp.vframes = 9
-				sp.z_index = -1
+				sp.z_index = -2
 				sp.frame_coords.y = gender+view
 				base_sprites[texture] = sp
 			"Base_Ovipositor":
 				sp.hframes = 6
 				sp.vframes = 9
+				sp.z_index = -1
 				base_sprites[texture] = sp
 				ovipositor_changed.connect(func(): _set_frame(sp, anus_orifices))
 				ovipositor_changed.emit()
 			"Base_Anus":
 				sp.hframes = 6
 				sp.vframes = 9
+				sp.z_index = -2
 				base_sprites[texture] = sp
 				anus_orifices_size_change.connect(func(): _set_frame(sp, anus_orifices))
 				anus_orifices_size_change.emit()
 			"Base_Vagina":
-				sp.hframes = 6
+				sp.hframes = 5
 				sp.vframes = 9
+				sp.z_index = 1
 				base_sprites[texture] = sp
 				vagina_size_change.connect(func(): _set_frame(sp, vagina))
 				vagina_size_change.emit()
-			"Base_Tail":
-				sp.hframes = 1
+			"Base_Testicles":
+				sp.hframes = 5
 				sp.vframes = 9
-				sp.frame_coords.y = gender+view
-				sp.z_index = -1
+				sp.z_index = 2
 				base_sprites[texture] = sp
-			"Base_Ear":
-				sp.hframes = 1
-				sp.vframes = 9
-				sp.frame_coords.y = gender+view
-				base_sprites[texture] = sp
+				testicle_size_changed.connect(func(): _set_frame(sp, testicle_size))
+				testicle_size_changed.emit()
+			
 			_:
 				print_debug(texture)
 
 func update_view():
 	for s in base_sprites:
-		var sp = base_sprites[s]
+		var sp: Sprite2D = base_sprites[s]
 		sp.frame_coords.y = gender+view
 		match s:
 			"Base_Breast":
-				sp.z_index = -1 if view == VIEW.BACK else 0
+				sp.z_index = -1 if view == VIEW.BACK else 1
 			"Base_Wing":
-				sp.z_index = 0 if view == VIEW.BACK else -1
-			"Base_Ovipositor":
-				sp.z_index = 1 if view == VIEW.BACK else -1
+				if view == VIEW.FRONT: sp.z_index = -2
+				elif view == VIEW.BACK: sp.z_index = 4
+				elif view == VIEW.SIDE: sp.z_index = -1
+			"Base_Ovipositor", "Base_Tail":
+				if view == VIEW.FRONT: sp.z_index = -1
+				elif view == VIEW.BACK: sp.z_index = 3
+				elif view == VIEW.SIDE: sp.z_index = -2
 			"Base_Antenna":
-				sp.z_index = -1 if view == VIEW.BACK else 0
+				sp.z_index = -1 if view == VIEW.BACK else 2
 			"Base_Tail":
 				sp.z_index = 0 if view == VIEW.BACK else -1
-
-#func _set_bbutt_frame():
-#	if not base_sprites.has("Base_Butt"):
-#		return
-#	var sp = base_sprites["Base_Butt"]
-#	sp.frame_coords.x = butt_size
-#	sp.frame_coords.y = gender+view
-#
-#func _set_bbreast_frame():
-#	if not base_sprites.has("Base_Breast"):
-#		return
-#	var sp = base_sprites["Base_Breast"]
-#	sp.frame_coords.x = breast_size
-#	sp.frame_coords.y = gender+view
-#
-#func _set_ovipositor_frame():
-#	if not base_sprites.has("Base_Ovipositor"):
-#		return
-#	var sp = base_sprites["Base_Ovipositor"]
-#	sp.frame_coords.x = ovipositor
-#	sp.frame_coords.y = gender+view
-#
-#func _set_anus_frame():
-#	if not base_sprites.has("Base_Anus"):
-#		return
-#	var sp = base_sprites["Base_Anus"]
-#	sp.frame_coords.x = anus_orifices
-#	sp.frame_coords.y = gender+view
+			"Base_Testicles":
+				sp.z_index = -1 if view == VIEW.BACK else 0
+			"Base_Ovipositor":
+				sp.z_index = -1 if view == VIEW.BACK else 0
+			"Base_Ear":
+				sp.z_index = 2 if view == VIEW.SIDE else -1
+			"Base_Testicles":
+				sp.z_index = 2 if view == VIEW.FRONT else -1
+		
 
 func _set_frame(sp, x):
 	sp.frame_coords.x = x

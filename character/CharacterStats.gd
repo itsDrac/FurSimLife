@@ -17,13 +17,13 @@ enum RACE {
 	HUMAN,
 	FOXKIN,
 	HALFFOXKIN,
-	MOTHKIN
+	MOTHKIN,
 }
 
 enum GENDER {
 	FEMALE=0,
 	FUTA=3,
-	MALE=7
+	MALE=6
 }
 
 enum ROLES {
@@ -46,11 +46,13 @@ enum NOTI {
 	PREGNANCY_CHANGED = 0
 }
 
+
 signal view_changed
 signal type_changed (t)
 signal gender_changed (g)
 signal role_changed
 signal pregnancy_changed
+signal stats_genrated
 
 @export_category("Character Stats")
 @export var view: VIEW :
@@ -196,7 +198,7 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
 	view = 0
-	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
+	race = RACE.MOTHKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
 	gender = GENDER.FEMALE#randi_range(GENDER.FEMALE, GENDER.MALE)
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
 	health = randi_range(45, 100) if type == TYPES.NPC else 100
@@ -222,6 +224,7 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	monster_children = 0
 	job.setup_res(self)
 	job.update_job()
+	stats_genrated.emit()
 
 func set_role(val):
 	if val == ROLES.MAID:
