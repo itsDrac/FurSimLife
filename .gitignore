@@ -3,5 +3,5 @@
 *.import
 tmp/*
 export/*
-.\character\sprites\*.png
+character/*.png
 mods/*.png
