@@ -1,3 +1,3 @@
-extends Object
+extends Node
 
-var mod_player_selected = null
+var mod_player_selected : StringName = "Default"

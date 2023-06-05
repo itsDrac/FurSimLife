@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Utils="*res://singletons/utils.gd"
+G="*res://singletons/Global.gd"
 
 [display]
 

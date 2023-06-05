@@ -89,7 +89,7 @@ theme_override_font_sizes/font_size = 42
 text = "Window Options"
 
 [node name="WindowMode" type="OptionButton" parent="Panel/CenterContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 38
 
@@ -99,6 +99,6 @@ theme_override_font_sizes/font_size = 42
 text = "Screen Resolution"
 
 [node name="WindowRes" type="OptionButton" parent="Panel/CenterContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 38
