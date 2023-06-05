@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://gybn8tsjs71e"]
+[gd_scene load_steps=10 format=3 uid="uid://gybn8tsjs71e"]
 
 [ext_resource type="Texture2D" uid="uid://681e281nyaih" path="res://assests/images/save_60.png" id="1_bwvc7"]
 [ext_resource type="Script" path="res://mainMenu/scripts/mod_screen.gd" id="1_ib3ci"]
 [ext_resource type="Texture2D" uid="uid://dh5ubfpea0bxp" path="res://assests/images/cross_60.png" id="1_nwl6u"]
 [ext_resource type="Texture2D" uid="uid://i4ylr4s758dm" path="res://assests/images/save_60_green.png" id="2_l41wq"]
-[ext_resource type="ButtonGroup" uid="uid://l1n0wl6krr6a" path="res://mainMenu/assets/playerModBG.tres" id="3_1e7i6"]
 [ext_resource type="Texture2D" uid="uid://dlatnonajcvow" path="res://assests/images/cross_60_red.png" id="4_eddf6"]
 [ext_resource type="ButtonGroup" uid="uid://bx5pqfyafrwu6" path="res://mainMenu/assets/assetsModBG.tres" id="4_ktqgl"]
 [ext_resource type="ButtonGroup" uid="uid://bigok5d4v05ur" path="res://mainMenu/assets/worldModBG.tres" id="5_w7n1k"]
@@ -115,15 +114,6 @@ custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
-
-[node name="CheckBox" type="CheckBox" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-button_pressed = true
-button_group = ExtResource("3_1e7i6")
-text = "Default"
-icon_alignment = 1
-expand_icon = true
 
 [node name="AssetsModContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 360)
