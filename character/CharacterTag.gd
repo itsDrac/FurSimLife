@@ -75,31 +75,17 @@ enum PREGBELLY {
 	HAS_PREGBELLY_SIZE5,
 }
 
-enum EGGPREGBELLY {
-	HAS_EGGPREGBELLY_SIZE0,
-	HAS_EGGPREGBELLY_SIZE1,
-	HAS_EGGPREGBELLY_SIZE2,
-	HAS_EGGPREGBELLY_SIZE3,
-	HAS_EGGPREGBELLY_SIZE4,
-	HAS_EGGPREGBELLY_SIZE5,
-}
-
-enum EGGPREGBELLY_ANAL {
-	HAS_AEGGPREGBELLY_SIZE0,
-	HAS_AEGGPREGBELLY_SIZE1,
-	HAS_AEGGPREGBELLY_SIZE2,
-	HAS_AEGGPREGBELLY_SIZE3,
-	HAS_AEGGPREGBELLY_SIZE4,
-	HAS_AEGGPREGBELLY_SIZE5,
-}
-
 enum AGE {
 	IS_YOUNGADULT,
 	IS_ADULT,
 	IS_OLDADULT,
 }
 
-enum PIERCING { # 1 Char has multiple of this 
+enum IRIS {
+	BLUE
+}
+
+enum PIERCING { # 1 Char has multiple of this # use `add_piercing` menthod to add piercing
 	IS_NIPPLE_PIERCED, # This is dependedent on BREAST_SIZE the frame for this is equal as breat frame
 	IS_VAGINAL_PIERCED,
 	IS_ANAL_PIERCED,
@@ -120,7 +106,7 @@ enum SKIN_COLOR {
 	HAS_PALESKIN
 }
 
-enum HAIR {
+enum BACK_HAIR {
 	HAS_PONYTAIL1,
 	HAS_PONYTAIL2,
 	HAS_PONYTAIL3,
@@ -133,13 +119,16 @@ enum UPPER_BODY_WEARABLE {
 	IS_BRA,
 	IS_SHORT_SLEEVE_SHIRT,
 	IS_LONG_SLEEVE_SHIRT,
-	IS_SHORT_SHIRT
+	IS_SHORT_SHIRT,
+	IS_SHORT_SHIRT_DESIGN,
 }
 
 enum LOWER_BODY_WEARABLE {
 	IS_UNDERWEAR,
 	IS_PANT,
+	IS_PANTS_DESIGN,
 	IS_SHORT,
+	IS_SHORTS_DESIGN,
 	IS_SKIRT
 }
 
@@ -182,8 +171,11 @@ signal ovipositor_changed
 signal anus_orifices_size_change
 signal vagina_size_change
 signal testicle_size_changed
-signal upper_body_wearable_changed
-signal lower_body_wearable_changed
+signal penis_size_changed
+signal penis_changed
+signal back_hair_changed
+signal front_hair_changed
+signal pregbelly_changed
 
 @export_category("Character Tag")
 @export var butt_size: BUTT_SIZE :
@@ -198,10 +190,14 @@ signal lower_body_wearable_changed
 		breast_size_changed.emit()
 @export var penis: PENIS :
 	get: return penis
-	set(val): penis = set_penis(val)
+	set(val): 
+		penis = set_penis(val)
+		penis_changed.emit()
 @export var penis_size: PENIS_SIZE :
 	get: return penis_size
-	set(val): penis_size = set_penis_size(val)
+	set(val): 
+		penis_size = set_penis_size(val)
+		penis_size_changed.emit()
 @export var vagina: VAGINA :
 	get: return vagina
 	set(val): 
@@ -222,35 +218,31 @@ signal lower_body_wearable_changed
 		anus_orifices_size_change.emit()
 @export var pregbelly: PREGBELLY:
 	get: return pregbelly
-	set(val): pregbelly = set_pregbelly(val)
-@export var eggpregbelly: EGGPREGBELLY:
-	get: return eggpregbelly
-	set(val): pregbelly = set_pregbelly(val)
-@export var eggpregbelly_anal: EGGPREGBELLY_ANAL:
-	get: return eggpregbelly_anal
-	set(val): eggpregbelly_anal = val if eggs_in_ass else EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE0
+	set(val): 
+		pregbelly = set_pregbelly(val)
+		pregbelly_changed.emit()
 @export var age: AGE
 @export var skin_color: SKIN_COLOR
-@export var hair: HAIR
-@export var front_hair: FRONT_HAIR
-@export var piercing: Array[PIERCING] = []
-@export var upper_body_wearable: QArray = QArray.new()
-#	get: return upper_body_wearable
-#	set(val):
-#		upper_body_wearable = val
-#		upper_body_wearable_changed.emit()
-@export var lower_body_wearable: LOWER_BODY_WEARABLE :
-	get: return lower_body_wearable
+@export var back_hair: BACK_HAIR:
+	get: return back_hair
 	set(val):
-		lower_body_wearable = val
-		lower_body_wearable_changed.emit()
-@export var accessories: Array[ACCESSORIES] = []
-@export var makeup: Array[MAKEUP] = []
+		back_hair = val
+		back_hair_changed.emit()
+@export var front_hair: FRONT_HAIR:
+	get: return front_hair
+	set(val):
+		front_hair = val
+		front_hair_changed.emit()
+@export var piercing: QArray = QArray.new()
+@export var upper_body_wearable: QArray = QArray.new()
+@export var lower_body_wearable: QArray = QArray.new()
+@export var accessories: QArray = QArray.new()
+@export var makeup: QArray = QArray.new()
 @export var has_bulge: bool = false if gender == GENDER.FEMALE else true # dependent on Penis size
 
 func _init():
 	super()
-	stats_genrated.connect(add_tags)
+#	stats_genrated.connect(add_tags)
 	pregnancy_changed.connect(func (): pregbelly=pregbelly)
 
 func _to_string():
@@ -265,15 +257,13 @@ func _to_string():
 	Testicle size: {testicle_size}
 	Anus orifices: {anus_orifices}
 	Pregbelly: {pregbelly}
-	Eggpregbelly: {eggpregbelly}
-	Eggpregbelly anal: {eggpregbelly_anal}
 	Age: {age}
 	Skin color: {skin_color}
-	Hair: {hair}
+	Back Hair: {back_hair}
 	Front hair: {front_hair}
 	Piercing: {piercing}
 	Upper Body Wearable: {upper_body_wearable}
-	Lower Body Wearable: lower_body_wearable
+	Lower Body Wearable: {lower_body_wearable}
 	Accessories: {accessories}
 	Makeup: {makeup}
 	Bulge: {has_bulge}
@@ -287,23 +277,22 @@ func _to_string():
 	"testicle_size": TESTICLE_SIZE.find_key(self.testicle_size),
 	"anus_orifices": ANUS_ORIFICES.find_key(self.anus_orifices),
 	"pregbelly": PREGBELLY.find_key(self.pregbelly),
-	"eggpregbelly": EGGPREGBELLY.find_key(self.eggpregbelly),
-	"eggpregbelly_anal": EGGPREGBELLY_ANAL.find_key(self.eggpregbelly_anal),
+
 	"age": AGE.find_key(self.age),
-	"piercing": self.piercing.map(func(n): return PIERCING.find_key(n)),
+	"piercing": piercing.qarray.map(func(x): return PIERCING.find_key(x)),
 	"skin_color": SKIN_COLOR.find_key(self.skin_color),
-	"hair": HAIR.find_key(self.hair),
+	"back_hair": BACK_HAIR.find_key(self.back_hair),
 	"front_hair": FRONT_HAIR.find_key(self.front_hair),
-	"upper_body_wearable": UPPER_BODY_WEARABLE.find_key(self.upper_body_wearable),
-	"lower_body_wearable": LOWER_BODY_WEARABLE.find_key(self.lower_body_wearable),
-	"accessories":  self.accessories.map(func(n): return ACCESSORIES.find_key(n)),
-	"makeup": self.makeup.map(func(n): return MAKEUP.find_key(n)),
+	"upper_body_wearable": upper_body_wearable.qarray.map(func(x): return UPPER_BODY_WEARABLE.find_key(x)),
+	"lower_body_wearable": lower_body_wearable.qarray.map(func(x): return LOWER_BODY_WEARABLE.find_key(x)),
+	"accessories":  accessories.qarray.map(func(x): return ACCESSORIES.find_key(x)),
+	"makeup": makeup.qarray.map(func(x): return MAKEUP.find_key(x)),
 	"has_bulge": self.has_bulge,
 })
 
 func add_tags():
 	self.butt_size = randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
-	self.breast_size = BREAST_SIZE.IS_BREAST_SIZE5#randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
+	self.breast_size = randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
 	self.penis = PENIS.HAS_CANINE_PENIS
 	self.penis_size = randi_range(PENIS_SIZE.HAS_SOFT_PENIS_SIZE1, PENIS_SIZE.HAS_SOFT_PENIS_SIZE4)
 	self.vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0
@@ -311,53 +300,42 @@ func add_tags():
 	self.testicle_size = randi_range(TESTICLE_SIZE.HAS_TESTICLE_SIZE0,TESTICLE_SIZE.HAS_TESTICLE_SIZE4)
 	self.anus_orifices = ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE1
 	self.pregbelly = randi_range(PREGBELLY.HAS_PREGBELLY_SIZE1, PREGBELLY.HAS_PREGBELLY_SIZE5) if pregnancy else PREGBELLY.HAS_PREGBELLY_SIZE0
-	self.eggpregbelly = randi_range(EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE1, EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE5) if eggs else EGGPREGBELLY.HAS_EGGPREGBELLY_SIZE0
-	self.eggpregbelly_anal = EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE0
+
 	self.age = randi_range(AGE.IS_YOUNGADULT, AGE.IS_OLDADULT)
 	self.skin_color = randi_range(SKIN_COLOR.HAS_PALESKIN, SKIN_COLOR.HAS_PALESKIN)
-	self.hair = randi_range(HAIR.HAS_PONYTAIL1, HAIR.HAS_STRAIGHTH3)
+	self.back_hair = BACK_HAIR.values().pick_random()
 	self.front_hair = randi_range(FRONT_HAIR.HAS_FRONTHAIR1, FRONT_HAIR.HAS_FRONTHAIR4)
-	self.upper_body_wearable.add(UPPER_BODY_WEARABLE.IS_SHORT_SLEEVE_SHIRT)#UPPER_BODY_WEARABLE.values().pick_random()
-	self.lower_body_wearable = LOWER_BODY_WEARABLE.IS_SKIRT#LOWER_BODY_WEARABLE.values().pick_random()
+	self.upper_body_wearable.append([UPPER_BODY_WEARABLE.IS_BRA,UPPER_BODY_WEARABLE.IS_SHORT_SLEEVE_SHIRT])#UPPER_BODY_WEARABLE.values().pick_random()
+	self.lower_body_wearable.append([LOWER_BODY_WEARABLE.IS_UNDERWEAR,LOWER_BODY_WEARABLE.IS_PANT])# = LOWER_BODY_WEARABLE.IS_SKIRT#LOWER_BODY_WEARABLE.values().pick_random()
 	self.has_bulge = false
 	tags_updated.emit()
 
 # Set Tags functions
-func append_piercing(pie: PIERCING):
-	if pie in self.piercing:
-		return
+func add_piercing(pie: PIERCING):
 	match pie:
 		PIERCING.IS_VAGINAL_PIERCED:
 			if not gender == GENDER.MALE:
-				self.piercing.append(pie)
+				self.piercing.add(pie)
 		PIERCING.IS_PENIS_PIERCED:
 			if not gender == GENDER.FEMALE:
-				self.piercing.append(pie)
+				self.piercing.add(pie)
 		PIERCING.IS_OVIPOSITOR_PIERCED:
 			if race == RACE.MOTHKIN and gender == GENDER.FEMALE:
-				self.piercing.append(pie)
+				self.piercing.add(pie)
 		PIERCING.IS_HUMANEARSPIERCEDCOLORRED:
 			if not race == RACE.FOXKIN:
-				self.piercing.append(pie)
+				self.piercing.add(pie)
 		PIERCING.IS_HALFFOXKINEARSPIERCED1, PIERCING.IS_HALFFOXKINEARSPIERCED2:
 			if race == RACE.HALFFOXKIN:
-				self.piercing.append(pie)
+				self.piercing.add(pie)
 		PIERCING.IS_FOXKINEARSPIERCED1, PIERCING.IS_FOXKINEARSPIERCED2:
 			if race == RACE.FOXKIN:
-				self.piercing.append(pie)
+				self.piercing.add(pie)
 		PIERCING.IS_MOTHKINANTENNARINGS:
 			if race == RACE.MOTHKIN:
-				self.piercing.append(pie)
+				self.piercing.add(pie)
 		_:
-			self.piercing.append(pie)
-
-func append_accessories(acc):
-	if not acc in accessories:
-		accessories.append(acc)
-
-func append_makup(mkp):
-	if not mkp in makeup:
-		makeup.append(mkp)
+			self.piercing.add(pie)
 
 func set_penis(val):
 	if race == RACE.HUMAN:
@@ -389,8 +367,6 @@ func set_pregbelly(val):
 		return PREGBELLY.HAS_PREGBELLY_SIZE0
 	return int(val == PREGBELLY.HAS_PREGBELLY_SIZE0) + val
 
-func set_eggpregbelly_anal(val):
-	return val if eggs_in_ass else EGGPREGBELLY_ANAL.HAS_AEGGPREGBELLY_SIZE0
 
 # Signals functions.
 

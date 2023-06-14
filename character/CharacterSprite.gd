@@ -5,16 +5,19 @@ var race_config
 var base_sprites: Dictionary
 var sprites: Dictionary
 
+signal base_sprites_added
 
 func _init():
 	super()
-	tags_updated.connect(setup_sprite)
+	stats_genrated.connect(setup_sprite)
 	race_config = ConfigFile.new()
 	var err = race_config.load("res://character/sprites/config.cfg")
 	if err != OK:
 		Utils.show_error_screen("Could not load base sprite")
 	# Connecting Signals:
 	view_changed.connect(update_view)
+	lower_body_wearable.item_added.connect(toggle_visible_of_lower_genitals)
+	lower_body_wearable.item_removed.connect(toggle_visible_of_lower_genitals)
 
 func _load_sprite():
 	var folder_name: StringName
@@ -85,14 +88,14 @@ func setup_sprite():
 				sp.vframes = 9
 				base_sprites[texture] = sp
 				butt_size_changed.connect(func(): _set_frame(sp, butt_size))
-				butt_size_changed.emit()
+#				butt_size_changed.emit()
 			"Base_Breast":
 				sp.hframes = 6
 				sp.vframes = 9
 				sp.z_index = 1
 				base_sprites[texture] = sp
 				breast_size_changed.connect(func(): _set_frame(sp, breast_size))
-				breast_size_changed.emit()
+#				breast_size_changed.emit()
 			"Base_Wing":
 				sp.hframes = 1
 				sp.vframes = 9
@@ -105,31 +108,37 @@ func setup_sprite():
 				sp.z_index = -1
 				base_sprites[texture] = sp
 				ovipositor_changed.connect(func(): _set_frame(sp, anus_orifices))
-				ovipositor_changed.emit()
+#				ovipositor_changed.emit()
 			"Base_Anus":
 				sp.hframes = 6
 				sp.vframes = 9
 				sp.z_index = -2
 				base_sprites[texture] = sp
 				anus_orifices_size_change.connect(func(): _set_frame(sp, anus_orifices))
-				anus_orifices_size_change.emit()
+#				anus_orifices_size_change.emit()
 			"Base_Vagina":
 				sp.hframes = 5
 				sp.vframes = 9
-				sp.z_index = 1
+#				sp.z_index = -1
 				base_sprites[texture] = sp
 				vagina_size_change.connect(func(): _set_frame(sp, vagina))
-				vagina_size_change.emit()
+#				vagina_size_change.emit()
 			"Base_Testicles":
 				sp.hframes = 5
 				sp.vframes = 9
 				sp.z_index = 2
 				base_sprites[texture] = sp
 				testicle_size_changed.connect(func(): _set_frame(sp, testicle_size))
-				testicle_size_changed.emit()
-			
+#				testicle_size_changed.emit()
+			"Base_Penis":
+				sp.hframes = 17
+				sp.vframes = 9
+				base_sprites[texture] = sp
+				penis_size_changed.connect(func(): _set_frame(sp, penis_size+penis))
+				penis_changed.connect(func(): _set_frame(sp, penis_size+penis))
 			_:
 				print_debug(texture)
+	base_sprites_added.emit()
 
 func update_view():
 	for s in base_sprites:
@@ -137,7 +146,7 @@ func update_view():
 		sp.frame_coords.y = gender+view
 		match s:
 			"Base_Breast":
-				sp.z_index = -1 if view == VIEW.BACK else 1
+				sp.z_index = 0 if view == VIEW.BACK else 1
 			"Base_Wing":
 				if view == VIEW.FRONT: sp.z_index = -2
 				elif view == VIEW.BACK: sp.z_index = 4
@@ -150,16 +159,24 @@ func update_view():
 				sp.z_index = -1 if view == VIEW.BACK else 2
 			"Base_Tail":
 				sp.z_index = 0 if view == VIEW.BACK else -1
-			"Base_Testicles":
+			"Base_Vagina":
 				sp.z_index = -1 if view == VIEW.BACK else 0
 			"Base_Ovipositor":
 				sp.z_index = -1 if view == VIEW.BACK else 0
 			"Base_Ear":
 				sp.z_index = 2 if view == VIEW.SIDE else -1
+			"Base_Penis":
+				sp.z_index = 2 if view == VIEW.FRONT else -2
 			"Base_Testicles":
 				sp.z_index = 2 if view == VIEW.FRONT else -1
 		
 
-func _set_frame(sp, x):
+func _set_frame(sp: Sprite2D, x):
 	sp.frame_coords.x = x
 	sp.frame_coords.y = gender+view
+
+func toggle_visible_of_lower_genitals():
+	var p_sp = [base_sprites.get("Base_Vagina"),base_sprites.get("Base_Testicles"), base_sprites.get("Base_Penis")]
+	for sp in p_sp:
+		if not sp == null:
+			sp.visible = not bool(lower_body_wearable.qarray.size())

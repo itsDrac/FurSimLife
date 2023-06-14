@@ -18,13 +18,16 @@ func append(what:Array):
 func add(what: Variant):
 	if typeof(what) == TYPE_ARRAY:
 		append(what)
-	elif what not in qarray:
+	elif qarray.find(what) == -1:
 		qarray.append(what)
-	
+	else :
+		return
 	last_added = qarray[-1]
 	item_added.emit()
 
 func remove(what: Variant):
 	var index = qarray.find(what)
+	if index == -1: return
 	last_removed = qarray[index]
 	qarray.remove_at(index)
+	item_removed.emit()

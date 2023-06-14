@@ -121,9 +121,9 @@ signal stats_genrated
 @export var relationship_with_player: int :
 	get: return relationship_with_player
 	set(val): relationship_with_player = clamp(val,0,200) if type == TYPES.NPC else 0
-@export var eggs: int :
-	get: return eggs
-	set(val): eggs = val if self.race == RACE.MOTHKIN else 0
+@export var depositable_eggs: int :
+	get: return depositable_eggs
+	set(val): depositable_eggs = val if self.race == RACE.MOTHKIN else 0
 @export var eggs_duration: int
 @export var eggs_in_vagina: int
 @export var eggs_in_vagina_duration: int
@@ -154,7 +154,7 @@ func _to_string():
 	Pregnancy: {pregnancy}
 	Pregnancy duration: {pregnancy_duration}
 	Relationship with player: {rwp}
-	Eggs: {eggs}
+	Depositable Eggs: {depositable_eggs}
 	Eggs duration {eggs_duration}
 	Eggs in vagina {eiv}
 	Eggs in ass {eia}
@@ -182,7 +182,7 @@ func _to_string():
 	"pregnancy": self.pregnancy,
 	"pregnancy_duration": self.pregnancy_duration,
 	"rwp": self.relationship_with_player,
-	"eggs": self.eggs,
+	"depositable_eggs": self.depositable_eggs,
 	"eggs_duration": self.eggs_duration,
 	"eiv": self.eggs_in_vagina,
 	"eia": self.eggs_in_ass,
@@ -197,7 +197,7 @@ func _to_string():
 func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
-	view = 0
+	view = VIEW.FRONT
 	race = RACE.MOTHKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
 	gender = GENDER.FEMALE#randi_range(GENDER.FEMALE, GENDER.MALE)
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
@@ -214,7 +214,7 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	pregnancy = false
 	pregnancy_duration = 0
 	relationship_with_player = 40
-	eggs = randi_range(0,5)
+	depositable_eggs = randi_range(0,5)
 	eggs_duration = 0
 	eggs_in_vagina = 0
 	eggs_in_vagina_duration = 0
