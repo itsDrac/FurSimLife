@@ -14,7 +14,6 @@ func _ready():
 
 func _update_player_mod_btn():
 	player_mods = CharacterMod.get_mod_list()
-	print_debug(player_mods)
 	player_mod_btn.item_selected.connect(_update_G_player_mod)
 	for p in player_mods.keys():
 		player_mod_btn.add_item(p)
