@@ -31,3 +31,7 @@ func remove(what: Variant):
 	last_removed = qarray[index]
 	qarray.remove_at(index)
 	item_removed.emit()
+
+func for_each(do: Callable):
+	for item in qarray:
+		do.call(item)

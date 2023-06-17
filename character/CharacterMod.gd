@@ -96,26 +96,28 @@ func add_wearable_mod(added):
 		var p_sp = base_sprites.get(vals[0])
 		var sp = load_sprite(vals[1])
 		sp.name = key
+		sp.unique_name_in_owner = true
 		sp.centered = false
 		sp.hframes = p_sp.hframes
 		sp.vframes = p_sp.vframes
 		sp.frame = p_sp.frame
-		p_sp.frame_changed.connect(func(): sp.frame = p_sp.frame)
+		p_sp.frame_changed.connect(func():
+			if p_sp.has_node(key):
+				sp.frame = p_sp.frame
+		)
 		p_sp.add_child(sp)
+		mod_sprites[key] = sp
 
 func remove_wearable_mod(removed):
 	if not mod_config.get_sections().has(removed):
 		Utils.show_error_screen("Unable to load selected mod.")
 	
 	for key in mod_config.get_section_keys(removed):
-		var vals: Array = mod_config.get_value(removed, key, [])
-		if vals == []: Utils.show_error_screen("Unable to load selected mod.")
 		
-		
-		var p_sp = base_sprites.get(vals[0])
-		var sp = p_sp.get_node(key)
+		var sp = mod_sprites.get(key)
 		if sp:
 			sp.queue_free()
+			mod_sprites.erase(key)
 
 func add_base_mod():
 	var section = "Base_Mod"
@@ -145,7 +147,7 @@ func add_base_mod():
 			"Iris","EyeBrowLashes":
 				sp.hframes = 1
 			"Pregbelly":
-				sp.hframes = 5
+				sp.hframes = 6
 				pregbelly_changed.connect(func(): sp.frame_coords.x = pregbelly)
 		p_sp.add_child(sp)
 		mod_sprites[key] = sp
@@ -160,13 +162,17 @@ func change_mod_view():
 				sp.z_index = 4 if view == VIEW.BACK else -3
 			
 func toggle_visible_of_wearable():
-	if pregnancy:
-		var tmp_arr = upper_body_wearable.qarray.duplicate()
-		for val in tmp_arr:
-			print_debug(upper_body_wearable.qarray)
+	var lower_item = lower_body_wearable.qarray.map(func(x): return LOWER_BODY_WEARABLE.find_key(x))
+	var upper_item = upper_body_wearable.qarray.map(func(x): return UPPER_BODY_WEARABLE.find_key(x))
+	var toggle_item = func(item):
+		for key in mod_config.get_section_keys(item):
+			var vals: Array = mod_config.get_value(item, key, [])
+			if vals == []: Utils.show_error_screen("Unable to load selected mod.")
 			
-			upper_body_wearable.remove(val)
-		tmp_arr = lower_body_wearable.qarray.duplicate()
-		for val in tmp_arr:
-			print_debug(lower_body_wearable.qarray)
-			lower_body_wearable.remove(val)
+			var sp = mod_sprites.get(key)
+			sp.visible = not pregnancy
+	for item in lower_item:
+		toggle_item.call(item)
+	for item in upper_item:
+		toggle_item.call(item)
+

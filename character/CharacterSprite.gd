@@ -103,11 +103,11 @@ func setup_sprite():
 				sp.frame_coords.y = gender+view
 				base_sprites[texture] = sp
 			"Base_Ovipositor":
-				sp.hframes = 6
+				sp.hframes = 5
 				sp.vframes = 9
 				sp.z_index = -1
 				base_sprites[texture] = sp
-				ovipositor_changed.connect(func(): _set_frame(sp, anus_orifices))
+				ovipositor_changed.connect(func(): _set_frame(sp, ovipositor))
 #				ovipositor_changed.emit()
 			"Base_Anus":
 				sp.hframes = 6
