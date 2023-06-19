@@ -1,16 +1,16 @@
 extends Node2D
 
-var player
+@onready var char: CharacterMod
 
 func _ready():
 	
-	player = make_player("Drac",CharacterStats.TYPES.PLAYER)
-	
+	make_player("Drac",CharacterStats.TYPES.PLAYER)
+	print_debug(char)
 
 
 
 func make_player(char_name: StringName, type: CharacterStats.TYPES):
-	var char = CharacterMod.new()
+	char = CharacterMod.new()
 	char.genrate_stats(char_name,type)
 	char.load_config(G.mod_player_selected)
 	char.add_base_mod()
@@ -18,7 +18,6 @@ func make_player(char_name: StringName, type: CharacterStats.TYPES):
 #	char.setup_mod()
 	for sprite in char.base_sprites:
 		add_child(char.base_sprites[sprite])
-	print_debug(char)
 	
 	return char
 

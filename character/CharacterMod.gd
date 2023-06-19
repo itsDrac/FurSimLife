@@ -15,6 +15,7 @@ func _init():
 
 	view_changed.connect(change_mod_view)
 	pregnancy_changed.connect(toggle_visible_of_wearable)
+#	bulge_changed.connect(toggle_bulge)
 	upper_body_wearable.item_added.connect(func():
 		var added = UPPER_BODY_WEARABLE.find_key(upper_body_wearable.last_added)
 		add_wearable_mod(added)
@@ -42,6 +43,7 @@ func _init():
 	lower_body_wearable.item_removed.connect(func():
 		var removed = LOWER_BODY_WEARABLE.find_key(lower_body_wearable.last_removed)
 		remove_wearable_mod(removed)
+		has_bulge = bool(lower_body_wearable.qarray.size()) 
 		)
 	piercing.item_removed.connect(func():
 		var removed = PIERCING.find_key(piercing.last_removed)
@@ -55,6 +57,7 @@ func _init():
 		var removed = MAKEUP.find_key(makeup.last_removed)
 		remove_wearable_mod(removed)
 		)
+
 
 static func get_mod_list():
 	var mods: Dictionary
@@ -95,14 +98,15 @@ func add_wearable_mod(added):
 		
 		var p_sp = base_sprites.get(vals[0])
 		var sp = load_sprite(vals[1])
+		mod_sprites[key] = sp
 		sp.name = key
 		sp.unique_name_in_owner = true
 		sp.centered = false
-		sp.hframes = p_sp.hframes
+		sp.hframes = 5 if sp.name == "Base_Penis" else p_sp.hframes
 		sp.vframes = p_sp.vframes
 		sp.frame = p_sp.frame
 		p_sp.frame_changed.connect(func():
-			if p_sp.has_node(key):
+			if is_instance_valid(sp):
 				sp.frame = p_sp.frame
 		)
 		p_sp.add_child(sp)
@@ -147,8 +151,14 @@ func add_base_mod():
 			"Iris","EyeBrowLashes":
 				sp.hframes = 1
 			"Pregbelly":
-				sp.hframes = 6
+				sp.hframes = 5
 				pregbelly_changed.connect(func(): sp.frame_coords.x = pregbelly)
+			"Bulge":
+				sp.hframes = 6
+				penis_size_changed.connect(func(): sp.frame_coords.x = penis_size)
+			"Mothkin_Arm", "Mothkin_Leg":
+				sp.hframes = 1
+				sp.z_index = 1
 		p_sp.add_child(sp)
 		mod_sprites[key] = sp
 
@@ -176,3 +186,10 @@ func toggle_visible_of_wearable():
 	for item in upper_item:
 		toggle_item.call(item)
 
+#func toggle_bulge():
+#	if base_sprites.has("Base_Penis"):
+#		var p_sp = base_sprites.get("Base_Penis")
+#		p_sp.visible = not has_bulge
+#		if mod_sprites.has("Bulge"):
+#			var sp = mod_sprites.get("Bulge")
+#			sp.visible = has_bulge

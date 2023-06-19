@@ -176,6 +176,7 @@ signal penis_changed
 signal back_hair_changed
 signal front_hair_changed
 signal pregbelly_changed
+signal bulge_changed
 
 @export_category("Character Tag")
 @export var butt_size: BUTT_SIZE :
@@ -238,7 +239,11 @@ signal pregbelly_changed
 @export var lower_body_wearable: QArray = QArray.new()
 @export var accessories: QArray = QArray.new()
 @export var makeup: QArray = QArray.new()
-@export var has_bulge: bool = false if gender == GENDER.FEMALE else true # dependent on Penis size
+@export var has_bulge: bool :
+	get: return has_bulge
+	set(val): 
+		has_bulge = false if gender == GENDER.FEMALE else val # dependent on Penis size
+		bulge_changed.emit()
 
 func _init():
 	super()
