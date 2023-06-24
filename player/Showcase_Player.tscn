@@ -15,14 +15,16 @@ script = ExtResource("1_w4rgl")
 
 [node name="Player" parent="." instance=ExtResource("1_7nc3r")]
 
-[node name="VFlowContainer" type="VFlowContainer" parent="."]
+[node name="VFlowContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = -1050.0
+grow_horizontal = 0
 grow_vertical = 2
+horizontal_scroll_mode = 0
 
 [node name="MC" type="MarginContainer" parent="VFlowContainer"]
 layout_mode = 2
@@ -51,71 +53,460 @@ size_flags_horizontal = 3
 text = "Lower Body Wearable"
 label_settings = ExtResource("3_yivd6")
 
-[node name="LowerBodyWearableOptions" type="VBoxContainer" parent="VFlowContainer/MC/GC"]
+[node name="LowerBodyWearableOptions" type="GridContainer" parent="VFlowContainer/MC/GC"]
 layout_mode = 2
+columns = 2
 
 [node name="IS_UNDERWEAR" type="CheckButton" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
 layout_mode = 2
 text = "IS_UNDERWEAR"
 
+[node name="IS_UNDERWEAR_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
 [node name="IS_PANT" type="CheckButton" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
 layout_mode = 2
 text = "IS_PANT"
+
+[node name="IS_PANT_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
 
 [node name="IS_PANTS_DESIGN" type="CheckButton" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
 layout_mode = 2
 text = "IS_PANTS_DESIGN"
 
+[node name="IS_PANTS_DESIGN_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
 [node name="IS_SHORT" type="CheckButton" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
 layout_mode = 2
 text = "IS_SHORT"
+
+[node name="IS_SHORT_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
 
 [node name="IS_SHORTS_DESIGN" type="CheckButton" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
 layout_mode = 2
 text = "IS_SHORTS_DESIGN"
 
+[node name="IS_SHORTS_DESIGN_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
 [node name="IS_SKIRT" type="CheckButton" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
 layout_mode = 2
 text = "IS_SKIRT"
 
-[node name="UpperBodyWearable2" type="Label" parent="VFlowContainer/MC/GC"]
+[node name="IS_SKIRT_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/LowerBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="UpperBodyWearable" type="Label" parent="VFlowContainer/MC/GC"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Lower Body Wearable"
 label_settings = ExtResource("3_yivd6")
 
-[node name="UpperBodyWearableOptions2" type="VBoxContainer" parent="VFlowContainer/MC/GC"]
+[node name="UpperBodyWearableOptions" type="GridContainer" parent="VFlowContainer/MC/GC"]
 layout_mode = 2
+columns = 2
 
-[node name="IS_BRA" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions2"]
+[node name="IS_BRA" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
 layout_mode = 2
 text = "IS_BRA"
 
-[node name="IS_SHORT_SLEEVE_SHIRT" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions2"]
+[node name="IS_BRA_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_SHORT_SLEEVE_SHIRT" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
 layout_mode = 2
 text = "IS_SHORT_SLEEVE_SHIRT"
 
-[node name="IS_LONG_SLEEVE_SHIRT" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions2"]
+[node name="IS_SHORT_SLEEVE_SHIRT_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_LONG_SLEEVE_SHIRT" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
 layout_mode = 2
 text = "IS_LONG_SLEEVE_SHIRT"
 
-[node name="IS_SHORT_SHIRT" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions2"]
+[node name="IS_LONG_SLEEVE_SHIRT_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_SHORT_SHIRT" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
 layout_mode = 2
 text = "IS_SHORT_SHIRT"
 
-[node name="IS_SHORT_SHIRT_DESIGN" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions2"]
+[node name="IS_SHORT_SHIRT_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_SHORT_SHIRT_DESIGN" type="CheckButton" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
 layout_mode = 2
 text = "IS_SHORT_SHIRT_DESIGN"
 
+[node name="IS_SHORT_SHIRT_DESIGN_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/UpperBodyWearableOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="Piercing" type="Label" parent="VFlowContainer/MC/GC"]
+layout_mode = 2
+text = "Piercing"
+label_settings = ExtResource("3_yivd6")
+
+[node name="PiercingOptions" type="GridContainer" parent="VFlowContainer/MC/GC"]
+layout_mode = 2
+columns = 2
+
+[node name="IS_NIPPLE_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_NIPPLE_PIERCED"
+
+[node name="IS_NIPPLE_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_VAGINAL_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_VAGINAL_PIERCED"
+
+[node name="IS_VAGINAL_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_ANAL_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_ANAL_PIERCED"
+
+[node name="IS_ANAL_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_PENIS_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_PENIS_PIERCED"
+
+[node name="IS_PENIS_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_OVIPOSITOR_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_OVIPOSITOR_PIERCED"
+
+[node name="IS_OVIPOSITOR_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_EYEBROW_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_EYEBROW_PIERCED"
+
+[node name="IS_EYEBROW_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_LIP_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_LIP_PIERCED"
+
+[node name="IS_LIP_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_NOSE_PIERCED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_NOSE_PIERCED"
+
+[node name="IS_NOSE_PIERCED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_HUMANEARSPIERCEDCOLORRED" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_HUMANEARSPIERCEDCOLORRED"
+
+[node name="IS_HUMANEARSPIERCEDCOLORRED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_HALFFOXKINEARSPIERCED1" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_HALFFOXKINEARSPIERCED1"
+
+[node name="IS_HALFFOXKINEARSPIERCED1_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_HALFFOXKINEARSPIERCED2" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_HALFFOXKINEARSPIERCED2"
+
+[node name="IS_HALFFOXKINEARSPIERCED2_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_FOXKINEARSPIERCED1" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_FOXKINEARSPIERCED1"
+
+[node name="IS_FOXKINEARSPIERCED1_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_FOXKINEARSPIERCED2" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_FOXKINEARSPIERCED2"
+
+[node name="IS_FOXKINEARSPIERCED2_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="IS_MOTHKINANTENNARINGS" type="CheckButton" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+text = "IS_MOTHKINANTENNARINGS"
+
+[node name="IS_MOTHKINANTENNARINGS_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/PiercingOptions"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="Accessories" type="Label" parent="VFlowContainer/MC/GC"]
+layout_mode = 2
+text = "Accessories"
+label_settings = ExtResource("3_yivd6")
+
+[node name="Accessories_GridContainer" type="GridContainer" parent="VFlowContainer/MC/GC"]
+layout_mode = 2
+columns = 2
+
+[node name="HAS_BRACELET1" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_BRACELET1"
+
+[node name="HAS_BRACELET1_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_ANKLEBRACELET" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_ANKLEBRACELET"
+
+[node name="HAS_ANKLEBRACELET_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_COLLAR1" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_COLLAR1"
+
+[node name="HAS_COLLAR1_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_COLLAR2" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_COLLAR2"
+
+[node name="HAS_COLLAR2_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_COLLAR3" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_COLLAR3"
+
+[node name="HAS_COLLAR3_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_COLLARTAG1" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_COLLARTAG1"
+
+[node name="HAS_COLLARTAG1_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_COLLARTAG2" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_COLLARTAG2"
+
+[node name="HAS_COLLARTAG2_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_RINGTHUMBS" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_RINGTHUMBS"
+
+[node name="HAS_RINGTHUMBS_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_RINGINDEX" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_RINGINDEX"
+
+[node name="HAS_RINGINDEX_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_RINGMIDDLE" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_RINGMIDDLE"
+
+[node name="HAS_RINGMIDDLE_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_RINGRING" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_RINGRING"
+
+[node name="HAS_RINGRING_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_RINGPINKY" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_RINGPINKY"
+
+[node name="HAS_RINGPINKY_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_NECKLACE" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_NECKLACE"
+
+[node name="HAS_NECKLACE_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_NECKLACEJEWEL1" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_NECKLACEJEWEL1"
+
+[node name="HAS_NECKLACEJEWEL1_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_NECKLACEJEWEL2" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_NECKLACEJEWEL2"
+
+[node name="HAS_NECKLACEJEWEL2_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="Makeup" type="Label" parent="VFlowContainer/MC/GC"]
+layout_mode = 2
+text = "Makeup"
+label_settings = ExtResource("3_yivd6")
+
+[node name="Makeup_GridContainer" type="GridContainer" parent="VFlowContainer/MC/GC"]
+layout_mode = 2
+columns = 2
+
+[node name="HAS_PAINTEDNAILSRED" type="CheckButton" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+text = "HAS_PAINTEDNAILSRED"
+
+[node name="HAS_PAINTEDNAILSRED_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_EYEMAKEUP" type="CheckButton" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+text = "HAS_EYEMAKEUP"
+
+[node name="HAS_EYEMAKEUP_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_LIPSTICK" type="CheckButton" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+text = "HAS_LIPSTICK"
+
+[node name="HAS_LIPSTICK_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_BLUSH" type="CheckButton" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+text = "HAS_BLUSH"
+
+[node name="HAS_BLUSH_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Makeup_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
 [connection signal="item_selected" from="VFlowContainer/MC/GC/ViewOption" to="." method="_on_view_option_item_selected"]
 [connection signal="toggled" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_UNDERWEAR" to="." method="_on_is_underwear_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_UNDERWEAR_Spin" to="." method="_on_is_underwear_spin_value_changed"]
 [connection signal="toggled" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_PANT" to="." method="_on_is_pant_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_PANT_Spin" to="." method="_on_is_pant_spin_value_changed"]
 [connection signal="toggled" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_PANTS_DESIGN" to="." method="_on_is_pants_design_toggled"]
 [connection signal="toggled" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_SHORT" to="." method="_on_is_short_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_SHORT_Spin" to="." method="_on_is_short_spin_value_changed"]
 [connection signal="toggled" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_SHORTS_DESIGN" to="." method="_on_is_shorts_design_toggled"]
 [connection signal="toggled" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_SKIRT" to="." method="_on_is_skirt_toggled"]
-[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions2/IS_BRA" to="." method="_on_is_bra_toggled"]
-[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions2/IS_SHORT_SLEEVE_SHIRT" to="." method="_on_is_short_sleeve_shirt_toggled"]
-[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions2/IS_LONG_SLEEVE_SHIRT" to="." method="_on_is_long_sleeve_shirt_toggled"]
-[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions2/IS_SHORT_SHIRT" to="." method="_on_is_short_shirt_toggled"]
-[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions2/IS_SHORT_SHIRT_DESIGN" to="." method="_on_is_short_shirt_design_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/LowerBodyWearableOptions/IS_SKIRT_Spin" to="." method="_on_is_skirt_spin_value_changed"]
+[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_BRA" to="." method="_on_is_bra_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_BRA_Spin" to="." method="_on_is_bra_spin_value_changed"]
+[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SLEEVE_SHIRT" to="." method="_on_is_short_sleeve_shirt_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SLEEVE_SHIRT_Spin" to="." method="_on_is_short_sleeve_shirt_spin_value_changed"]
+[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_LONG_SLEEVE_SHIRT" to="." method="_on_is_long_sleeve_shirt_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_LONG_SLEEVE_SHIRT_Spin" to="." method="_on_is_long_sleeve_shirt_spin_value_changed"]
+[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SHIRT" to="." method="_on_is_short_shirt_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SHIRT_Spin" to="." method="_on_is_short_shirt_spin_value_changed"]
+[connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SHIRT_DESIGN" to="." method="_on_is_short_shirt_design_toggled"]

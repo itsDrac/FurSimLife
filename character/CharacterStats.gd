@@ -198,8 +198,8 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
 	view = VIEW.FRONT
-	race = RACE.MOTHKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
-	gender = GENDER.FEMALE#randi_range(GENDER.FEMALE, GENDER.MALE)
+	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
+	gender = GENDER.MALE#randi_range(GENDER.FEMALE, GENDER.MALE)
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
 	health = randi_range(45, 100) if type == TYPES.NPC else 100
 	attack = randi_range(1, 5)

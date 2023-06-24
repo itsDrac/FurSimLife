@@ -133,6 +133,7 @@ func setup_sprite():
 			"Base_Penis":
 				sp.hframes = 17
 				sp.vframes = 9
+				sp.z_index = 1
 				base_sprites[texture] = sp
 				penis_size_changed.connect(func(): _set_frame(sp, penis_size+penis))
 				penis_changed.connect(func(): _set_frame(sp, penis_size+penis))

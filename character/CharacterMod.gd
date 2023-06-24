@@ -147,16 +147,21 @@ func add_base_mod():
 				sp.hframes = 6
 				back_hair_changed.connect(func(): 
 					sp.frame_coords.x = back_hair)
-				sp.z_index = -3
+				sp.z_index = -4
 			"Iris","EyeBrowLashes":
 				sp.hframes = 1
+				
 			"Pregbelly":
-				sp.hframes = 5
+				sp.hframes = 6
+				sp.z_index = 1
 				pregbelly_changed.connect(func(): sp.frame_coords.x = pregbelly)
 			"Bulge":
 				sp.hframes = 6
 				penis_size_changed.connect(func(): sp.frame_coords.x = penis_size)
-			"Mothkin_Arm", "Mothkin_Leg":
+			"Mothkin_Arm":
+				sp.hframes = 1
+				sp.z_index = 3
+			"Mothkin_Leg":
 				sp.hframes = 1
 				sp.z_index = 1
 		p_sp.add_child(sp)
@@ -167,10 +172,16 @@ func change_mod_view():
 		var sp = mod_sprites.get(key)
 		match key:
 			"FrontHair":
-				sp.z_index = -2 if view == VIEW.BACK else 1
+				sp.z_index = -3 if view == VIEW.BACK else 1
 			"BackHair":
-				sp.z_index = 4 if view == VIEW.BACK else -3
-			
+				if view == VIEW.FRONT: sp.z_index = -4
+				if view == VIEW.BACK: sp.z_index = 8
+				if view == VIEW.SIDE: sp.z_index = 4
+			"Pregbelly":
+				sp.z_index = 1 if view == VIEW.BACK else 1
+			"Mothkin_Arm":
+				sp.z_index = 7 if view == VIEW.SIDE else 3
+
 func toggle_visible_of_wearable():
 	var lower_item = lower_body_wearable.qarray.map(func(x): return LOWER_BODY_WEARABLE.find_key(x))
 	var upper_item = upper_body_wearable.qarray.map(func(x): return UPPER_BODY_WEARABLE.find_key(x))
@@ -185,6 +196,11 @@ func toggle_visible_of_wearable():
 		toggle_item.call(item)
 	for item in upper_item:
 		toggle_item.call(item)
+
+func change_zindex(name, zindex):
+	if mod_sprites.has(name):
+		var sp = mod_sprites.get(name)
+		sp.z_index = zindex
 
 #func toggle_bulge():
 #	if base_sprites.has("Base_Penis"):
