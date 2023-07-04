@@ -97,6 +97,7 @@ func add_wearable_mod(added):
 		if vals == []: Utils.show_error_screen("Unable to load selected mod.")
 		
 		var p_sp = base_sprites.get(vals[0])
+		if not p_sp: Utils.show_error_screen("Couldn't load parent mod for %s"%key)
 		var sp = load_sprite(vals[1])
 		mod_sprites[key] = sp
 		sp.name = key
@@ -179,8 +180,28 @@ func change_mod_view():
 				if view == VIEW.SIDE: sp.z_index = 4
 			"Pregbelly":
 				sp.z_index = 1 if view == VIEW.BACK else 1
-			"Mothkin_Arm":
+			"Mothkin_Arm", "BRACELET1":
 				sp.z_index = 7 if view == VIEW.SIDE else 3
+			"Underwear":
+				sp.z_index = -1 #if view == VIEW.FRONT else 0
+			"NIPPLE_PIERCED":
+				sp.z_index = 0 if view == VIEW.BACK else -1
+			"SkirtsButt", "ANKLEBRACELET":
+				sp.z_index = 1 #if view == VIEW.FRONT else 0
+			"NECKLACE", "NECKLACEJEWEL1", "NECKLACEJEWEL2", "ShortShirtDesign":
+				sp.z_index = 0 if view == VIEW.BACK else 2
+			"PAINTEDNAILSRED":
+				if view == VIEW.FRONT: sp.z_index = -1
+				if view == VIEW.BACK: sp.z_index = 0
+				if view == VIEW.SIDE: sp.z_index = 4
+			"PantsDesign", "ShortsDesign":
+				sp.z_index = 0 if view == VIEW.BACK else 1
+			"ShortSleeveShirt", "LongSleeveShirt", "ShortShirt":
+				sp.z_index = 3 if view == VIEW.BACK else 1
+			"Bra", "VAGINAL_PIERCED", "ANAL_PIERCED":
+				sp.z_index = 2 if view == VIEW.BACK else 0
+			"RINGTHUMBS", "RINGINDEX", "RINGMIDDLE", "RINGRING", "RINGPINKY":
+				sp.z_index = 2 if view == VIEW.SIDE else 0
 
 func toggle_visible_of_wearable():
 	var lower_item = lower_body_wearable.qarray.map(func(x): return LOWER_BODY_WEARABLE.find_key(x))

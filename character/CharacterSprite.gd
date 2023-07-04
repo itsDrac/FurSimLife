@@ -131,7 +131,7 @@ func setup_sprite():
 				testicle_size_changed.connect(func(): _set_frame(sp, testicle_size))
 #				testicle_size_changed.emit()
 			"Base_Penis":
-				sp.hframes = 17
+				sp.hframes = 18
 				sp.vframes = 9
 				sp.z_index = 1
 				base_sprites[texture] = sp

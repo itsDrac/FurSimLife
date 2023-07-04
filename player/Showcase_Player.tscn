@@ -114,7 +114,7 @@ max_value = 10.0
 [node name="UpperBodyWearable" type="Label" parent="VFlowContainer/MC/GC"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Lower Body Wearable"
+text = "Upper Body Wearable"
 label_settings = ExtResource("3_yivd6")
 
 [node name="UpperBodyWearableOptions" type="GridContainer" parent="VFlowContainer/MC/GC"]
@@ -441,6 +441,15 @@ layout_mode = 2
 text = "HAS_NECKLACEJEWEL2"
 
 [node name="HAS_NECKLACEJEWEL2_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="HAS_MOTH_HAIR_CLIPS" type="CheckButton" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
+layout_mode = 2
+text = "HAS_MOTH_HAIR_CLIPS"
+
+[node name="HAS_MOTH_HAIR_CLIPS_Spin" type="SpinBox" parent="VFlowContainer/MC/GC/Accessories_GridContainer"]
 layout_mode = 2
 min_value = -10.0
 max_value = 10.0
