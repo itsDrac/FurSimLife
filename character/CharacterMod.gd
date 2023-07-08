@@ -101,7 +101,7 @@ func add_wearable_mod(added):
 		var sp = load_sprite(vals[1])
 		mod_sprites[key] = sp
 		sp.name = key
-		sp.unique_name_in_owner = true
+#		sp.unique_name_in_owner = true
 		sp.centered = false
 		sp.hframes = 5 if sp.name == "Base_Penis" else p_sp.hframes
 		sp.vframes = p_sp.vframes
@@ -111,7 +111,6 @@ func add_wearable_mod(added):
 				sp.frame = p_sp.frame
 		)
 		p_sp.add_child(sp)
-		mod_sprites[key] = sp
 
 func remove_wearable_mod(removed):
 	if not mod_config.get_sections().has(removed):
@@ -156,9 +155,9 @@ func add_base_mod():
 				sp.hframes = 6
 				sp.z_index = 1
 				pregbelly_changed.connect(func(): sp.frame_coords.x = pregbelly)
-			"Bulge":
-				sp.hframes = 6
-				penis_size_changed.connect(func(): sp.frame_coords.x = penis_size)
+#			"Bulge":
+#				sp.hframes = 6
+#				penis_size_changed.connect(func(): sp.frame_coords.x = penis_size)
 			"Mothkin_Arm":
 				sp.hframes = 1
 				sp.z_index = 3
@@ -198,7 +197,9 @@ func change_mod_view():
 				sp.z_index = 0 if view == VIEW.BACK else 1
 			"ShortSleeveShirt", "LongSleeveShirt", "ShortShirt":
 				sp.z_index = 3 if view == VIEW.BACK else 1
-			"Bra", "VAGINAL_PIERCED", "ANAL_PIERCED":
+			"Bra":
+				sp.z_index = 2 if view == VIEW.BACK else 1
+			"VAGINAL_PIERCED", "ANAL_PIERCED":
 				sp.z_index = 2 if view == VIEW.BACK else 0
 			"RINGTHUMBS", "RINGINDEX", "RINGMIDDLE", "RINGRING", "RINGPINKY":
 				sp.z_index = 2 if view == VIEW.SIDE else 0

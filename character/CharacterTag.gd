@@ -22,16 +22,16 @@ enum PENIS {
 }
 
 enum PENIS_SIZE {
-	HAS_PENIS_SIZE0,
+	HAS_PENIS_SIZE0 = 0,
 
-	HAS_HARD_PENIS_SIZE1,
-	HAS_HARD_PENIS_SIZE2,
-	HAS_HARD_PENIS_SIZE3,
-	HAS_HARD_PENIS_SIZE4,
-	HAS_SOFT_PENIS_SIZE1,
-	HAS_SOFT_PENIS_SIZE2,
-	HAS_SOFT_PENIS_SIZE3,
-	HAS_SOFT_PENIS_SIZE4,
+	HAS_HARD_PENIS_SIZE1 = 1,
+	HAS_HARD_PENIS_SIZE2 = 2,
+	HAS_HARD_PENIS_SIZE3 = 3,
+	HAS_HARD_PENIS_SIZE4 = 4,
+	HAS_SOFT_PENIS_SIZE1 = 5,
+	HAS_SOFT_PENIS_SIZE2 = 6,
+	HAS_SOFT_PENIS_SIZE3 = 7,
+	HAS_SOFT_PENIS_SIZE4 = 8,
 
 }
 
@@ -212,7 +212,9 @@ signal bulge_changed
 		ovipositor_changed.emit()
 @export var testicle_size: TESTICLE_SIZE :
 	get: return testicle_size
-	set(val): testicle_size = set_testicle_size(val)
+	set(val): 
+		testicle_size = set_testicle_size(val)
+		testicle_size_changed.emit()
 @export var anus_orifices: ANUS_ORIFICES :
 	get: return anus_orifices
 	set(val):
@@ -300,7 +302,7 @@ func add_tags():
 	self.butt_size = randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
 	self.breast_size = randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
 	self.penis = PENIS.HAS_CANINE_PENIS
-	self.penis_size = randi_range(PENIS_SIZE.HAS_SOFT_PENIS_SIZE1, PENIS_SIZE.HAS_SOFT_PENIS_SIZE4)
+	self.penis_size = PENIS_SIZE.HAS_SOFT_PENIS_SIZE1#randi_range(PENIS_SIZE.HAS_SOFT_PENIS_SIZE1, PENIS_SIZE.HAS_SOFT_PENIS_SIZE4)
 	self.vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0
 	self.ovipositor = OVIPOSITOR.HAS_OVIPOSITOR_SIZE0
 	self.testicle_size = randi_range(TESTICLE_SIZE.HAS_TESTICLE_SIZE0,TESTICLE_SIZE.HAS_TESTICLE_SIZE4)

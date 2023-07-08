@@ -144,3 +144,16 @@ func _on_is_short_shirt_spin_value_changed(value):
 	player.char.change_zindex("ShortSleeveShirt",value)
 	player.char.change_zindex("ShortSleeveShirtArmBackSideView",value)
 	player.char.change_zindex("ShortSleeveShirtArmLowerSideView",value)
+
+
+func _on_is_nipple_pierced_toggled(button_pressed):
+	if button_pressed:
+		player.char.piercing.add(CharacterTag.PIERCING.IS_NIPPLE_PIERCED)
+	else:
+		player.char.piercing.remove(CharacterTag.PIERCING.IS_NIPPLE_PIERCED)
+
+# NIPPLE_PIERCED
+
+
+func _on_is_nipple_pierced_spin_value_changed(value):
+	player.char.change_zindex("NIPPLE_PIERCED", value)

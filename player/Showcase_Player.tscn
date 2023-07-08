@@ -519,3 +519,5 @@ max_value = 10.0
 [connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SHIRT" to="." method="_on_is_short_shirt_toggled"]
 [connection signal="value_changed" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SHIRT_Spin" to="." method="_on_is_short_shirt_spin_value_changed"]
 [connection signal="toggled" from="VFlowContainer/MC/GC/UpperBodyWearableOptions/IS_SHORT_SHIRT_DESIGN" to="." method="_on_is_short_shirt_design_toggled"]
+[connection signal="toggled" from="VFlowContainer/MC/GC/PiercingOptions/IS_NIPPLE_PIERCED" to="." method="_on_is_nipple_pierced_toggled"]
+[connection signal="value_changed" from="VFlowContainer/MC/GC/PiercingOptions/IS_NIPPLE_PIERCED_Spin" to="." method="_on_is_nipple_pierced_spin_value_changed"]

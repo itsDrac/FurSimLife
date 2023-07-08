@@ -126,17 +126,23 @@ func setup_sprite():
 			"Base_Testicles":
 				sp.hframes = 5
 				sp.vframes = 9
-				sp.z_index = 2
+				sp.z_index = 1
 				base_sprites[texture] = sp
 				testicle_size_changed.connect(func(): _set_frame(sp, testicle_size))
 #				testicle_size_changed.emit()
 			"Base_Penis":
 				sp.hframes = 18
 				sp.vframes = 9
-				sp.z_index = 1
+				sp.z_index = 2
 				base_sprites[texture] = sp
 				penis_size_changed.connect(func(): _set_frame(sp, penis_size+penis))
 				penis_changed.connect(func(): _set_frame(sp, penis_size+penis))
+			"Base_BulgeTarget":
+				sp.hframes = 5
+				sp.vframes = 9
+				sp.z_index = 10
+				base_sprites[texture] = sp
+				penis_size_changed.connect(func(): _set_frame(sp, penis_size%5))
 			_:
 				print_debug(texture)
 	base_sprites_added.emit()
@@ -167,9 +173,9 @@ func update_view():
 			"Base_Ear":
 				sp.z_index = 2 if view == VIEW.SIDE else -1
 			"Base_Penis":
-				sp.z_index = 2 if view == VIEW.FRONT else -2
+				sp.z_index = -1 if view == VIEW.FRONT else -2
 			"Base_Testicles":
-				sp.z_index = 2 if view == VIEW.FRONT else -1
+				sp.z_index = -2 if view == VIEW.FRONT else -1
 		
 
 func _set_frame(sp: Sprite2D, x):
