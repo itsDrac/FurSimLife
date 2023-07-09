@@ -48,8 +48,6 @@ enum NOTI {
 
 
 signal view_changed
-signal type_changed (t)
-signal gender_changed (g)
 signal role_changed
 signal pregnancy_changed
 signal stats_genrated
@@ -63,9 +61,7 @@ signal stats_genrated
 @export var name: StringName
 @export var type: TYPES :
 	get: return type
-	set(val):
-		emit_signal("type_changed", val)
-		type = val
+	set(val): type = val
 @export var race : RACE
 @export var gender: GENDER : 
 	get: return gender
@@ -193,13 +189,13 @@ func _to_string():
 	"job":job.get_job_name(),
 })
 
-# Sets random states to passed CharacterStats (`res`) object
+## Sets random states to Character.
 func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
 	view = VIEW.FRONT
-	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
-	gender = GENDER.MALE#randi_range(GENDER.FEMALE, GENDER.MALE)
+	race = randi_range(RACE.HUMAN, RACE.MOTHKIN)
+	gender = randi_range(GENDER.FEMALE, GENDER.MALE)
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
 	health = randi_range(45, 100) if type == TYPES.NPC else 100
 	attack = randi_range(1, 5)
@@ -225,9 +221,3 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	job.setup_res(self)
 	job.update_job()
 	stats_genrated.emit()
-
-func set_role(val):
-	if val == ROLES.MAID:
-		if gender == GENDER.MALE:
-			return ROLES.values().pick_random()
-	return val

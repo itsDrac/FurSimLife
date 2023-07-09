@@ -15,7 +15,6 @@ func _init():
 
 	view_changed.connect(change_mod_view)
 	pregnancy_changed.connect(toggle_visible_of_wearable)
-#	bulge_changed.connect(toggle_bulge)
 	upper_body_wearable.item_added.connect(func():
 		var added = UPPER_BODY_WEARABLE.find_key(upper_body_wearable.last_added)
 		add_wearable_mod(added)
@@ -42,8 +41,7 @@ func _init():
 		)
 	lower_body_wearable.item_removed.connect(func():
 		var removed = LOWER_BODY_WEARABLE.find_key(lower_body_wearable.last_removed)
-		remove_wearable_mod(removed)
-		has_bulge = bool(lower_body_wearable.qarray.size()) 
+		remove_wearable_mod(removed) 
 		)
 	piercing.item_removed.connect(func():
 		var removed = PIERCING.find_key(piercing.last_removed)
@@ -58,7 +56,7 @@ func _init():
 		remove_wearable_mod(removed)
 		)
 
-
+## Returns all the available Mods.
 static func get_mod_list():
 	var mods: Dictionary
 	var config = ConfigFile.new()
@@ -69,6 +67,8 @@ static func get_mod_list():
 			mods[key] = value
 	return mods
 
+
+## Loads the selected Mod
 func load_config(folder_name):
 	mod_folder_name = folder_name
 	mod_config = ConfigFile.new()
@@ -101,7 +101,6 @@ func add_wearable_mod(added):
 		var sp = load_sprite(vals[1])
 		mod_sprites[key] = sp
 		sp.name = key
-#		sp.unique_name_in_owner = true
 		sp.centered = false
 		sp.hframes = 5 if sp.name == "Base_Penis" else p_sp.hframes
 		sp.vframes = p_sp.vframes
@@ -123,6 +122,8 @@ func remove_wearable_mod(removed):
 			sp.queue_free()
 			mod_sprites.erase(key)
 
+
+## Addes only base Sprite2D node to there parent with loaded mod as texture.
 func add_base_mod():
 	var section = "Base_Mod"
 	if not mod_config.get_sections().has(section):
@@ -145,19 +146,14 @@ func add_base_mod():
 				sp.z_index = 1
 			"BackHair":
 				sp.hframes = 6
-				back_hair_changed.connect(func(): 
-					sp.frame_coords.x = back_hair)
+				back_hair_changed.connect(func(): sp.frame_coords.x = back_hair)
 				sp.z_index = -4
 			"Iris","EyeBrowLashes":
 				sp.hframes = 1
-				
 			"Pregbelly":
 				sp.hframes = 6
 				sp.z_index = 1
 				pregbelly_changed.connect(func(): sp.frame_coords.x = pregbelly)
-#			"Bulge":
-#				sp.hframes = 6
-#				penis_size_changed.connect(func(): sp.frame_coords.x = penis_size)
 			"Mothkin_Arm":
 				sp.hframes = 1
 				sp.z_index = 3
@@ -167,6 +163,8 @@ func add_base_mod():
 		p_sp.add_child(sp)
 		mod_sprites[key] = sp
 
+
+## This function is called everytime view is changed.
 func change_mod_view():
 	for key in mod_sprites:
 		var sp = mod_sprites.get(key)
@@ -180,29 +178,31 @@ func change_mod_view():
 			"Pregbelly":
 				sp.z_index = 1 if view == VIEW.BACK else 1
 			"Mothkin_Arm", "BRACELET1":
-				sp.z_index = 7 if view == VIEW.SIDE else 3
-			"Underwear":
-				sp.z_index = -1 #if view == VIEW.FRONT else 0
-			"NIPPLE_PIERCED":
-				sp.z_index = 0 if view == VIEW.BACK else -1
+				sp.z_index = 9 if view == VIEW.SIDE else 3
+			"Underwear", "NIPPLE_PIERCED":
+				sp.z_index = 0
 			"SkirtsButt", "ANKLEBRACELET":
 				sp.z_index = 1 #if view == VIEW.FRONT else 0
-			"NECKLACE", "NECKLACEJEWEL1", "NECKLACEJEWEL2", "ShortShirtDesign":
-				sp.z_index = 0 if view == VIEW.BACK else 2
+			"NECKLACE":
+				sp.z_index = 5
+			"NECKLACEJEWEL1", "NECKLACEJEWEL2":
+				sp.z_index = 4
 			"PAINTEDNAILSRED":
 				if view == VIEW.FRONT: sp.z_index = -1
 				if view == VIEW.BACK: sp.z_index = 0
-				if view == VIEW.SIDE: sp.z_index = 4
+				if view == VIEW.SIDE: sp.z_index = 6
 			"PantsDesign", "ShortsDesign":
-				sp.z_index = 0 if view == VIEW.BACK else 1
+				if view == VIEW.FRONT: sp.z_index = 2
+				if view == VIEW.BACK: sp.z_index = 0
+				if view == VIEW.SIDE: sp.z_index = 1
 			"ShortSleeveShirt", "LongSleeveShirt", "ShortShirt":
-				sp.z_index = 3 if view == VIEW.BACK else 1
+				sp.z_index = 3 if view == VIEW.BACK else 2
 			"Bra":
 				sp.z_index = 2 if view == VIEW.BACK else 1
 			"VAGINAL_PIERCED", "ANAL_PIERCED":
 				sp.z_index = 2 if view == VIEW.BACK else 0
 			"RINGTHUMBS", "RINGINDEX", "RINGMIDDLE", "RINGRING", "RINGPINKY":
-				sp.z_index = 2 if view == VIEW.SIDE else 0
+				sp.z_index = 4 if view == VIEW.SIDE else 0
 
 func toggle_visible_of_wearable():
 	var lower_item = lower_body_wearable.qarray.map(func(x): return LOWER_BODY_WEARABLE.find_key(x))
@@ -223,11 +223,3 @@ func change_zindex(name, zindex):
 	if mod_sprites.has(name):
 		var sp = mod_sprites.get(name)
 		sp.z_index = zindex
-
-#func toggle_bulge():
-#	if base_sprites.has("Base_Penis"):
-#		var p_sp = base_sprites.get("Base_Penis")
-#		p_sp.visible = not has_bulge
-#		if mod_sprites.has("Bulge"):
-#			var sp = mod_sprites.get("Bulge")
-#			sp.visible = has_bulge

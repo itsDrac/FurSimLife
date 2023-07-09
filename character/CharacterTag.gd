@@ -177,7 +177,6 @@ signal penis_changed
 signal back_hair_changed
 signal front_hair_changed
 signal pregbelly_changed
-signal bulge_changed
 
 @export_category("Character Tag")
 @export var butt_size: BUTT_SIZE :
@@ -242,15 +241,9 @@ signal bulge_changed
 @export var lower_body_wearable: QArray = QArray.new()
 @export var accessories: QArray = QArray.new()
 @export var makeup: QArray = QArray.new()
-@export var has_bulge: bool :
-	get: return has_bulge
-	set(val): 
-		has_bulge = false if gender == GENDER.FEMALE else val # dependent on Penis size
-		bulge_changed.emit()
 
 func _init():
 	super()
-#	stats_genrated.connect(add_tags)
 	pregnancy_changed.connect(func (): pregbelly=pregbelly)
 
 func _to_string():
@@ -274,7 +267,6 @@ func _to_string():
 	Lower Body Wearable: {lower_body_wearable}
 	Accessories: {accessories}
 	Makeup: {makeup}
-	Bulge: {has_bulge}
 }".format({
 	"butt_size": BUTT_SIZE.find_key(self.butt_size),
 	"breast_size": BREAST_SIZE.find_key(self.breast_size),
@@ -285,7 +277,6 @@ func _to_string():
 	"testicle_size": TESTICLE_SIZE.find_key(self.testicle_size),
 	"anus_orifices": ANUS_ORIFICES.find_key(self.anus_orifices),
 	"pregbelly": PREGBELLY.find_key(self.pregbelly),
-
 	"age": AGE.find_key(self.age),
 	"piercing": piercing.qarray.map(func(x): return PIERCING.find_key(x)),
 	"skin_color": SKIN_COLOR.find_key(self.skin_color),
@@ -295,30 +286,28 @@ func _to_string():
 	"lower_body_wearable": lower_body_wearable.qarray.map(func(x): return LOWER_BODY_WEARABLE.find_key(x)),
 	"accessories":  accessories.qarray.map(func(x): return ACCESSORIES.find_key(x)),
 	"makeup": makeup.qarray.map(func(x): return MAKEUP.find_key(x)),
-	"has_bulge": self.has_bulge,
 })
 
+## Add Tags to Character.
 func add_tags():
-	self.butt_size = randi_range(BUTT_SIZE.IS_BUTT_SIZE1, BUTT_SIZE.IS_BUTT_SIZE3)
-	self.breast_size = randi_range(BREAST_SIZE.IS_BREAST_SIZE0, BREAST_SIZE.IS_BREAST_SIZE5)
+	self.butt_size = BUTT_SIZE.values().pick_random()
+	self.breast_size = BREAST_SIZE.values().pick_random()
 	self.penis = PENIS.HAS_CANINE_PENIS
-	self.penis_size = PENIS_SIZE.HAS_SOFT_PENIS_SIZE1#randi_range(PENIS_SIZE.HAS_SOFT_PENIS_SIZE1, PENIS_SIZE.HAS_SOFT_PENIS_SIZE4)
+	self.penis_size = randi_range(PENIS_SIZE.HAS_SOFT_PENIS_SIZE1, PENIS_SIZE.HAS_SOFT_PENIS_SIZE4)
 	self.vagina = VAGINA.HAS_VAGINAL_ORIFICE_SIZE0
 	self.ovipositor = OVIPOSITOR.HAS_OVIPOSITOR_SIZE0
-	self.testicle_size = randi_range(TESTICLE_SIZE.HAS_TESTICLE_SIZE0,TESTICLE_SIZE.HAS_TESTICLE_SIZE4)
+	self.testicle_size = TESTICLE_SIZE.values().pick_random()
 	self.anus_orifices = ANUS_ORIFICES.HAS_ANUS_ORIFICES_SIZE1
 	self.pregbelly = randi_range(PREGBELLY.HAS_PREGBELLY_SIZE1, PREGBELLY.HAS_PREGBELLY_SIZE5) if pregnancy else PREGBELLY.HAS_PREGBELLY_SIZE0
-
-	self.age = randi_range(AGE.IS_YOUNGADULT, AGE.IS_OLDADULT)
-	self.skin_color = randi_range(SKIN_COLOR.HAS_PALESKIN, SKIN_COLOR.HAS_PALESKIN)
+	self.age = AGE.values().pick_random()
+	self.skin_color = SKIN_COLOR.values().pick_random()
 	self.back_hair = BACK_HAIR.values().pick_random()
-	self.front_hair = randi_range(FRONT_HAIR.HAS_FRONTHAIR1, FRONT_HAIR.HAS_FRONTHAIR4)
-	self.upper_body_wearable.append([UPPER_BODY_WEARABLE.IS_BRA,UPPER_BODY_WEARABLE.IS_SHORT_SLEEVE_SHIRT])#UPPER_BODY_WEARABLE.values().pick_random()
-	self.lower_body_wearable.append([LOWER_BODY_WEARABLE.IS_UNDERWEAR,LOWER_BODY_WEARABLE.IS_PANT])# = LOWER_BODY_WEARABLE.IS_SKIRT#LOWER_BODY_WEARABLE.values().pick_random()
-	self.has_bulge = false
+	self.front_hair = FRONT_HAIR.values().pick_random()
+	self.upper_body_wearable.append([UPPER_BODY_WEARABLE.IS_BRA,UPPER_BODY_WEARABLE.IS_SHORT_SLEEVE_SHIRT])
+	self.lower_body_wearable.append([LOWER_BODY_WEARABLE.IS_UNDERWEAR,LOWER_BODY_WEARABLE.IS_PANT])
 	tags_updated.emit()
 
-# Set Tags functions
+## This function will run the rules before adding piercing to array.
 func add_piercing(pie: PIERCING):
 	match pie:
 		PIERCING.IS_VAGINAL_PIERCED:
@@ -345,6 +334,8 @@ func add_piercing(pie: PIERCING):
 		_:
 			self.piercing.add(pie)
 
+
+## This function will run rule before defining penis.
 func set_penis(val):
 	if race == RACE.HUMAN:
 		return PENIS.HAS_HUMAN_PENIS
@@ -352,16 +343,22 @@ func set_penis(val):
 		return PENIS.HAS_CANINE_PENIS
 	return val
 
+
+## This function will run rule before defining penis size.
 func set_penis_size(val):
 	if self.gender == CharacterStats.GENDER.FEMALE:
 		return PENIS_SIZE.HAS_PENIS_SIZE0
 	return int(val == PENIS_SIZE.HAS_PENIS_SIZE0) + val
 
+
+## This function will run rule before defining ovipositor.
 func set_ovipositor(val):
 	if self.race == CharacterStats.RACE.MOTHKIN and self.gender == CharacterStats.GENDER.FEMALE:
 		return int(val == OVIPOSITOR.HAS_OVIPOSITOR_SIZE0) + val
 	return OVIPOSITOR.HAS_OVIPOSITOR_SIZE0
 
+
+## This function will run rule before defining testicle size.
 func set_testicle_size(val):
 	if self.gender == CharacterStats.GENDER.FEMALE:
 		return TESTICLE_SIZE.HAS_TESTICLE_SIZE0
@@ -370,6 +367,8 @@ func set_testicle_size(val):
 	
 	return val
 
+
+## This function will run rule before defining pregbelly.
 func set_pregbelly(val):
 	if gender == CharacterStats.GENDER.MALE or not pregnancy:
 		return PREGBELLY.HAS_PREGBELLY_SIZE0
