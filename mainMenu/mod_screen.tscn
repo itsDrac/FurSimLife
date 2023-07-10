@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://gybn8tsjs71e"]
+[gd_scene load_steps=11 format=3 uid="uid://gybn8tsjs71e"]
 
 [ext_resource type="Texture2D" uid="uid://681e281nyaih" path="res://assests/images/save_60.png" id="1_bwvc7"]
 [ext_resource type="Script" path="res://mainMenu/scripts/mod_screen.gd" id="1_ib3ci"]
@@ -9,7 +9,10 @@
 [ext_resource type="ButtonGroup" uid="uid://bigok5d4v05ur" path="res://mainMenu/assets/worldModBG.tres" id="5_w7n1k"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_usoyo"]
-bg_color = Color(0.211765, 0.266667, 0.266667, 0.698039)
+bg_color = Color(0.211765, 0.266667, 0.266667, 0.823529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ylkr"]
+bg_color = Color(0.133333, 0.188235, 0.188235, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vr150"]
 bg_color = Color(0, 0.203922, 0, 1)
@@ -26,7 +29,7 @@ offset_right = 1860.0
 offset_bottom = 1020.0
 script = ExtResource("1_ib3ci")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,12 +39,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_usoyo")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/ScrollContainer"]
@@ -57,11 +55,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="Label" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ylkr")
+text = "Mod"
+horizontal_alignment = 1
+
 [node name="HSeparator" type="HSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 30
 
@@ -95,18 +101,32 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vr150")
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
+[node name="VSeparator" type="VSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 42
 text = "Player Mod: "
-horizontal_alignment = 2
+horizontal_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 128
 
 [node name="PlayerModBtn" type="OptionButton" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
 theme_override_font_sizes/font_size = 42
+
+[node name="VSeparator3" type="VSeparator" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer/PlayerModContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 128
 
 [node name="AssetsModContainer" type="VBoxContainer" parent="Panel/ScrollContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 360)
@@ -173,19 +193,6 @@ button_group = ExtResource("5_w7n1k")
 text = "Default"
 icon_alignment = 1
 expand_icon = true
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -180.0
-offset_top = -60.0
-offset_right = 180.0
-offset_bottom = 60.0
-grow_horizontal = 2
-text = "Mod"
-horizontal_alignment = 1
 
 [node name="TextureButton" type="TextureButton" parent="."]
 layout_mode = 1

@@ -2,7 +2,7 @@ extends Control
 
 @onready var window_mode: OptionButton = $Panel/CenterContainer/GridContainer/WindowMode
 @onready var window_res: OptionButton = $Panel/CenterContainer/GridContainer/WindowRes
-@onready var cross = $Panel/TextureButton
+@onready var cross = $TextureButton
 @onready var _window: Window = get_window()
 
 const resolution = {

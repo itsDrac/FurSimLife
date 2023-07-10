@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bewktqs68gct3"]
+[gd_scene load_steps=6 format=3 uid="uid://bewktqs68gct3"]
 
 [ext_resource type="Texture2D" uid="uid://dh5ubfpea0bxp" path="res://assests/images/cross_60.png" id="1_hwys1"]
 [ext_resource type="Script" path="res://mainMenu/scripts/setting_screen.gd" id="1_jpiwo"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdp3g"]
 bg_color = Color(0.211765, 0.266667, 0.266667, 0.698039)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqf0s"]
+bg_color = Color(0.133333, 0.188235, 0.188235, 1)
 
 [node name="SettingScreen" type="Control"]
 layout_mode = 3
@@ -16,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jpiwo")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_left = 60.0
 offset_top = 60.0
@@ -25,38 +28,14 @@ offset_bottom = 1020.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdp3g")
 
 [node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -180.0
-offset_top = -60.0
-offset_right = 180.0
-offset_bottom = 60.0
-grow_horizontal = 2
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_aqf0s")
 text = "Setting"
 horizontal_alignment = 1
 
-[node name="TextureButton" type="TextureButton" parent="Panel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -30.0
-offset_top = -30.0
-offset_right = 30.0
-offset_bottom = 30.0
-grow_horizontal = 0
-texture_normal = ExtResource("1_hwys1")
-texture_hover = ExtResource("2_2le5g")
-
 [node name="CenterContainer" type="CenterContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 60.0
-offset_bottom = 484.0
-grow_horizontal = 2
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="GridContainer" type="GridContainer" parent="Panel/CenterContainer"]
@@ -102,3 +81,16 @@ text = "Screen Resolution"
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 38
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -90.0
+offset_top = 30.0
+offset_right = -30.0
+offset_bottom = 90.0
+grow_horizontal = 0
+texture_normal = ExtResource("1_hwys1")
+texture_hover = ExtResource("2_2le5g")

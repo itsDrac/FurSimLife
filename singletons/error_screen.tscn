@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://0g18vrmf2sbe"]
+[gd_scene load_steps=7 format=3 uid="uid://0g18vrmf2sbe"]
 
 [ext_resource type="LabelSettings" uid="uid://bp7b6044dtcs" path="res://assests/resources/headingLabel.res" id="1_v1cr5"]
 [ext_resource type="Script" path="res://singletons/error_screen.gd" id="1_xbig6"]
@@ -6,6 +6,11 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdmtm"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xafwt"]
+bg_color = Color(0.133333, 0.188235, 0.188235, 1)
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b22mh"]
 bg_color = Color(0.215686, 0.278431, 0.278431, 1)
@@ -43,6 +48,7 @@ theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_xafwt")
 text = "Error"
 label_settings = ExtResource("1_v1cr5")
 horizontal_alignment = 1
