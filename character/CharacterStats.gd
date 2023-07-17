@@ -47,10 +47,29 @@ enum NOTI {
 }
 
 
+signal stats_genrated
 signal view_changed
 signal role_changed
+signal attack_changed
+signal strength_changed
+signal defense_changed
+signal agility_changed
+signal intelligence_changed
+signal magic_power_changed
+signal role_reputation_changed
+signal fertility_changed
+signal virility_changed
 signal pregnancy_changed
-signal stats_genrated
+signal pregnancy_duration_changed
+signal relationship_with_player_changed
+signal depositable_eggs_changed
+signal eggs_duration_changed
+signal eggs_in_vagina_changed
+signal eggs_in_vagina_duration_changed
+signal eggs_in_ass_changed
+signal eggs_in_ass_duration_changed
+signal children_changed
+signal monster_children_changed
 
 @export_category("Character Stats")
 @export var view: VIEW :
@@ -76,36 +95,47 @@ signal stats_genrated
 	get: return attack
 	set(val):
 		attack = clamp(val, 0, 99)
+		attack_changed.emit()
 @export var strength: int :
 	get: return strength
 	set(val):
 		strength = clamp(val, 0, 99)
+		strength_changed.emit()
 @export var defense: int :
 	get: return defense
 	set(val):
 		defense = clamp(val, 0, 99)
+		defense_changed.emit()
 @export var agility: int :
 	get: return agility
 	set(val):
 		agility = clamp(val, 0, 99)
+		agility_changed.emit()
 @export var intelligence: int :
 	get: return intelligence
 	set(val):
 		intelligence = clamp(val, 0, 99)
+		intelligence_changed.emit()
 @export var magic_power: int :
 	get: return magic_power
 	set(val):
 		magic_power = clamp(val, 0, 99)
+		magic_power_changed.emit()
 @export var role_reputation: int :
 	get: return role_reputation
 	set(val):
 		role_reputation = clamp(val, 0, 100)
+		role_reputation_changed.emit()
 @export var fertility: float :
 	get: return fertility
-	set(val): fertility = val if not gender == GENDER.MALE else 0.0 
+	set(val): 
+		fertility = val if not gender == GENDER.MALE else 0.0
+		fertility_changed.emit() 
 @export var virility: float :
 	get: return virility
-	set(val): virility = val if gender == GENDER.FEMALE else 0.0 
+	set(val): 
+		virility = val if gender == GENDER.FEMALE else 0.0 
+		virility_changed.emit()
 @export var pregnancy: bool :
 	get: return pregnancy
 	set(val): 
@@ -113,20 +143,54 @@ signal stats_genrated
 		pregnancy_changed.emit()
 @export var pregnancy_duration: int :
 	get: return pregnancy_duration
-	set(val): pregnancy_duration = clamp(val,0,30) if pregnancy else 0
+	set(val): 
+		pregnancy_duration = clamp(val,0,30) if pregnancy else 0
+		pregnancy_duration_changed.emit()
 @export var relationship_with_player: int :
 	get: return relationship_with_player
-	set(val): relationship_with_player = clamp(val,0,200) if type == TYPES.NPC else 0
+	set(val): 
+		relationship_with_player = clamp(val,0,200) if type == TYPES.NPC else 0
+		relationship_with_player_changed.emit()
 @export var depositable_eggs: int :
 	get: return depositable_eggs
-	set(val): depositable_eggs = val if self.race == RACE.MOTHKIN else 0
-@export var eggs_duration: int
-@export var eggs_in_vagina: int
-@export var eggs_in_vagina_duration: int
-@export var eggs_in_ass: int
-@export var eggs_in_ass_duration: int
-@export var children: int
-@export var monster_children: int
+	set(val): 
+		depositable_eggs = val if self.race == RACE.MOTHKIN else 0
+		depositable_eggs_changed.emit()
+#@export var eggs_duration: int :
+#	get: return eggs_duration
+#	set(val):
+#		eggs_duration = val
+#		eggs_duration_changed.emit()
+@export var eggs_in_vagina: int :
+	get: return eggs_in_vagina
+	set(val): 
+		eggs_in_vagina = _set_eggs_in_vagina(val)
+		eggs_in_vagina_changed.emit()
+@export var eggs_in_vagina_duration: int :
+	get: return eggs_in_vagina_duration
+	set(val):
+		eggs_in_vagina_duration = _set_eggs_in_vagina_duration(val)
+		eggs_in_vagina_duration_changed.emit()
+@export var eggs_in_ass: int :
+	get: return eggs_in_ass
+	set(val):
+		eggs_in_ass = val
+		eggs_in_ass_changed.emit()
+@export var eggs_in_ass_duration: int :
+	get: return eggs_in_ass_duration
+	set(val):
+		eggs_in_ass_duration = _set_eggs_in_ass_duration(val)
+		eggs_in_ass_duration_changed.emit()
+@export var children: int :
+	get: return children
+	set(val):
+		children = val
+		children_changed.emit()
+@export var monster_children: int :
+	get: return monster_children
+	set(val):
+		monster_children = val
+		monster_children_changed.emit()
 @export var job: CharacterJob = CharacterJob.new()
 # have to add emit_changed in set function of all variables
 
@@ -194,8 +258,8 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
 	view = VIEW.FRONT
-	race = randi_range(RACE.HUMAN, RACE.MOTHKIN)
-	gender = randi_range(GENDER.FEMALE, GENDER.MALE)
+	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
+	gender = GENDER.FEMALE#randi_range(GENDER.FEMALE, GENDER.MALE)
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
 	health = randi_range(45, 100) if type == TYPES.NPC else 100
 	attack = randi_range(1, 5)
@@ -211,7 +275,7 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	pregnancy_duration = 0
 	relationship_with_player = 40
 	depositable_eggs = randi_range(0,5)
-	eggs_duration = 0
+#	eggs_duration = 0
 	eggs_in_vagina = 0
 	eggs_in_vagina_duration = 0
 	eggs_in_ass = 0
@@ -221,3 +285,18 @@ func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
 	job.setup_res(self)
 	job.update_job()
 	stats_genrated.emit()
+
+func _set_eggs_in_vagina(val):
+	if self.gender == GENDER.MALE:
+		return 0
+	return val
+
+func _set_eggs_in_vagina_duration(val):
+	if self.eggs_in_vagina:
+		return val
+	return 0
+
+func _set_eggs_in_ass_duration(val):
+	if self.eggs_in_ass:
+		return val
+	return 0

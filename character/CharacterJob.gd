@@ -171,7 +171,7 @@ func assign_job():
 			else:
 				return NUN.NUN
 
-func get_job_name():
+func get_job_name() -> StringName:
 	match res.role:
 		
 		CharacterStats.ROLES.MONARCHY:
@@ -200,3 +200,5 @@ func get_job_name():
 			return KNIGHT.find_key(job)
 		CharacterStats.ROLES.NUN:
 			return NUN.find_key(job)
+		_:
+			return "Not_Found"

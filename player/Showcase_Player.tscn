@@ -14,6 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_w4rgl")
 
 [node name="Player" parent="." instance=ExtResource("1_7nc3r")]
+layout_mode = 1
 
 [node name="VFlowContainer" type="ScrollContainer" parent="."]
 layout_mode = 1
