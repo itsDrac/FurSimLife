@@ -1,23 +1,41 @@
-extends Node2D
+extends Control
 
-@onready var char: CharacterMod
+@onready var vbc = $HBC/VBC
+@onready var teammate_option_button = $HBC/VBC/TeammateOptionButton
+
+
+var char: PackedScene = preload("res://character/Character.tscn")
+var team: Dictionary = {}
+var current_player: Character
+signal char_added_in_team(ply)
 
 func _ready():
-	
-	make_player("Drac",CharacterStats.TYPES.PLAYER)
 	print_debug(char)
+	char_added_in_team.connect(_add_char_in_dropdown)
+#	make_player("Drac",CharacterStats.TYPES.PLAYER)
+#	print_debug(char)
+
+func _add_char_in_dropdown(ply):
+	teammate_option_button.add_item(ply.char_name.text, team.find_key(ply))
+	if team.find_key(ply) == 0: teammate_option_button.item_selected.emit(0)
 
 
+func _on_add_teamate_pressed():
+	if team.size()>3:
+		return
+	var new_char: Character = char.instantiate()
+	vbc.add_child(new_char)
+	new_char.make_character("Drac %s"%team.size(),CharacterStats.TYPES.PLAYER)
+	new_char.visible = false
+	team[team.size()] = new_char
+	char_added_in_team.emit(new_char)
 
-func make_player(char_name: StringName, type: CharacterStats.TYPES):
-	char = CharacterMod.new()
-	char.genrate_stats(char_name,type)
-	char.load_config(G.mod_player_selected)
-	char.add_base_mod()
-	char.add_tags()
-#	char.setup_mod()
-	for sprite in char.base_sprites:
-		add_child(char.base_sprites[sprite])
-	
-	return char
 
+func _on_teammate_option_button_item_selected(index):
+	for ply_id in team:
+		team[ply_id].visible = true if ply_id == index else false
+	current_player = team.get(index)
+
+
+func _on_attack_pressed():
+	current_player.health_bar.value -= 5
