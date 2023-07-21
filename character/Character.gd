@@ -23,10 +23,10 @@ func _ready():
 
 ## create and add character sprite in node.
 ## `Note:` Make sure to run this function after instance is added to scene try
-func make_character(_name: StringName, type: CharacterStats.TYPES) -> void:
+func make_character(_name: StringName, _gender: CharacterStats.GENDER, type: CharacterStats.TYPES) -> void:
 	res = CharacterMod.new()
 	connect_char_signal()
-	res.genrate_stats(_name,type)
+	res.genrate_stats(_name, _gender, type)
 	res.load_config(G.mod_player_selected)
 	res.add_base_mod()
 	res.add_tags()

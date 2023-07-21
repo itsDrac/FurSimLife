@@ -254,12 +254,12 @@ func _to_string():
 })
 
 ## Sets random states to Character.
-func genrate_stats(_name: StringName, _type: TYPES = TYPES.NPC):
+func genrate_stats(_name: StringName, _gender: GENDER, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
 	view = VIEW.FRONT
 	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
-	gender = GENDER.FEMALE#randi_range(GENDER.FEMALE, GENDER.MALE)
+	gender = _gender
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
 	health = randi_range(45, 100) if type == TYPES.NPC else 100
 	attack = randi_range(1, 5)
