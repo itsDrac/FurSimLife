@@ -1,39 +1,37 @@
-[gd_scene load_steps=2 format=3 uid="uid://cithh81cex1er"]
+[gd_scene load_steps=3 format=3 uid="uid://cithh81cex1er"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_22bi0"]
+[ext_resource type="PackedScene" uid="uid://cymefxr4xysm7" path="res://player/inventory/Inventory.tscn" id="2_to8ac"]
 
-[node name="Player" type="Control"]
-layout_mode = 3
-anchors_preset = 9
+[node name="Player" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
 script = ExtResource("1_22bi0")
 
-[node name="HBC" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 400.0
-grow_vertical = 2
-
-[node name="VBC" type="VBoxContainer" parent="HBC"]
-custom_minimum_size = Vector2(400, 0)
+[node name="Char" type="VBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="TeammateOptionButton" type="OptionButton" parent="HBC/VBC"]
+[node name="VBC" type="VBoxContainer" parent="Char"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TeammateOptionButton" type="OptionButton" parent="Char/VBC"]
 layout_mode = 2
 alignment = 1
 
-[node name="AddTeamate" type="Button" parent="HBC"]
+[node name="InventoryToggle" type="Button" parent="Char"]
 layout_mode = 2
-size_flags_vertical = 0
-text = "Add Teammate"
+toggle_mode = true
+text = "Inventory
+"
 
-[node name="Attack" type="Button" parent="HBC"]
+[node name="Inventory" parent="." instance=ExtResource("2_to8ac")]
+visible = false
 layout_mode = 2
-size_flags_vertical = 0
-text = "Attack -5"
 
-[connection signal="item_selected" from="HBC/VBC/TeammateOptionButton" to="." method="_on_teammate_option_button_item_selected"]
-[connection signal="pressed" from="HBC/AddTeamate" to="." method="_on_add_teamate_pressed"]
-[connection signal="pressed" from="HBC/Attack" to="." method="_on_attack_pressed"]
+[connection signal="item_selected" from="Char/VBC/TeammateOptionButton" to="." method="_on_teammate_option_button_item_selected"]

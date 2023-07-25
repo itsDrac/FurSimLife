@@ -1,7 +1,8 @@
-extends Control
+extends HBoxContainer
 
-@onready var vbc = $HBC/VBC
-@onready var teammate_option_button = $HBC/VBC/TeammateOptionButton
+@onready var vbc = $Char/VBC
+@onready var teammate_option_button = $Char/VBC/TeammateOptionButton
+@onready var inventory_toggle = $Char/InventoryToggle
 
 
 var char: PackedScene = preload("res://character/Character.tscn")
@@ -13,6 +14,7 @@ func _ready():
 	print_debug(char)
 	char_added_in_team.connect(_add_char_in_dropdown)
 	_on_add_teamate_pressed()
+	inventory_toggle.toggled.connect(func(val): $Inventory.visible = val)
 #	print_debug(char)
 
 func _add_char_in_dropdown(ply):

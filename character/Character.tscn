@@ -5,144 +5,141 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xesgg"]
 bg_color = Color(0.262745, 0.709804, 0.356863, 1)
 
-[node name="Character" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="Character" type="VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_vertical = 3
 script = ExtResource("1_r1wno")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 1
-anchors_preset = -1
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(400, 300)
 layout_mode = 2
 
-[node name="Control" type="Control" parent="VBoxContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="HealthBar" type="ProgressBar" parent="VBoxContainer"]
+[node name="HealthBar" type="ProgressBar" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/fill = SubResource("StyleBoxFlat_xesgg")
 step = 1.0
 value = 50.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="ViewOption" type="OptionButton" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="CharName" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="CharName" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-horizontal_alignment = 1
 
-[node name="ViewOption" type="OptionButton" parent="VBoxContainer/HBoxContainer"]
+[node name="SC" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-
-[node name="SC" type="ScrollContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 400)
-layout_mode = 2
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="Diss" type="VBoxContainer" parent="VBoxContainer/SC"]
+[node name="Diss" type="VBoxContainer" parent="SC"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Gender" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Gender" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Race" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Race" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Role" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Role" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Job" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Job" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Attack" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Attack" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Strength" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Strength" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Defense" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Defense" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Agility" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Agility" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Intelligence" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Intelligence" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="MagicPower" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="MagicPower" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="RoleReputation" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="RoleReputation" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Virility" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Virility" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Fertility" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Fertility" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="Pregnancy" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Pregnancy" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="PregnancyDuration" type="Label" parent="VBoxContainer/SC/Diss/Pregnancy"]
+[node name="PregnancyDuration" type="Label" parent="SC/Diss/Pregnancy"]
 layout_mode = 2
 offset_top = 27.0
 offset_right = 104.0
 offset_bottom = 50.0
 horizontal_alignment = 1
 
-[node name="RelationshipWithPlayer" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="RelationshipWithPlayer" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="DepositableEggs" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="DepositableEggs" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="EggsInVagina" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="EggsInVagina" type="Label" parent="SC/Diss"]
 layout_mode = 2
 text = "EggsInVagina"
 horizontal_alignment = 1
 
-[node name="EggsInVaginaDuration" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="EggsInVaginaDuration" type="Label" parent="SC/Diss"]
 layout_mode = 2
 text = "EggsInVaginaDuration"
 horizontal_alignment = 1
 
-[node name="EggsInAss" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="EggsInAss" type="Label" parent="SC/Diss"]
 layout_mode = 2
 text = "EggsInAss"
 horizontal_alignment = 1
 
-[node name="EggsInAssDuration" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="EggsInAssDuration" type="Label" parent="SC/Diss"]
 layout_mode = 2
 text = "EggsInAssDuration"
 horizontal_alignment = 1
 
-[node name="Children" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="Children" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
 
-[node name="MonsterChildren" type="Label" parent="VBoxContainer/SC/Diss"]
+[node name="MonsterChildren" type="Label" parent="SC/Diss"]
 layout_mode = 2
 horizontal_alignment = 1
