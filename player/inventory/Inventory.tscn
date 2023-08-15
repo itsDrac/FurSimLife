@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cymefxr4xysm7"]
+[gd_scene load_steps=5 format=3 uid="uid://cymefxr4xysm7"]
 
+[ext_resource type="Script" path="res://player/inventory/Inventory.gd" id="1_hcnor"]
 [ext_resource type="LabelSettings" uid="uid://bp7b6044dtcs" path="res://assests/resources/headingLabel.res" id="1_urde8"]
-[ext_resource type="PackedScene" uid="uid://xeypk78g5me8" path="res://player/inventory/Item.tscn" id="2_3e3k4"]
+[ext_resource type="FontFile" uid="uid://cq6rq0pq8qr03" path="res://assests/fonts/PressStart2P-Regular.ttf" id="3_2pws7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kk1aj"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -17,6 +18,7 @@ theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
+script = ExtResource("1_hcnor")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -38,9 +40,11 @@ layout_mode = 2
 text = "Gold: $$$"
 label_settings = ExtResource("1_urde8")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ItemDescription" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_2pws7")
+theme_override_font_sizes/normal_font_size = 24
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -50,95 +54,34 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Name"
 label_settings = ExtResource("1_urde8")
-horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Type"
 label_settings = ExtResource("1_urde8")
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="Amount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Amount"
 label_settings = ExtResource("1_urde8")
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="Value" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Value"
 label_settings = ExtResource("1_urde8")
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="InventoryBox" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
-
-[node name="Item" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item2" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item3" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item4" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item5" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item6" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item7" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item8" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item9" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item10" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item11" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item12" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item13" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item14" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item15" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item16" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item17" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item18" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item19" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2
-
-[node name="Item20" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2_3e3k4")]
-layout_mode = 2

@@ -4,7 +4,7 @@ class_name Character extends Control
 @onready var char_name = $CharName
 @onready var view_option:OptionButton = $HBoxContainer/ViewOption
 @onready var health_bar = $HBoxContainer/HealthBar
-
+var equiped_items: Array[InventoryItem.ITEMS]
 signal character_made
 
 var res: CharacterMod = null
@@ -19,7 +19,7 @@ func _ready():
 	health_bar.value_changed.connect(func(val): res.health = val)
 	
 	# Remove this line after debug
-	make_character("Drac", CharacterStats.GENDER.MALE, CharacterStats.TYPES.NPC)
+#	make_character("Drac", CharacterStats.GENDER.MALE, CharacterStats.TYPES.NPC)
 
 ## create and add character sprite in node.
 ## `Note:` Make sure to run this function after instance is added to scene try

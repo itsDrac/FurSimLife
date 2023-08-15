@@ -215,7 +215,6 @@ func _to_string():
 	Pregnancy duration: {pregnancy_duration}
 	Relationship with player: {rwp}
 	Depositable Eggs: {depositable_eggs}
-	Eggs duration {eggs_duration}
 	Eggs in vagina {eiv}
 	Eggs in ass {eia}
 	Eggs in vagina duration {eivd}
@@ -243,7 +242,7 @@ func _to_string():
 	"pregnancy_duration": self.pregnancy_duration,
 	"rwp": self.relationship_with_player,
 	"depositable_eggs": self.depositable_eggs,
-	"eggs_duration": self.eggs_duration,
+#	"eggs_duration": self.eggs_duration,
 	"eiv": self.eggs_in_vagina,
 	"eia": self.eggs_in_ass,
 	"eivd": self.eggs_in_vagina_duration,
