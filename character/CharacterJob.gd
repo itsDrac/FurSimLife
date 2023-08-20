@@ -179,7 +179,7 @@ func get_job_name() -> StringName:
 		CharacterStats.ROLES.BARNO:
 			return BARNO.find_key(job)
 		CharacterStats.ROLES.MAID:
-			return BARNO.find_key(job)
+			return MAID.find_key(job)
 		CharacterStats.ROLES.MERCHANT:
 			return MERCHANT.find_key(job)
 		CharacterStats.ROLES.VILLAGER:

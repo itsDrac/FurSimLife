@@ -130,6 +130,7 @@ signal monster_children_changed
 	get: return fertility
 	set(val): 
 		fertility = val if not gender == GENDER.MALE else 0.0
+		fertility = clamp(val, 0.0, 1.0)
 		fertility_changed.emit() 
 @export var virility: float :
 	get: return virility
@@ -260,7 +261,7 @@ func genrate_stats(_name: StringName, _gender: GENDER, _type: TYPES = TYPES.NPC)
 	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
 	gender = _gender
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
-	health = randi_range(45, 100) if type == TYPES.NPC else 100
+	health = randi_range(45, 100) if type == TYPES.NPC else 80
 	attack = randi_range(1, 5)
 	strength = randi_range(0, 5)
 	defense = randi_range(0, 5)

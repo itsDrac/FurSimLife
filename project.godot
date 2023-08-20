@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Utils="*res://singletons/utils.gd"
 G="*res://singletons/Global.gd"
+InvMan="*res://singletons/Inventory_manager.gd"
 
 [display]
 

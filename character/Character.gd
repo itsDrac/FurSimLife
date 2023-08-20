@@ -4,7 +4,7 @@ class_name Character extends Control
 @onready var char_name = $CharName
 @onready var view_option:OptionButton = $HBoxContainer/ViewOption
 @onready var health_bar = $HBoxContainer/HealthBar
-var equiped_items: Array[InventoryItem.ITEMS]
+
 signal character_made
 
 var res: CharacterMod = null
@@ -39,7 +39,6 @@ func save_data():
 func connect_char_signal():
 	if !res:
 		return
-	print_debug("In connect char signal function")
 	res.attack_changed.connect(_discription_update_attack)
 	res.strength_changed.connect(_discription_update_strength)
 	res.defense_changed.connect(_discription_update_defense)
