@@ -8,6 +8,7 @@ var char: PackedScene = preload("res://character/Character.tscn")
 var team: Dictionary = {}
 signal char_added_in_team(ply: Character)
 
+## Load player in game and takes player name and gender from global script
 func _ready():
 	char_added_in_team.connect(_add_char_in_dropdown)
 	_on_add_teamate()
@@ -20,6 +21,7 @@ func _add_char_in_dropdown(ply):
 	if team.find_key(ply) == 0: teammate_option_button.item_selected.emit(0)
 
 
+## Addes character in Team
 func _on_add_teamate(name = G.player_name, gender = G.player_gender):
 	if team.size()>3:
 		return
@@ -37,6 +39,8 @@ func _on_teammate_option_button_item_selected(index):
 	G.current_char = team.get(index)
 
 
+## Debuging code
+
 #func _on_attack_pressed():
 #	current_player.health_bar.value -= 5
 
@@ -44,14 +48,18 @@ func _on_teammate_option_button_item_selected(index):
 
 func _on_add_pressed():
 	var item: InvMan.ITEMS
-	item = InvMan.ITEMS.Minor_Health_Potion
-	InvMan.add_item(item)
-	item = InvMan.ITEMS.Minor_Strength_Potion
-	InvMan.add_item(item)
-	item = InvMan.ITEMS.Long_Sleeve_Shirt
-	InvMan.add_item(item)
-	item = InvMan.ITEMS.Vaginal_Piercing
-	InvMan.add_item(item)
+#	item = InvMan.ITEMS.Minor_Health_Potion
+#	InvMan.add_item(item)
+#	item = InvMan.ITEMS.Minor_Strength_Potion
+#	InvMan.add_item(item)
+#	item = InvMan.ITEMS.Long_Sleeve_Shirt
+#	InvMan.add_item(item)
+#	item = InvMan.ITEMS.Vaginal_Piercing
+#	InvMan.add_item(item)
+#	item = InvMan.ITEMS.Dragon_Sword
+#	InvMan.add_item(item)
+	for i in InvMan.ITEMS.values():
+		InvMan.add_item(i)
 
 func _on_turn_pressed():
 	G.current_turn += 1

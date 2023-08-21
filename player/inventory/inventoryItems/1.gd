@@ -5,6 +5,8 @@ var type = "Clothing"
 var value = 20
 var description = "A purple comfy Long Sleeve Shirt that adds +2 to defense and +2 to role reputation."
 const max_quantity = 1
+
+## Update current quantity to val less than Max quantity
 var current_quantity := 0 :
 	get: return current_quantity
 	set(val): 
@@ -23,7 +25,6 @@ func when_equiped(char: Character):
 	char.res.role_reputation += 2
 	current_quantity -= 1
 	is_equiped[char] = true
-#	char.equiped_items.append(InventoryItem.ITEMS.Long_Sleeve_Shirt)
 
 func when_unequiped(char: Character):
 	if not is_equiped.has(char):

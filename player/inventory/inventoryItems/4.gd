@@ -21,7 +21,7 @@ func when_equiped(char: Character):
 	if is_equiped:
 		return
 	char.res.piercing.add(CharacterTag.PIERCING.IS_VAGINAL_PIERCED)
-	char.res.fertility += 5
+	char.res.fertility += 0.05
 	char.res.role_reputation += 3
 	current_quantity -= 1
 	is_equiped[char] = true
@@ -30,7 +30,7 @@ func when_unequiped(char: Character):
 	if not is_equiped.has(char):
 		return
 	char.res.piercing.remove(CharacterTag.PIERCING.IS_VAGINAL_PIERCED)
-	char.res.fertility -= 5
+	char.res.fertility -= 0.05
 	char.res.role_reputation -= 3
 	current_quantity += 1
 	is_equiped.erase(char)

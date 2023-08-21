@@ -20,7 +20,8 @@ func _effect():
 func _attributes():
 	pass
 
-func update_item(which):
+## Load item in inventory by using number for ITEMS enum
+func update_item(which: InvMan.ITEMS):
 	res = load("res://player/inventory/inventoryItems/%s.gd"%which).new()
 	item_label.text = res.name
 	type_label.text = str(res.type)
@@ -37,6 +38,7 @@ func when_equiped():
 func when_unequiped():
 	res.when_unequiped(G.current_char)
 
+## Check if item is equipped of unequipped on left click and right click of mouse
 func _on_gui_input(event):
 	if not event is InputEventMouseButton:
 		return

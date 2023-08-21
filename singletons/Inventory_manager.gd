@@ -9,8 +9,16 @@ var added_items: Dictionary
 enum ITEMS {
 	Long_Sleeve_Shirt = 1,
 	Minor_Health_Potion = 2,
-	Minor_Strength_Potion,
-	Vaginal_Piercing, 
+	Minor_Strength_Potion = 3,
+	Vaginal_Piercing = 4,
+	Dragon_Sword = 5,
+	Simple_Skirt = 6,
+	Ear_Ring = 7,
+	Simple_Bracelet = 8,
+	Ancient_Necklace = 9,
+	Poorly_Made_Staff = 10,
+	Bronze_Leggings = 11,
+	Kite_Shield = 12
 	}
 
 # Called when the node enters the scene tree for the first time.
