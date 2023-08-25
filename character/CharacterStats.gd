@@ -29,7 +29,6 @@ enum GENDER {
 enum ROLES {
 	MONARCHY,
 	BARNO,
-	MAID,
 	MERCHANT,
 	VILLAGER,
 	ADVENTUER,
@@ -39,6 +38,7 @@ enum ROLES {
 	ACADEMY_PROFESSOR,
 	MAGE,
 	KNIGHT,
+	MAID,
 	NUN 
 }
 
@@ -269,8 +269,8 @@ func genrate_stats(_name: StringName, _gender: GENDER, _type: TYPES = TYPES.NPC)
 	intelligence = randi_range(0, 5)
 	magic_power = randi_range(1, 5)
 	role_reputation = randi_range(0, 90)
-	fertility = float("%.2f"%randf())
-	virility = float("%.2f"%randf())
+	fertility = floor(randf() * 100) / 100
+	virility = floor(randf() * 100) / 100
 	pregnancy = false
 	pregnancy_duration = 0
 	relationship_with_player = 40

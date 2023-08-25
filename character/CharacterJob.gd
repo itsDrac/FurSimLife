@@ -119,10 +119,6 @@ func setup_res(stats:CharacterStats):
 	self.res=stats
 	res.role_changed.connect(update_job)
 
-
-func _ready():
-	print("CharacterJob Ready function")
-
 func update_job():
 	job = assign_job()
 

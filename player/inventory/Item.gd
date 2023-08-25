@@ -1,9 +1,9 @@
-class_name InventoryItem extends HBoxContainer
+class_name InventoryItem extends Button
 
-@onready var item_label: Label = $Name
-@onready var type_label: Label = $Type
-@onready var amount: Label = $Amount
-@onready var value_label: Label = $Value
+@onready var item_label: Label = $Item/Name
+@onready var type_label: Label = $Item/Type
+@onready var amount: Label = $Item/Amount
+@onready var value_label: Label = $Item/Value
 
 var res: Resource
 
@@ -13,6 +13,11 @@ signal unequiped
 func _ready():
 	equiped.connect(when_equiped)
 	unequiped.connect(when_unequiped)
+#	print_debug(theme.has_stylebox("panel","styleboxflat"))
+#	var selected_theme: Theme = Theme.new()
+#	selected_theme.set_stylebox("Panel","StyleBoxFlat", theme_select)
+#	self.theme = selected_theme
+#	print_debug(self.theme_override_style.panel)
 
 func _effect():
 	pass
