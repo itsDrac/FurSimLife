@@ -23,6 +23,10 @@ size_flags_vertical = 3
 layout_mode = 2
 alignment = 1
 
+[node name="Save" type="Button" parent="Char"]
+layout_mode = 2
+text = "Save"
+
 [node name="InventoryToggle" type="Button" parent="Char"]
 layout_mode = 2
 toggle_mode = true
@@ -45,6 +49,7 @@ layout_mode = 2
 text = "+1 Turn"
 
 [connection signal="item_selected" from="Char/VBC/TeammateOptionButton" to="." method="_on_teammate_option_button_item_selected"]
+[connection signal="pressed" from="Char/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="Button Debugs/add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Button Debugs/add player" to="." method="_on_add_player_pressed"]
 [connection signal="pressed" from="Button Debugs/Turn" to="." method="_on_turn_pressed"]

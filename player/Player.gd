@@ -38,6 +38,8 @@ func _on_teammate_option_button_item_selected(index):
 		team[ply_id].visible = true if ply_id == index else false
 	G.current_char = team.get(index)
 
+func _on_save_pressed():
+	print_debug("save button pressed")
 
 ## Debuging code
 
@@ -67,5 +69,4 @@ func _on_turn_pressed():
 
 
 func _on_add_player_pressed():
-	_on_add_teamate("Drac 007", CharacterStats.GENDER.FUTA)
-
+	_on_add_teamate("Drac 007", CharacterStats.GENDER.FEMALE)

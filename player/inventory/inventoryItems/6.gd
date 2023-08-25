@@ -20,7 +20,7 @@ func when_equiped(char: Character):
 		return
 	if is_equiped:
 		return
-	char.res.upper_body_wearable.add(CharacterTag.LOWER_BODY_WEARABLE.IS_SKIRT)
+	char.res.lower_body_wearable.add(CharacterTag.LOWER_BODY_WEARABLE.IS_SKIRT)
 	char.res.agility += 2
 	char.res.role_reputation += 3
 	current_quantity -= 1
@@ -30,7 +30,7 @@ func when_equiped(char: Character):
 func when_unequiped(char: Character):
 	if not is_equiped.has(char):
 		return
-	char.res.upper_body_wearable.remove(CharacterTag.LOWER_BODY_WEARABLE.IS_SKIRT)
+	char.res.lower_body_wearable.remove(CharacterTag.LOWER_BODY_WEARABLE.IS_SKIRT)
 	char.res.agility -= 2
 	char.res.role_reputation -= 3
 	current_quantity += 1

@@ -19,7 +19,7 @@ func _ready():
 	health_bar.value_changed.connect(func(val): res.health = val)
 	
 	# Remove this line after debug
-#	make_character("Drac", CharacterStats.GENDER.MALE, CharacterStats.TYPES.NPC)
+#	make_character("Drac", CharacterStats.GENDER.FEMALE, CharacterStats.TYPES.PLAYER)
 
 ## create and add character sprite in node.
 ## `Note:` Make sure to run this function after instance is added to scene try
