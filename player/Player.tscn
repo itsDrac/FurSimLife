@@ -48,8 +48,13 @@ text = "add Player"
 layout_mode = 2
 text = "+1 Turn"
 
+[node name="load" type="Button" parent="Button Debugs"]
+layout_mode = 2
+text = "Load"
+
 [connection signal="item_selected" from="Char/VBC/TeammateOptionButton" to="." method="_on_teammate_option_button_item_selected"]
 [connection signal="pressed" from="Char/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="Button Debugs/add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Button Debugs/add player" to="." method="_on_add_player_pressed"]
 [connection signal="pressed" from="Button Debugs/Turn" to="." method="_on_turn_pressed"]
+[connection signal="pressed" from="Button Debugs/load" to="." method="_on_load_pressed"]

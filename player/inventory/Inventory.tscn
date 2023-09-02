@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cymefxr4xysm7"]
+[gd_scene load_steps=6 format=3 uid="uid://cymefxr4xysm7"]
 
 [ext_resource type="Script" path="res://player/inventory/Inventory.gd" id="1_hcnor"]
 [ext_resource type="LabelSettings" uid="uid://bp7b6044dtcs" path="res://assests/resources/headingLabel.res" id="1_urde8"]
 [ext_resource type="FontFile" uid="uid://cq6rq0pq8qr03" path="res://assests/fonts/PressStart2P-Regular.ttf" id="3_2pws7"]
-
-[sub_resource type="Theme" id="Theme_uefyj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kk1aj"]
 bg_color = Color(0.117647, 0.117647, 0.117647, 1)
@@ -18,7 +16,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_uefyj")
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16

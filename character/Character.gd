@@ -7,7 +7,7 @@ class_name Character extends Control
 
 signal character_made
 
-var res: CharacterMod = null
+@export var res: CharacterMod = null
 #var char_node: Control = null
 
 func _ready():
@@ -23,22 +23,40 @@ func _ready():
 
 ## create and add character sprite in node.
 ## `Note:` Make sure to run this function after instance is added to scene try
-func make_character(_name: StringName, _gender: CharacterStats.GENDER, type: CharacterStats.TYPES) -> void:
-	res = CharacterMod.new()
-	connect_char_signal()
+static func make_character(_name: StringName, _gender: CharacterStats.GENDER, type: CharacterStats.TYPES) -> CharacterMod:
+	var res = CharacterMod.new()
 	res.genrate_stats(_name, _gender, type)
 	res.load_config(G.mod_player_selected)
 	res.add_base_mod()
 	res.add_tags()
-	
-	character_made.emit()
+	return res
+#	character_made.emit()
 
 func save_data():
 	pass
 
-func connect_char_signal():
+func setup_char():
 	if !res:
 		return
+	connect_char_signal()
+	_discription_update_attack()
+	_discription_update_strength()
+	_discription_update_defense()
+	_discription_update_agility()
+	_discription_update_intelligence()
+	_discription_update_magicpower()
+	_discription_update_rolereputation()
+	_discription_update_fertility()
+	_discription_update_virility()
+	_discription_update_pregnancy()
+	_discription_update_rwp()
+	_discription_update_children()
+	_discription_update_monsterchildren()
+	_discription_update_eggsduration()
+	_discription_update_depositableeggs()
+	character_made.emit()
+
+func connect_char_signal():
 	res.attack_changed.connect(_discription_update_attack)
 	res.strength_changed.connect(_discription_update_strength)
 	res.defense_changed.connect(_discription_update_defense)
@@ -76,6 +94,7 @@ func connect_char_signal():
 	res.monster_children_changed.connect(_discription_update_monsterchildren)
 
 func _add_char_details():
+#	connect_char_signal()
 	for sprite in res.base_sprites:
 		var sp: Sprite2D = res.base_sprites[sprite]
 		sp.position.x = 75
