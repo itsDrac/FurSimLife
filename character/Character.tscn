@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://kaggm2d6vugo"]
+[gd_scene load_steps=4 format=3 uid="uid://kaggm2d6vugo"]
 
 [ext_resource type="Script" path="res://character/Character.gd" id="1_r1wno"]
+[ext_resource type="LabelSettings" uid="uid://bp7b6044dtcs" path="res://assests/resources/headingLabel.res" id="2_jj6g3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xesgg"]
 bg_color = Color(0.262745, 0.709804, 0.356863, 1)
@@ -23,16 +24,28 @@ layout_mode = 2
 [node name="HealthBar" type="ProgressBar" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_styles/fill = SubResource("StyleBoxFlat_xesgg")
 step = 1.0
 value = 50.0
 
 [node name="ViewOption" type="OptionButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(128, 32)
 layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Front"
+popup/item_0/id = 0
+popup/item_1/text = "Side"
+popup/item_1/id = 1
+popup/item_2/text = "Back"
+popup/item_2/id = 2
 
 [node name="CharName" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+text = "fg"
+label_settings = ExtResource("2_jj6g3")
 
 [node name="SC" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(400, 0)

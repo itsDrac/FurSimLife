@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3tegcqp7jjpo"]
+
+[ext_resource type="Texture2D" uid="uid://bxxiaydoet75w" path="res://icon.svg" id="1_mqg21"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(0, 150)
+icon = ExtResource("1_mqg21")
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 0
+offset_left = 200.0
+offset_right = 700.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 24
+text = "File Name
+
+LastModified on 03/09/2023 "
+vertical_alignment = 1

@@ -13,9 +13,9 @@ signal character_made
 func _ready():
 	character_made.connect(_add_char_details)
 	view_option.item_selected.connect(func(index:int): res.view = index)
-	view_option.add_item("Front")
-	view_option.add_item("Side")
-	view_option.add_item("Back")
+#	view_option.add_item("Front")
+#	view_option.add_item("Side")
+#	view_option.add_item("Back")
 	health_bar.value_changed.connect(func(val): res.health = val)
 	
 	# Remove this line after debug
@@ -97,9 +97,9 @@ func _add_char_details():
 #	connect_char_signal()
 	for sprite in res.base_sprites:
 		var sp: Sprite2D = res.base_sprites[sprite]
-		sp.position.x = 75
+		sp.position.x = panel_container.size.x/4
 		panel_container.add_child(sp)
-	view_option.select(0)
+#	view_option.select(0)
 	char_name.text = res.name
 	health_bar.value = res.health
 	_discription_update_gender()

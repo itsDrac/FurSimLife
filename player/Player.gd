@@ -3,6 +3,8 @@ extends HBoxContainer
 @onready var vbc = $Char/VBC
 @onready var teammate_option_button = $Char/VBC/TeammateOptionButton
 @onready var inventory_toggle = $Char/InventoryToggle
+@onready var save_toggle = $Char/SaveToggle
+@export var save_screen: Control
 
 @onready var data: PlayerData = PlayerData.new()
 
@@ -47,13 +49,18 @@ func _on_teammate_option_button_item_selected(index):
 	team[index].visible = true
 	G.current_char = team[index]
 
-func _on_save_pressed():
-#	SaveLoadMan.save_game.emit()
-	data.test = 10
-	print_debug(data.team[0].name)
-#	data.ch = team[0].duplicate()
-	SaveLoadMan._on_player_save(data)
-#	PlayerData.save_player_data(data)
+#func _on_save_pressed():
+##	SaveLoadMan.save_game.emit()
+#	data.test = 10
+#	print_debug(data.team[0].name)
+##	data.ch = team[0].duplicate()
+#	SaveLoadMan._on_player_save(data)
+##	PlayerData.save_player_data(data)
+
+func _on_save_toggle_toggled(button_pressed):
+	save_screen.visible = button_pressed
+	
+
 
 ## Debuging code
 
@@ -90,3 +97,5 @@ func _on_load_pressed():
 	var res = SaveLoadMan._on_player_load()
 	print_debug(res.team[0])
 	print_debug(res)
+
+
