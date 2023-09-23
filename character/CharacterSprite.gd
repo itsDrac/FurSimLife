@@ -16,6 +16,9 @@ func _init():
 		Utils.show_error_screen("Could not load base sprite")
 	# Connecting Signals:
 	view_changed.connect(update_view)
+	tags_updated.connect(connect_lowerbody_wearable)
+
+func connect_lowerbody_wearable():
 	lower_body_wearable.item_added.connect(toggle_visible_of_lower_genitals)
 	lower_body_wearable.item_removed.connect(toggle_visible_of_lower_genitals)
 
@@ -43,15 +46,15 @@ func setup_sprite():
 				sp.hframes = 1
 				sp.frame_coords.y = gender+view
 				base_sprites[texture] = sp
-			"Base_ArmBackSide", "Base_ArmUpperSide":
+			"Base_ArmBackSide":
 				sp.hframes = 1
 				sp.frame_coords.y = gender+view
-				sp.z_index = 3
+				sp.z_index = -3
 				base_sprites[texture] = sp
-			"Base_ArmLowerSide":
+			"Base_ArmUpperSide", "Base_ArmLowerSide":
 				sp.hframes = 1
 				sp.frame_coords.y = gender+view
-				sp.z_index = 2
+				sp.z_index = 5
 				base_sprites[texture] = sp
 			"Base_Hair","Face_EyeBall", "Base_Nose":
 				sp.hframes = 1
@@ -89,12 +92,13 @@ func setup_sprite():
 				ovipositor_changed.connect(func(): _set_frame(sp, ovipositor))
 			"Base_Anus":
 				sp.hframes = 6
-				sp.z_index = -2
+				sp.z_index = 2
 				base_sprites[texture] = sp
 				anus_orifices_size_change.connect(func(): _set_frame(sp, anus_orifices))
 			"Base_Vagina":
 				sp.hframes = 5
 				base_sprites[texture] = sp
+#				sp.z_index = -1
 				vagina_size_change.connect(func(): _set_frame(sp, vagina))
 			"Base_Testicles":
 				sp.hframes = 5
@@ -109,7 +113,7 @@ func setup_sprite():
 				penis_changed.connect(func(): _set_frame(sp, penis_size+penis))
 			"Base_BulgeTarget":
 				sp.hframes = 5
-				sp.z_index = 10
+				sp.z_index = 4
 				base_sprites[texture] = sp
 				penis_size_changed.connect(func(): _set_frame(sp, penis_size%5))
 			_:

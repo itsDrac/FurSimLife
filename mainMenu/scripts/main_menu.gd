@@ -20,16 +20,21 @@ func _ready():
 	settings.pressed.connect(func(): setting_screen.visible=true)
 	new_game.pressed.connect(func(): warning_screen.visible=true)
 	exit.pressed.connect(func(): Utils.quit_game())
-	warning_screen.load_new_player.connect(load_new_player)
+	continue_btn.pressed.connect(handle_savescreen)
+	G.load_player.connect(load_player)
 	check_save()
 
 func check_save():
-	var dir = DirAccess.open(SaveLoadMan.save_path)
-	var saved_files = dir.get_files()
+	var saved_files = SaveLoadMan.save_folder.get_files()
 	if not saved_files.size():
 		continue_btn.disabled = true
-	pass
+		return
+	add_child(SaveLoadMan.load_screen)
+	
 
-func load_new_player():
+func handle_savescreen():
+	SaveLoadMan.load_screen.visible = true
+
+func load_player():
 	loading_screen.load_scene(player_scene_path)
 

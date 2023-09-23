@@ -7,8 +7,6 @@ extends Control
 
 @onready var cross = $PanelContainer/CenterContainer/VBoxContainer/Label/TextureButton
 
-signal load_new_player
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	quit_button.pressed.connect(func(): Utils.quit_game())
@@ -26,4 +24,4 @@ func play_btn_clicked():
 	G.player_name = name
 	G.player_gender = gender
 #	Utils.change_scene(get_parent_control(), player_scene.instantiate())
-	load_new_player.emit()
+	G.load_player.emit()

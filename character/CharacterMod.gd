@@ -11,10 +11,17 @@ var mod_folder_name: StringName # first set the value for the selected mod
 
 
 func _init():
+#	load_config(G.mod_player_selected)
 	super()
 
 	view_changed.connect(change_mod_view)
 	pregnancy_changed.connect(toggle_visible_of_wearable)
+	if tags_updated.is_connected(connect_wearable):
+		tags_updated.disconnect(connect_wearable)
+	tags_updated.connect(connect_wearable)
+
+func connect_wearable():
+	add_loaded_wearable()
 	upper_body_wearable.item_added.connect(func():
 		var added = UPPER_BODY_WEARABLE.find_key(upper_body_wearable.last_added)
 		add_wearable_mod(added)
@@ -55,6 +62,7 @@ func _init():
 		var removed = MAKEUP.find_key(makeup.last_removed)
 		remove_wearable_mod(removed)
 		)
+
 
 ## Returns all the available Mods.
 static func get_mod_list():
@@ -175,8 +183,8 @@ func change_mod_view():
 				if view == VIEW.FRONT: sp.z_index = -4
 				if view == VIEW.BACK: sp.z_index = 8
 				if view == VIEW.SIDE: sp.z_index = 4
-			"Pregbelly":
-				sp.z_index = 1 if view == VIEW.BACK else 1
+#			"Pregbelly":
+#				sp.z_index = 1 if view == VIEW.BACK else 1
 			"Mothkin_Arm", "BRACELET1":
 				sp.z_index = 9 if view == VIEW.SIDE else 3
 			"Underwear", "NIPPLE_PIERCED":
@@ -205,6 +213,7 @@ func change_mod_view():
 				sp.z_index = 4 if view == VIEW.SIDE else 0
 
 func toggle_visible_of_wearable():
+	if not mod_config: return
 	var lower_item = lower_body_wearable.qarray.map(func(x): return LOWER_BODY_WEARABLE.find_key(x))
 	var upper_item = upper_body_wearable.qarray.map(func(x): return UPPER_BODY_WEARABLE.find_key(x))
 	var toggle_item = func(item):
@@ -218,6 +227,24 @@ func toggle_visible_of_wearable():
 		toggle_item.call(item)
 	for item in upper_item:
 		toggle_item.call(item)
+
+func add_loaded_wearable():
+	for wearable in upper_body_wearable.qarray:
+		var added = UPPER_BODY_WEARABLE.find_key(wearable)
+		add_wearable_mod(added)
+	for wearable in lower_body_wearable.qarray:
+		var added = LOWER_BODY_WEARABLE.find_key(wearable)
+		add_wearable_mod(added)
+	toggle_visible_of_lower_genitals()
+	for wearable in piercing.qarray:
+		var added = PIERCING.find_key(wearable)
+		add_wearable_mod(added)
+	for wearable in accessories.qarray:
+		var added = ACCESSORIES.find_key(wearable)
+		add_wearable_mod(added)
+	for wearable in makeup.qarray:
+		var added = MAKEUP.find_key(wearable)
+		add_wearable_mod(added)
 
 func change_zindex(name, zindex):
 	if mod_sprites.has(name):

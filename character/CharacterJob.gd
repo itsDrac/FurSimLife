@@ -117,12 +117,12 @@ var res: CharacterStats
 var job
 func setup_res(stats:CharacterStats):
 	self.res=stats
-	res.role_changed.connect(update_job)
+#	res.role_changed.connect(update_job)
 
-func update_job():
-	job = assign_job()
+#func update_job():
+#	job = assign_job()
 
-func assign_job():
+static func assign_job(res):
 	match res.role:
 		
 		CharacterStats.ROLES.MONARCHY:
@@ -167,8 +167,8 @@ func assign_job():
 			else:
 				return NUN.NUN
 
-func get_job_name() -> StringName:
-	match res.role:
+static func get_job_name(role, job) -> StringName:
+	match role:
 		
 		CharacterStats.ROLES.MONARCHY:
 			return MONARCHY.find_key(job)

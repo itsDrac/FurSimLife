@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3tegcqp7jjpo"]
+
+[ext_resource type="Texture2D" uid="uid://ctrapt7l5qivg" path="res://assests/images/SaveIcon_FutaSil.png" id="1_xka3x"]
+
+[node name="Button" type="Button" groups=["SaveLoadBtn"]]
+custom_minimum_size = Vector2(0, 150)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 136.0
+grow_horizontal = 2
+icon = ExtResource("1_xka3x")
+
+[node name="FN" type="Label" parent="."]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 32.0
+offset_right = 317.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 24
+text = "File Name"
+vertical_alignment = 1
+
+[node name="LM" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -323.0
+offset_top = -37.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+text = "LastModified on 03/09/2023"
+vertical_alignment = 1

@@ -1,9 +1,9 @@
 extends Resource
 class_name QArray
 
-var qarray: Array
-var last_added: Variant
-var last_removed: Variant
+@export var qarray: Array
+@export var last_added: int
+@export var last_removed: int
 
 signal item_added
 signal item_removed

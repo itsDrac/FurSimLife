@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cithh81cex1er"]
+[gd_scene load_steps=3 format=3 uid="uid://cithh81cex1er"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_22bi0"]
 [ext_resource type="Theme" uid="uid://b6obh3b032pk4" path="res://assests/resources/playerTheme.theme" id="1_tt30d"]
-[ext_resource type="PackedScene" uid="uid://clpsmg2b1cq4q" path="res://player/save_screen.tscn" id="3_ht8f3"]
 
 [node name="Player" type="HBoxContainer" node_paths=PackedStringArray("save_screen")]
 anchors_preset = 15
@@ -13,7 +12,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_tt30d")
 script = ExtResource("1_22bi0")
-save_screen = NodePath("SaveScreen")
+save_screen = NodePath("")
 
 [node name="Char" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -41,10 +40,6 @@ toggle_mode = true
 text = "Inventory
 "
 
-[node name="SaveScreen" parent="." instance=ExtResource("3_ht8f3")]
-visible = false
-layout_mode = 2
-
 [node name="Button Debugs" type="GridContainer" parent="."]
 layout_mode = 2
 
@@ -65,7 +60,6 @@ layout_mode = 2
 text = "Load"
 
 [connection signal="item_selected" from="Char/VBC/TeammateOptionButton" to="." method="_on_teammate_option_button_item_selected"]
-[connection signal="toggled" from="Char/SaveToggle" to="." method="_on_save_toggle_toggled"]
 [connection signal="pressed" from="Button Debugs/add" to="." method="_on_add_pressed"]
 [connection signal="pressed" from="Button Debugs/add player" to="." method="_on_add_player_pressed"]
 [connection signal="pressed" from="Button Debugs/Turn" to="." method="_on_turn_pressed"]

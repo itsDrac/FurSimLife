@@ -245,6 +245,8 @@ signal pregbelly_changed
 func _init():
 	super()
 	pregnancy_changed.connect(func (): pregbelly=pregbelly)
+	tags_updated.connect(emit_all)
+#	tags_updated.connect(set_default_wearables)
 
 func _to_string():
 	print(super())
@@ -303,8 +305,7 @@ func add_tags():
 	self.skin_color = SKIN_COLOR.values().pick_random()
 	self.back_hair = BACK_HAIR.values().pick_random()
 	self.front_hair = FRONT_HAIR.values().pick_random()
-	self.upper_body_wearable.append([UPPER_BODY_WEARABLE.IS_BRA,UPPER_BODY_WEARABLE.IS_SHORT_SLEEVE_SHIRT])
-	self.lower_body_wearable.append([LOWER_BODY_WEARABLE.IS_UNDERWEAR,LOWER_BODY_WEARABLE.IS_PANT])
+	
 	tags_updated.emit()
 
 ## This function will run the rules before adding piercing to array.
@@ -374,6 +375,17 @@ func set_pregbelly(val):
 		return PREGBELLY.HAS_PREGBELLY_SIZE0
 	return int(val == PREGBELLY.HAS_PREGBELLY_SIZE0) + val
 
-
 # Signals functions.
 
+func emit_all():
+	butt_size_changed.emit()
+	breast_size_changed.emit()
+	ovipositor_changed.emit()
+	anus_orifices_size_change.emit()
+	vagina_size_change.emit()
+	testicle_size_changed.emit()
+	penis_size_changed.emit()
+	penis_changed.emit()
+	back_hair_changed.emit()
+	front_hair_changed.emit()
+	pregbelly_changed.emit()

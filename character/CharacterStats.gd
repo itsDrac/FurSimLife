@@ -50,6 +50,7 @@ enum NOTI {
 signal stats_genrated
 signal view_changed
 signal role_changed
+signal health_changed
 signal attack_changed
 signal strength_changed
 signal defense_changed
@@ -90,7 +91,11 @@ signal monster_children_changed
 	set(val):
 		role = val
 		role_changed.emit()
-@export var health: int
+@export var health: int :
+	get: return health
+	set(val):
+		health = clamp(val, 0, 100)
+		health_changed.emit()
 @export var attack: int :
 	get: return attack
 	set(val):
@@ -192,7 +197,8 @@ signal monster_children_changed
 	set(val):
 		monster_children = val
 		monster_children_changed.emit()
-@export var job: CharacterJob = CharacterJob.new()
+#@export var job: CharacterJob = CharacterJob.new()
+@export var job: int
 # have to add emit_changed in set function of all variables
 
 func _to_string():
@@ -250,7 +256,7 @@ func _to_string():
 	"eiad": self.eggs_in_ass_duration,
 	"children": self.children,
 	"mchildren": self.monster_children,
-	"job":job.get_job_name(),
+	"job":CharacterJob.get_job_name(self.role, job),
 })
 
 ## Sets random states to Character.
@@ -282,8 +288,9 @@ func genrate_stats(_name: StringName, _gender: GENDER, _type: TYPES = TYPES.NPC)
 	eggs_in_ass_duration = 0
 	children = 0
 	monster_children = 0
-	job.setup_res(self)
-	job.update_job()
+#	job.setup_res(self)
+#	job.update_job()
+	job = CharacterJob.assign_job(self)
 	stats_genrated.emit()
 
 func _set_eggs_in_vagina(val):

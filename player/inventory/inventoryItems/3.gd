@@ -5,7 +5,7 @@ var type = "Item"
 const max_quantity = 99
 var value = 20
 var description = "Add +10 strength temporarily for 10 turns. (Multiple uses do not stack)"
-var current_quantity := 0 :
+@export var current_quantity := 0 :
 	get: return current_quantity
 	set(val): 
 		current_quantity = val if val <= max_quantity else current_quantity
@@ -13,7 +13,7 @@ var current_quantity := 0 :
 
 var valid_turn := 10
 
-var is_equiped : Dictionary
+@export var is_equiped : Dictionary
 
 signal current_quantity_updated
 
@@ -26,24 +26,21 @@ func check_current_quantity():
 		if not is_equiped.size():
 			InvMan.remove_item(InvMan.ITEMS.Minor_Strength_Potion)
 
-func when_equiped(char: Character):
+func when_equiped(res: CharacterMod):
 	if not current_quantity:
-		print_debug("Current Quantity is 0")
 		return
-	if is_equiped.has(char):
-		print_debug(char,"Char already has Strength potion")
+	if is_equiped.has(res):
 		return
-	char.res.strength += 10
-	is_equiped[char] = G.current_turn
+	res.strength += 10
+	is_equiped[res] = G.current_turn
 	current_quantity -= 1
-	print_debug(is_equiped)
 	
 
-func when_unequiped(char: Character):
+func when_unequiped(res: CharacterMod):
 	return
 
 func check_equiped():
-	var remove_char: Array[Character]
+	var remove_char: Array[CharacterMod]
 	for c in is_equiped:
 		if G.current_turn - is_equiped[c] >= valid_turn:
 			remove_char.append(c)

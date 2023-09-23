@@ -27,10 +27,17 @@ static func make_character(_name: StringName, _gender: CharacterStats.GENDER, ty
 	var res = CharacterMod.new()
 	res.genrate_stats(_name, _gender, type)
 	res.load_config(G.mod_player_selected)
-	res.add_base_mod()
 	res.add_tags()
+	res.add_base_mod()
 	return res
 #	character_made.emit()
+
+static func load_character(res):
+	res.load_config(G.mod_player_selected)
+	res.stats_genrated.emit()
+	res.add_base_mod()
+	res.tags_updated.emit()
+#	res.add_loaded_wearable()
 
 func save_data():
 	pass
@@ -57,6 +64,7 @@ func setup_char():
 	character_made.emit()
 
 func connect_char_signal():
+	res.health_changed.connect(_health_bar_update)
 	res.attack_changed.connect(_discription_update_attack)
 	res.strength_changed.connect(_discription_update_strength)
 	res.defense_changed.connect(_discription_update_defense)
@@ -107,6 +115,9 @@ func _add_char_details():
 	_discription_update_role()
 	_discription_update_job()
 
+func _health_bar_update():
+	health_bar.value = res.health
+
 func _discription_update_gender():
 	$SC/Diss/Gender.text = "Gender: %s"%CharacterStats.GENDER.find_key(res.gender)
 
@@ -117,7 +128,7 @@ func _discription_update_role():
 	$SC/Diss/Role.text = "Role: %s"%CharacterStats.ROLES.find_key(res.role)
 
 func _discription_update_job():
-	$SC/Diss/Job.text = "Job: %s"%res.job.get_job_name()
+	$SC/Diss/Job.text = "Job: %s"% CharacterJob.get_job_name(res.role,res.job)#res.job.get_job_name()
 
 func _discription_update_attack():
 	if res.type == CharacterStats.TYPES.NPC and res.relationship_with_player < 40:
@@ -206,43 +217,6 @@ func _discription_update_depositableeggs():
 			return
 		$SC/Diss/DepositableEggs.text = "Depositable Eggs: %s"%res.depositable_eggs
 	$SC/Diss/DepositableEggs.visible = false
-
-#func _discription_update_eggsduration():
-#	if res.eggs_in_ass or res.eggs_in_vagina:
-#		if res.relationship_with_player < 50:
-#			$SC/Diss/EggsDuration.text = "Eggs Duration: ?"
-#			$SC/Diss/EggsDuration/EggsInVagina.visible = false
-#			$SC/Diss/EggsDuration/EggsInAss.visible = false
-#			return
-#		$SC/Diss/EggsDuration.text = "Eggs Duration: %s"%res.eggs_duration
-#		if res.eggs_in_vagina:
-#			$SC/Diss/EggsDuration/EggsInVagina.visible = true
-#			$SC/Diss/EggsDuration/EggsInVagina.text = "Eggs In Vagina"%res.eggs_in_vagina
-#		if res.eggs_in_ass:
-#			$SC/Diss/EggsDuration/EggsInAss.visible = true
-#			$SC/Diss/EggsDuration/EggsInAss.text = "Eggs In Ass"%res.eggs_in_ass
-#		return
-#	$SC/Diss/EggsDuration.visible = false
-#	return
-#	if not res.eggs_duration or res.relationship_with_player < 50:
-#		$SC/Diss/EggsDuration.visible = false
-#		return
-#	$SC/Diss/EggsDuration.visible = true
-#	$SC/Diss/EggsDuration.text = "Eggs Duration: %s"%res.eggs_duration
-#	if res.gender == CharacterStats.GENDER.MALE and not res.eggs_in_vagina:
-#		$SC/Diss/EggsDuration/EggsInVagina.visible = false
-#		$SC/Diss/EggsDuration/EggsInVaginaDuration.visible = false
-#	$SC/Diss/EggsDuration/EggsInVagina.visible = true
-#	$SC/Diss/EggsDuration/EggsInVagina.text = "Eggs In Vagina"%res.eggs_in_vagina
-#	$SC/Diss/EggsDuration/EggsInVaginaDuration.visible = true
-#	$SC/Diss/EggsDuration/EggsInVaginaDuration.text = "Eggs In Vagina Duration"%res.eggs_in_ass_duration
-	
-#	if res.eggs_in_ass:
-#		$SC/Diss/EggsDuration/EggsInAss.visible = true
-#		$SC/Diss/EggsDuration/EggsInAss.text = "Eggs In Ass %s"%res.eggs_in_ass
-#		$SC/Diss/EggsDuration/EggsInAssDuration.visible = true
-#		$SC/Diss/EggsDuration/EggsInAssDuration.text = "Eggs In Ass Duration %s"%res.eggs_in_ass_duration
-#
 
 func _discription_update_eggsduration():
 	if res.type == CharacterStats.TYPES.NPC and res.relationship_with_player < 50:

@@ -13,6 +13,8 @@ signal unequiped
 func _ready():
 	equiped.connect(when_equiped)
 	unequiped.connect(when_unequiped)
+	ready.connect(when_ready)
+	res.current_quantity_updated.connect(update_amount)
 #	print_debug(theme.has_stylebox("panel","styleboxflat"))
 #	var selected_theme: Theme = Theme.new()
 #	selected_theme.set_stylebox("Panel","StyleBoxFlat", theme_select)
@@ -25,23 +27,25 @@ func _effect():
 func _attributes():
 	pass
 
-## Load item in inventory by using number for ITEMS enum
-func update_item(which: InvMan.ITEMS):
-	res = load("res://player/inventory/inventoryItems/%s.gd"%which).new()
+func when_ready():
+	if not res: return
 	item_label.text = res.name
 	type_label.text = str(res.type)
 	value_label.text = str(res.value)
-	res.current_quantity_updated.connect(update_amount)
-	res.current_quantity += 1
+
+
+func get_item_res(which: InvMan.ITEMS):
+	return load("res://player/inventory/inventoryItems/%s.gd"%which).new()
+
 
 func update_amount():
 	amount.text = str(res.current_quantity)
 
-func when_equiped():
-	res.when_equiped(G.current_char)
+func when_equiped(to=G.current_char.res):
+	res.when_equiped(to)
 
-func when_unequiped():
-	res.when_unequiped(G.current_char)
+func when_unequiped(to=G.current_char.res):
+	res.when_unequiped(to)
 
 ## Check if item is equipped of unequipped on left click and right click of mouse
 func _on_gui_input(event):

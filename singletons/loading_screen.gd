@@ -17,7 +17,6 @@ func _process(delta):
 		return
 	scene_load_status = ResourceLoader.load_threaded_get_status(scene_name,progress)
 	progress_bar.value = progress[0]*100
-	print_debug(progress_bar.value)
 	if scene_load_status == ResourceLoader.THREAD_LOAD_LOADED:
 		var new_scene = ResourceLoader.load_threaded_get(scene_name)
 		_loading = false 

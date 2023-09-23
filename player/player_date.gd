@@ -1,10 +1,11 @@
 class_name PlayerData
 extends Resource
 
-const save_file = "Playerdata.tres"
-const save_path = "res://tmp/"
-
 @export var team: Array[CharacterMod]
-@export var test := 0
-@export var ch: Character
 
+func _init():
+	SaveLoadMan.save_game.connect(_on_player_save)
+	
+
+func _on_player_save(res):
+	pass
