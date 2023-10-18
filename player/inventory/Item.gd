@@ -15,11 +15,6 @@ func _ready():
 	unequiped.connect(when_unequiped)
 	ready.connect(when_ready)
 	res.current_quantity_updated.connect(update_amount)
-#	print_debug(theme.has_stylebox("panel","styleboxflat"))
-#	var selected_theme: Theme = Theme.new()
-#	selected_theme.set_stylebox("Panel","StyleBoxFlat", theme_select)
-#	self.theme = selected_theme
-#	print_debug(self.theme_override_style.panel)
 
 func _effect():
 	pass

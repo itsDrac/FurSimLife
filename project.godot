@@ -22,6 +22,7 @@ Utils="*res://singletons/utils.gd"
 G="*res://singletons/Global.gd"
 InvMan="*res://singletons/Inventory_manager.gd"
 SaveLoadMan="*res://singletons/SaveLoad_Manager.gd"
+EventManager="*res://events/EventManager.gd"
 
 [display]
 

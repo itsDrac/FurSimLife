@@ -5,7 +5,7 @@ var type = "Item"
 const max_quantity = 99
 var value = 20
 var description = "Add +10 strength temporarily for 10 turns. (Multiple uses do not stack)"
-@export var current_quantity := 0 :
+@export var current_quantity := 2 :
 	get: return current_quantity
 	set(val): 
 		current_quantity = val if val <= max_quantity else current_quantity
@@ -49,6 +49,6 @@ func check_equiped():
 		return
 	
 	for rc in remove_char:
-		rc.res.strength -= 10
+		rc.strength -= 10
 		is_equiped.erase(rc)
 		check_current_quantity()

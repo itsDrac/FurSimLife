@@ -1,0 +1,121 @@
+[gd_resource type="Resource" script_class="SaveRes" load_steps=18 format=3]
+
+[ext_resource type="Script" path="res://singletons/QArray.gd" id="1_2xt46"]
+[ext_resource type="Script" path="res://character/CharacterMod.gd" id="2_kn4f7"]
+[ext_resource type="Script" path="res://player/inventory/inventoryItems/13.gd" id="3_im8jb"]
+[ext_resource type="Script" path="res://player/inventory/inventoryItems/14.gd" id="4_7cmv6"]
+[ext_resource type="Script" path="res://player/inventory/inventoryItems/15.gd" id="5_gsdnk"]
+[ext_resource type="Script" path="res://player/inventory/inventoryItems/16.gd" id="6_bk4a0"]
+[ext_resource type="Script" path="res://SaveGame/SaveResource.gd" id="7_gt122"]
+
+[sub_resource type="Resource" id="Resource_t524k"]
+script = ExtResource("1_2xt46")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_7omd0"]
+script = ExtResource("1_2xt46")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_veb1o"]
+script = ExtResource("1_2xt46")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_28jcm"]
+script = ExtResource("1_2xt46")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_0wxc1"]
+script = ExtResource("1_2xt46")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_qmiuy"]
+script = ExtResource("2_kn4f7")
+butt_size = 0
+breast_size = 0
+penis = 0
+penis_size = 7
+vagina = 0
+ovipositor = 0
+testicle_size = 4
+anus_orifices = 0
+pregbelly = 0
+age = 1
+skin_color = 0
+back_hair = 1
+front_hair = 0
+piercing = SubResource("Resource_28jcm")
+upper_body_wearable = SubResource("Resource_0wxc1")
+lower_body_wearable = SubResource("Resource_7omd0")
+accessories = SubResource("Resource_t524k")
+makeup = SubResource("Resource_veb1o")
+view = 0
+name = &"Drac"
+type = 0
+race = 1
+gender = 6
+role = 10
+health = 80
+attack = 3
+strength = 2
+defense = 5
+agility = 5
+intelligence = 5
+magic_power = 1
+role_reputation = 63
+fertility = 0.28
+virility = 0.0
+pregnancy = false
+pregnancy_duration = 0
+relationship_with_player = 0
+depositable_eggs = 0
+eggs_in_vagina = 0
+eggs_in_vagina_duration = 0
+eggs_in_ass = 0
+eggs_in_ass_duration = 0
+children = 0
+monster_children = 0
+job = 4
+
+[sub_resource type="Resource" id="Resource_avis5"]
+script = ExtResource("3_im8jb")
+current_quantity = 2
+is_equiped = {}
+
+[sub_resource type="Resource" id="Resource_veeup"]
+script = ExtResource("4_7cmv6")
+current_quantity = 2
+is_equiped = {}
+
+[sub_resource type="Resource" id="Resource_ewckk"]
+script = ExtResource("5_gsdnk")
+current_quantity = 2
+is_equiped = {}
+
+[sub_resource type="Resource" id="Resource_87v6o"]
+script = ExtResource("6_bk4a0")
+current_quantity = 2
+is_equiped = {}
+
+[resource]
+script = ExtResource("7_gt122")
+G_player_name = &"Drac"
+G_player_gender = 6
+G_current_turn = 0
+name = &""
+G_team = Array[ExtResource("2_kn4f7")]([SubResource("Resource_qmiuy")])
+inventory_items = {
+13: SubResource("Resource_avis5"),
+14: SubResource("Resource_veeup"),
+15: SubResource("Resource_ewckk"),
+16: SubResource("Resource_87v6o")
+}

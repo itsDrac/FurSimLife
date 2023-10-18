@@ -30,7 +30,6 @@ func _ready():
 	inventory = inventory_scene.instantiate()
 	inventory.visible = false
 	SaveLoadMan.save_game.connect(save_inv)
-#	SaveLoadMan.load_game.connect(load_inv)
 
 func add_item(what: ITEMS):
 	if added_items.has(what):
