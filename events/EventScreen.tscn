@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1f58iko8b6wr"]
+
+[ext_resource type="Script" path="res://events/EventScreen.gd" id="1_ek4np"]
+[ext_resource type="PackedScene" uid="uid://cithh81cex1er" path="res://player/Player.tscn" id="2_2oh3p"]
+[ext_resource type="PackedScene" uid="uid://bsajvehwte3td" path="res://events/events/TravelEvents/world_travel.tscn" id="2_yfppe"]
+[ext_resource type="Script" path="res://events/Sections.gd" id="3_b2i5c"]
+
+[node name="EventScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ek4np")
+current_event = ExtResource("2_yfppe")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sections" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_b2i5c")
+
+[node name="Player" parent="Sections" instance=ExtResource("2_2oh3p")]
+layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="ContentScreen" type="PanelContainer" parent="Sections"]
+layout_mode = 2
+size_flags_horizontal = 3

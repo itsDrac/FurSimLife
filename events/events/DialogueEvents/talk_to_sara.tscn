@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdc4483ty1srp"]
+
+[ext_resource type="Script" path="res://events/events/DialogueEvents/talk_to_sara.gd" id="1_fuku1"]
+[ext_resource type="Texture2D" uid="uid://dcnqc62h5xyct" path="res://events/assests/images/MeetingSaraEvent.png" id="1_u7oh0"]
+[ext_resource type="PackedScene" uid="uid://kaggm2d6vugo" path="res://character/Character.tscn" id="3_ugdlq"]
+
+[node name="Sara" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fuku1")
+
+[node name="VBC" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBC" type="HBoxContainer" parent="VBC"]
+layout_mode = 2
+
+[node name="PC" type="PanelContainer" parent="VBC/HBC"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Desc" type="RichTextLabel" parent="VBC/HBC/PC"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Dialogue Events consists of a scrollable text field for players to read text. The text may include in-game images. The in game text coding will be used in the dialogue. If there is a named NPC or non named NPC the player is interacting with, their character viewer will appear on the other side from the player’s with information about their stats, tags, and items equipped. Just like with the player’s party members, certain NPC stats are not known unless a player character has a good relationship with them. In most hostile interactions, the player will not know certain stats of the enemy NPC or monster. 
+
+Dialogue events will have 1 to 8 decision buttons. These decision buttons can lead to Quest Events, Battle Events, Sex Events, or to another Dialogue event. Most events will use certain aspects of the Dialogue Event as a base. 
+
+Dialogue events heavily rely on Decision Buttons and their functionality. There can be very simple Dialogue events where the player only clicks on one decision button to end the event which could be used for simple descriptions of things or places. Then some Dialogue events can have 8 decision buttons, with 7 having some sort of requirement that the player must meet and each having their own unique code function.
+"
+
+[node name="TextureRect" type="TextureRect" parent="VBC/HBC"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+texture = ExtResource("1_u7oh0")
+
+[node name="HBC2" type="HBoxContainer" parent="VBC"]
+layout_mode = 2
+
+[node name="GC" type="GridContainer" parent="VBC/HBC2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 3
+
+[node name="Option1" type="Button" parent="VBC/HBC2/GC"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 1"
+
+[node name="Option2" type="Button" parent="VBC/HBC2/GC"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 2"
+
+[node name="Option3" type="Button" parent="VBC/HBC2/GC"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 3"
+
+[node name="Option4" type="Button" parent="VBC/HBC2/GC"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 4"
+
+[node name="GC3" type="GridContainer" parent="VBC/HBC2"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 3
+
+[node name="Option1" type="Button" parent="VBC/HBC2/GC3"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 1"
+
+[node name="Option2" type="Button" parent="VBC/HBC2/GC3"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 2"
+
+[node name="Option3" type="Button" parent="VBC/HBC2/GC3"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 3"
+
+[node name="Option4" type="Button" parent="VBC/HBC2/GC3"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Option 4"
+
+[node name="Desc" type="RichTextLabel" parent="VBC/HBC2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Character" parent="." instance=ExtResource("3_ugdlq")]
+layout_mode = 2
+
+[connection signal="mouse_entered" from="VBC/HBC2/GC/Option1" to="." method="_on_option_1_mouse_entered"]
+[connection signal="mouse_entered" from="VBC/HBC2/GC/Option2" to="." method="_on_option_2_mouse_entered"]
+[connection signal="mouse_entered" from="VBC/HBC2/GC/Option3" to="." method="_on_option_3_mouse_entered"]
+[connection signal="pressed" from="VBC/HBC2/GC/Option3" to="." method="_on_option_3_pressed"]
+[connection signal="mouse_entered" from="VBC/HBC2/GC/Option4" to="." method="_on_option_4_mouse_entered"]
+[connection signal="mouse_entered" from="VBC/HBC2/GC3/Option1" to="." method="_on_GC3_option_1_mouse_entered"]
+[connection signal="mouse_entered" from="VBC/HBC2/GC3/Option2" to="." method="_on_GC3_option_2_mouse_entered"]
+[connection signal="mouse_entered" from="VBC/HBC2/GC3/Option3" to="." method="_on_GC3_option_3_mouse_entered"]
+[connection signal="mouse_entered" from="VBC/HBC2/GC3/Option4" to="." method="_on_GC3_option_4_mouse_entered"]

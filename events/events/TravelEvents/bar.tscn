@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwdpoqk8fth4i"]
+
+[ext_resource type="Script" path="res://events/events/TravelEvents/bar.gd" id="1_8s5fq"]
+
+[node name="Bar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8s5fq")
+
+[node name="Base" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Base"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="Base/CenterContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Talk" type="Button" parent="Base/CenterContainer/GridContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Talk To Sara"
+
+[node name="Back" type="Button" parent="Base/CenterContainer/GridContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Wold Map"
+
+[connection signal="pressed" from="Base/CenterContainer/GridContainer/Talk" to="." method="_on_talk_pressed"]
+[connection signal="pressed" from="Base/CenterContainer/GridContainer/Back" to="." method="_on_back_pressed"]
