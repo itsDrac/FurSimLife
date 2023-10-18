@@ -4,22 +4,15 @@ class_name Character extends Control
 @onready var char_name = $CharName
 @onready var view_option:OptionButton = $HBoxContainer/ViewOption
 @onready var health_bar = $HBoxContainer/HealthBar
+@export var res: CharacterMod = null
 
 signal character_made
-
-@export var res: CharacterMod = null
-#var char_node: Control = null
 
 func _ready():
 	character_made.connect(_add_char_details)
 	view_option.item_selected.connect(func(index:int): res.view = index)
-#	view_option.add_item("Front")
-#	view_option.add_item("Side")
-#	view_option.add_item("Back")
 	health_bar.value_changed.connect(func(val): res.health = val)
 	
-	# Remove this line after debug
-#	make_character("Drac", CharacterStats.GENDER.FEMALE, CharacterStats.TYPES.PLAYER)
 
 ## create and add character sprite in node.
 ## `Note:` Make sure to run this function after instance is added to scene try

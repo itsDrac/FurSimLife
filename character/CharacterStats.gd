@@ -42,8 +42,20 @@ enum ROLES {
 	NUN 
 }
 
-enum NOTI {
-	PREGNANCY_CHANGED = 0
+enum SEXORI {
+	VIRGIN,
+	PENISVIRGIN,
+	ANALVIRGIN,
+	STRAIGHT,
+	GAY,
+	LESBIAN,
+	BI,
+	DOMINATE,
+	SUBMISSIVE,
+	SWITCH,
+	SLUT,
+	BUTTSLUT,
+	BITCH
 }
 
 
@@ -199,6 +211,10 @@ signal monster_children_changed
 		monster_children_changed.emit()
 #@export var job: CharacterJob = CharacterJob.new()
 @export var job: int
+@export var sex_ori: SEXORI :
+	get: return sex_ori
+	set(val): sex_ori = _set_sex_ori(val)
+@export var sex_tag: CharacterSex = CharacterSex.new()
 # have to add emit_changed in set function of all variables
 
 func _to_string():
@@ -229,6 +245,8 @@ func _to_string():
 	Children: {children}
 	Monster children: {mchildren}
 	Job: {job}
+	Sex Ori: {sex_ori}
+	Sex Tag: {sex_tag}
 }".format({
 	"name": self.name,
 	"type": TYPES.find_key(self.type),
@@ -257,6 +275,8 @@ func _to_string():
 	"children": self.children,
 	"mchildren": self.monster_children,
 	"job":CharacterJob.get_job_name(self.role, job),
+	"sex_ori": SEXORI.find_key(self.sex_ori),
+	"sex_tag": sex_tag._to_string()
 })
 
 ## Sets random states to Character.
@@ -288,9 +308,11 @@ func genrate_stats(_name: StringName, _gender: GENDER, _type: TYPES = TYPES.NPC)
 	eggs_in_ass_duration = 0
 	children = 0
 	monster_children = 0
+	sex_ori = SEXORI.GAY#SEXORI.STRAIGHT if type == TYPES.PLAYER else SEXORI.values().pick_random()
 #	job.setup_res(self)
 #	job.update_job()
 	job = CharacterJob.assign_job(self)
+	sex_tag.set_default(self)
 	stats_genrated.emit()
 
 func _set_eggs_in_vagina(val):
@@ -307,3 +329,14 @@ func _set_eggs_in_ass_duration(val):
 	if self.eggs_in_ass:
 		return val
 	return 0
+
+func _set_sex_ori(val):
+	match val:
+		SEXORI.GAY: 
+			return SEXORI.GAY if gender == GENDER.MALE else SEXORI.STRAIGHT
+		SEXORI.LESBIAN:
+			return SEXORI.LESBIAN if \
+			(gender == GENDER.FEMALE or gender == GENDER.FUTA) \
+			else SEXORI.STRAIGHT
+		_:
+			return val

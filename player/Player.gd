@@ -16,12 +16,10 @@ signal char_added_in_team(ply: Character)
 func _ready():
 	ready.connect(when_ready)
 	char_added_in_team.connect(_add_char_in_dropdown)
-#	_on_add_teamate()
-#	teammate_option_button.item_selected.emit(0)
 	add_child(InvMan.inventory)
 	add_child(SaveLoadMan.save_screen)
-	inventory_toggle.toggled.connect(func(val): InvMan.inventory.visible = val)
-	save_toggle.toggled.connect(func(val): SaveLoadMan.save_screen.visible = val)
+	inventory_toggle.toggled.connect(toggle_inventory)
+	save_toggle.toggled.connect(toggle_savescreen)
 	SaveLoadMan.save_screen.visibility_changed.connect(func():
 		if not SaveLoadMan.save_screen.visible: save_toggle.button_pressed = false)
 
@@ -34,8 +32,6 @@ func when_ready():
 		InvMan.add_item(InvMan.ITEMS.Pants)
 	else:
 		for res in G.team:
-			print_debug(res.upper_body_wearable)
-			print_debug(res.lower_body_wearable)
 			Character.load_character(res)
 			_add_char_in_dropdown(res)
 		InvMan.load_inv(SaveLoadMan.load_res)
@@ -56,10 +52,6 @@ func _on_add_teamate(name = G.player_name, gender = G.player_gender):
 	if team.size()>3:
 		return
 	var new_res: CharacterMod = Character.make_character(name,gender, CharacterStats.TYPES.PLAYER)
-#	vbc.add_child(new_char)
-#	new_char.make_character(name,gender, CharacterStats.TYPES.PLAYER)
-#	new_char.visible = false
-#	team[team.size()] = new_char
 	G.team.append(new_res) # Player Data adding char
 	
 	char_added_in_team.emit(new_res)
@@ -70,18 +62,15 @@ func _on_teammate_option_button_item_selected(index):
 	team[index].visible = true
 	G.current_char = team[index]
 
-#func _on_save_pressed():
-##	SaveLoadMan.save_game.emit()
-#	data.test = 10
-#	print_debug(data.team[0].name)
-##	data.ch = team[0].duplicate()
-#	SaveLoadMan._on_player_save(data)
-##	PlayerData.save_player_data(data)
+func toggle_inventory(show: bool):
+	if show:
+		save_toggle.button_pressed = false
+	InvMan.inventory.visible = show
 
-#func _on_save_toggle_toggled(button_pressed):
-#	save_screen.visible = button_pressed
-	
-
+func toggle_savescreen(show: bool):
+	if show:
+		inventory_toggle.button_pressed = false
+	SaveLoadMan.save_screen.visible = show
 
 ## Debuging code
 

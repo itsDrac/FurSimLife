@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://kaggm2d6vugo"]
+[gd_scene load_steps=5 format=3 uid="uid://kaggm2d6vugo"]
 
 [ext_resource type="Script" path="res://character/Character.gd" id="1_r1wno"]
 [ext_resource type="LabelSettings" uid="uid://bp7b6044dtcs" path="res://assests/resources/headingLabel.res" id="2_jj6g3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xesgg"]
 bg_color = Color(0.262745, 0.709804, 0.356863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x8ywt"]
+bg_color = Color(0.270588, 0.270588, 0.270588, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 
 [node name="Character" type="VBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
@@ -51,6 +58,7 @@ label_settings = ExtResource("2_jj6g3")
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_x8ywt")
 horizontal_scroll_mode = 0
 
 [node name="Diss" type="VBoxContainer" parent="SC"]
@@ -59,6 +67,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Gender" type="Label" parent="SC/Diss"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 horizontal_alignment = 1
 

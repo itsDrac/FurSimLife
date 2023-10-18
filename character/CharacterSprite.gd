@@ -148,9 +148,9 @@ func update_view():
 			"Base_Ear":
 				sp.z_index = 2 if view == VIEW.SIDE else -1
 			"Base_Penis":
-				sp.z_index = 2 if view == VIEW.FRONT else 1
+				sp.z_index = 2 if view == VIEW.FRONT else -1
 			"Base_Testicles":
-				sp.z_index = 1 if view == VIEW.FRONT else 2
+				sp.z_index = 1 if view == VIEW.FRONT else -2
 			"Base_BulgeTarget":
 				sp.z_index = 1 if view == VIEW.FRONT else -1
 		
