@@ -1,43 +1,43 @@
 extends Resource
 class_name CharacterSex
-
-@export var blowjob_giver: =0
+## Updated for Sara stats default vaule for all was 0
+@export var blowjob_giver: = 14
 @export var blowjob_receiver: =0
-@export var handjob_giver: =0
+@export var handjob_giver: = 20
 @export var handjob_receiver: =0
-@export var cunnilingus_giver: =0
-@export var cunnilingus_receiver: =0
-@export var rimjob_giver: =0
-@export var rimjob_receiver: =0
-@export var fingering_vagina_giver: =0
-@export var fingering_vagina_receiver: =0
-@export var fingering_anus_giver: =0
-@export var fingering_anus_receiver: =0
-@export var boobjob_giver: =0
-@export var boobjob_receiver: =0
+@export var cunnilingus_giver: = 10
+@export var cunnilingus_receiver: = 20
+@export var rimjob_giver: = 7
+@export var rimjob_receiver: = 8
+@export var fingering_vagina_giver: = 12
+@export var fingering_vagina_receiver: = 26
+@export var fingering_anus_giver: = 6
+@export var fingering_anus_receiver: = 14
+@export var boobjob_giver: = 9
+@export var boobjob_receiver: = 0
 @export var vaginal_giver: =0
-@export var vaginal_receiver: =0
+@export var vaginal_receiver: = 9
 @export var anal_giver: =0
-@export var anal_receiver: =0
-@export var tribbing_giver: =0
-@export var tribbing_receiver: =0
-@export var been_raped: =0
+@export var anal_receiver: = 6
+@export var tribbing_giver: = 5
+@export var tribbing_receiver: = 5
+@export var been_raped: = 1
 @export var have_raped: =0
 @export var tailjob_giver: =0
 @export var tailjob_receiver: =0
 @export var ovipositor_giver: =0
 @export var ovipositor_receiver: =0
-@export var domination: =0:
+@export var domination: = 30:
 	get: return domination
 	set(val):
 		domination = val
 		domination_changed.emit()
-@export var submissive: =0:
+@export var submissive: = 30 :
 	get: return submissive
 	set(val):
 		submissive = val
 		submissive_changed.emit()
-@export var lesbian: =0:
+@export var lesbian: = 25:
 	get: return lesbian
 	set(val):
 		lesbian = val
@@ -52,8 +52,8 @@ class_name CharacterSex
 	set(val):
 		bi = val
 		bi_changed.emit()
-@export var femdom_giver: =0
-@export var femdom_receiver: =0
+@export var femdom_giver: = 1
+@export var femdom_receiver: = 2
 
 signal gay_changed
 signal lesbian_changed

@@ -66,6 +66,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="HSeparator" type="HSeparator" parent="SC/Diss"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
 [node name="Gender" type="Label" parent="SC/Diss"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2

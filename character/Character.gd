@@ -12,6 +12,8 @@ func _ready():
 	character_made.connect(_add_char_details)
 	view_option.item_selected.connect(func(index:int): res.view = index)
 	health_bar.value_changed.connect(func(val): res.health = val)
+	if res:
+		load_character(res)
 	
 
 ## create and add character sprite in node.

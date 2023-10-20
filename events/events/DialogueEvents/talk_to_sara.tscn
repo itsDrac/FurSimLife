@@ -1,8 +1,127 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdc4483ty1srp"]
+[gd_scene load_steps=14 format=3 uid="uid://cdc4483ty1srp"]
 
 [ext_resource type="Script" path="res://events/events/DialogueEvents/talk_to_sara.gd" id="1_fuku1"]
 [ext_resource type="Texture2D" uid="uid://dcnqc62h5xyct" path="res://events/assests/images/MeetingSaraEvent.png" id="1_u7oh0"]
+[ext_resource type="Script" path="res://singletons/QArray.gd" id="3_6r5d3"]
 [ext_resource type="PackedScene" uid="uid://kaggm2d6vugo" path="res://character/Character.tscn" id="3_ugdlq"]
+[ext_resource type="Script" path="res://character/CharacterMod.gd" id="4_8cqrg"]
+[ext_resource type="Script" path="res://character/CharacterSex.gd" id="5_ksqqt"]
+
+[sub_resource type="Resource" id="Resource_5bsod"]
+script = ExtResource("3_6r5d3")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_i5vy7"]
+script = ExtResource("3_6r5d3")
+qarray = [0, 1]
+last_added = 1
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_5kcyq"]
+script = ExtResource("3_6r5d3")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_ao2ok"]
+script = ExtResource("3_6r5d3")
+qarray = [1]
+last_added = 1
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_6lj6c"]
+script = ExtResource("5_ksqqt")
+blowjob_giver = 14
+blowjob_receiver = 0
+handjob_giver = 20
+handjob_receiver = 0
+cunnilingus_giver = 10
+cunnilingus_receiver = 20
+rimjob_giver = 7
+rimjob_receiver = 8
+fingering_vagina_giver = 12
+fingering_vagina_receiver = 26
+fingering_anus_giver = 6
+fingering_anus_receiver = 14
+boobjob_giver = 9
+boobjob_receiver = 0
+vaginal_giver = 0
+vaginal_receiver = 9
+anal_giver = 0
+anal_receiver = 6
+tribbing_giver = 5
+tribbing_receiver = 5
+been_raped = 1
+have_raped = 0
+tailjob_giver = 0
+tailjob_receiver = 0
+ovipositor_giver = 0
+ovipositor_receiver = 0
+domination = 30
+submissive = 30
+lesbian = 25
+gay = 0
+bi = 0
+femdom_giver = 1
+femdom_receiver = 2
+
+[sub_resource type="Resource" id="Resource_r8dvn"]
+script = ExtResource("3_6r5d3")
+qarray = [0, 3]
+last_added = 3
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_fygx4"]
+script = ExtResource("4_8cqrg")
+butt_size = 0
+breast_size = 0
+penis = 0
+penis_size = 0
+vagina = 0
+ovipositor = 0
+testicle_size = 0
+anus_orifices = 0
+pregbelly = 0
+age = 0
+skin_color = 0
+back_hair = 0
+front_hair = 0
+piercing = SubResource("Resource_ao2ok")
+upper_body_wearable = SubResource("Resource_r8dvn")
+lower_body_wearable = SubResource("Resource_i5vy7")
+accessories = SubResource("Resource_5bsod")
+makeup = SubResource("Resource_5kcyq")
+view = 0
+name = &"Sara"
+type = 1
+race = 2
+gender = 0
+role = 4
+health = 100
+attack = 7
+strength = 4
+defense = 2
+agility = 6
+intelligence = 6
+magic_power = 1
+role_reputation = 75
+fertility = 0.5
+virility = 0.0
+pregnancy = false
+pregnancy_duration = 0
+relationship_with_player = 0
+depositable_eggs = 0
+eggs_in_vagina = 0
+eggs_in_vagina_duration = 0
+eggs_in_ass = 0
+eggs_in_ass_duration = 0
+children = 0
+monster_children = 0
+job = 3
+sex_ori = 3
+sex_tag = SubResource("Resource_6lj6c")
 
 [node name="Sara" type="HBoxContainer"]
 anchors_preset = 15
@@ -11,6 +130,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fuku1")
+char_scene = ExtResource("3_ugdlq")
+res = SubResource("Resource_fygx4")
 
 [node name="VBC" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -24,7 +145,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Desc" type="RichTextLabel" parent="VBC/HBC/PC"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_vertical = 3
 text = "Dialogue Events consists of a scrollable text field for players to read text. The text may include in-game images. The in game text coding will be used in the dialogue. If there is a named NPC or non named NPC the player is interacting with, their character viewer will appear on the other side from the player’s with information about their stats, tags, and items equipped. Just like with the player’s party members, certain NPC stats are not known unless a player character has a good relationship with them. In most hostile interactions, the player will not know certain stats of the enemy NPC or monster. 
@@ -35,7 +156,7 @@ Dialogue events heavily rely on Decision Buttons and their functionality. There 
 "
 
 [node name="TextureRect" type="TextureRect" parent="VBC/HBC"]
-custom_minimum_size = Vector2(500, 500)
+custom_minimum_size = Vector2(400, 500)
 layout_mode = 2
 texture = ExtResource("1_u7oh0")
 
@@ -48,28 +169,28 @@ custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
-columns = 3
+columns = 2
 
 [node name="Option1" type="Button" parent="VBC/HBC2/GC"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 1"
 
 [node name="Option2" type="Button" parent="VBC/HBC2/GC"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 2"
 
 [node name="Option3" type="Button" parent="VBC/HBC2/GC"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 3"
 
 [node name="Option4" type="Button" parent="VBC/HBC2/GC"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 4"
@@ -81,28 +202,28 @@ custom_minimum_size = Vector2(0, 500)
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
-columns = 3
+columns = 2
 
 [node name="Option1" type="Button" parent="VBC/HBC2/GC3"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 1"
 
 [node name="Option2" type="Button" parent="VBC/HBC2/GC3"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 2"
 
 [node name="Option3" type="Button" parent="VBC/HBC2/GC3"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 3"
 
 [node name="Option4" type="Button" parent="VBC/HBC2/GC3"]
-custom_minimum_size = Vector2(300, 100)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Option 4"
@@ -110,9 +231,6 @@ text = "Option 4"
 [node name="Desc" type="RichTextLabel" parent="VBC/HBC2"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Character" parent="." instance=ExtResource("3_ugdlq")]
-layout_mode = 2
 
 [connection signal="mouse_entered" from="VBC/HBC2/GC/Option1" to="." method="_on_option_1_mouse_entered"]
 [connection signal="mouse_entered" from="VBC/HBC2/GC/Option2" to="." method="_on_option_2_mouse_entered"]

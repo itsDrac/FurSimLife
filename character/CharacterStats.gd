@@ -31,7 +31,7 @@ enum ROLES {
 	BARNO,
 	MERCHANT,
 	VILLAGER,
-	ADVENTUER,
+	ADVENTURER,
 	TOWN_GUARD,
 	CRIMINAL,
 	ACADEMY_STUDENT,
@@ -280,11 +280,12 @@ func _to_string():
 })
 
 ## Sets random states to Character.
+
 func genrate_stats(_name: StringName, _gender: GENDER, _type: TYPES = TYPES.NPC):
 	name = _name
 	type = _type
 	view = VIEW.FRONT
-	race = RACE.FOXKIN#randi_range(RACE.HUMAN, RACE.MOTHKIN)
+	race = randi_range(RACE.HUMAN, RACE.MOTHKIN)
 	gender = _gender
 	role = randi_range(ROLES.MONARCHY,ROLES.NUN if gender == GENDER.FEMALE else ROLES.KNIGHT)
 	health = randi_range(45, 100) if type == TYPES.NPC else 80
@@ -301,16 +302,13 @@ func genrate_stats(_name: StringName, _gender: GENDER, _type: TYPES = TYPES.NPC)
 	pregnancy_duration = 0
 	relationship_with_player = 40
 	depositable_eggs = randi_range(0,5)
-#	eggs_duration = 0
 	eggs_in_vagina = 0
 	eggs_in_vagina_duration = 0
 	eggs_in_ass = 0
 	eggs_in_ass_duration = 0
 	children = 0
 	monster_children = 0
-	sex_ori = SEXORI.GAY#SEXORI.STRAIGHT if type == TYPES.PLAYER else SEXORI.values().pick_random()
-#	job.setup_res(self)
-#	job.update_job()
+	sex_ori = SEXORI.STRAIGHT if type == TYPES.PLAYER else SEXORI.values().pick_random()
 	job = CharacterJob.assign_job(self)
 	sex_tag.set_default(self)
 	stats_genrated.emit()

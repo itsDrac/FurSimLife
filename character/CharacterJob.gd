@@ -50,10 +50,11 @@ enum VILLAGER {
 	MINER
 
 }
-enum ADVENTUER {
+enum ADVENTURER {
 	KNIGHT,
 	MAGE,
 	ARCHER,
+	ASSASSIN, ## TODO: Add ASSASSIN in role assgine.
 	HEALER,
 	HERO,
 	SAINT,
@@ -144,11 +145,11 @@ static func assign_job(res):
 			return MERCHANT.values().pick_random()
 		CharacterStats.ROLES.VILLAGER:
 			return VILLAGER.values().pick_random()
-		CharacterStats.ROLES.ADVENTUER:
+		CharacterStats.ROLES.ADVENTURER:
 			if res.gender == CharacterStats.GENDER.MALE:
-				return randi_range(ADVENTUER.KNIGHT, ADVENTUER.SAINT)
+				return randi_range(ADVENTURER.KNIGHT, ADVENTURER.SAINT)
 			else:
-				return [ADVENTUER.ARCHER, ADVENTUER.HEALER, ADVENTUER.HEROINE, ADVENTUER.KNIGHT, ADVENTUER.MAGE, ADVENTUER.SAINTESS].pick_random()
+				return [ADVENTURER.ARCHER, ADVENTURER.HEALER, ADVENTURER.HEROINE, ADVENTURER.KNIGHT, ADVENTURER.MAGE, ADVENTURER.SAINTESS].pick_random()
 		CharacterStats.ROLES.TOWN_GUARD:
 			return TOWN_GUARD.values().pick_random()
 		CharacterStats.ROLES.CRIMINAL:
@@ -180,8 +181,8 @@ static func get_job_name(role, job) -> StringName:
 			return MERCHANT.find_key(job)
 		CharacterStats.ROLES.VILLAGER:
 			return VILLAGER.find_key(job)
-		CharacterStats.ROLES.ADVENTUER:
-			return ADVENTUER.find_key(job)
+		CharacterStats.ROLES.ADVENTURER:
+			return ADVENTURER.find_key(job)
 		CharacterStats.ROLES.TOWN_GUARD:
 			return TOWN_GUARD.find_key(job)
 		CharacterStats.ROLES.ACADEMY_STUDENT:

@@ -306,7 +306,7 @@ func add_tags():
 	self.back_hair = BACK_HAIR.values().pick_random()
 	self.front_hair = FRONT_HAIR.values().pick_random()
 	
-	tags_updated.emit()
+#	tags_updated.emit()
 
 ## This function will run the rules before adding piercing to array.
 func add_piercing(pie: PIERCING):

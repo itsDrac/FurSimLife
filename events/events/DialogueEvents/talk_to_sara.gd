@@ -8,6 +8,8 @@ extends HBoxContainer
 @onready var option_3 = $VBC/HBC2/GC/Option3
 @onready var option_4 = $VBC/HBC2/GC/Option4
 
+@export var char_scene:PackedScene 
+@export var res: CharacterStats
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +18,8 @@ func _ready():
 	G.current_player_changed.connect(func(): 
 		check_option1(G.current_char.res)
 		check_option3(G.current_char.res))
+	
+	_load_sara_char()
 
 func check_option1(res:CharacterMod):
 	if not res.gender == CharacterStats.GENDER.FEMALE and \
@@ -66,3 +70,9 @@ func _on_GC3_option_3_mouse_entered():
 
 func _on_GC3_option_4_mouse_entered():
 	option_desc.text = "Pull down Sara’s pants and stick your finger in her ass. Then bend her over and pull down her panties while sticking your huge cock into her ass."
+
+func _load_sara_char():
+	var char_node: Character = char_scene.instantiate()
+	char_node.res = res
+	add_child(char_node)
+	char_node.setup_char()

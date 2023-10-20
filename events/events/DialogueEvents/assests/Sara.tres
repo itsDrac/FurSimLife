@@ -1,0 +1,121 @@
+[gd_resource type="Resource" script_class="CharacterMod" load_steps=10 format=3 uid="uid://cksf5msnjm0hp"]
+
+[ext_resource type="Script" path="res://singletons/QArray.gd" id="1_i45v7"]
+[ext_resource type="Script" path="res://character/CharacterMod.gd" id="2_q3mwo"]
+[ext_resource type="Script" path="res://character/CharacterSex.gd" id="3_1oboy"]
+
+[sub_resource type="Resource" id="Resource_5bsod"]
+script = ExtResource("1_i45v7")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_i5vy7"]
+script = ExtResource("1_i45v7")
+qarray = [0, 1]
+last_added = 1
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_5kcyq"]
+script = ExtResource("1_i45v7")
+qarray = []
+last_added = 0
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_ao2ok"]
+script = ExtResource("1_i45v7")
+qarray = [1]
+last_added = 1
+last_removed = 0
+
+[sub_resource type="Resource" id="Resource_6lj6c"]
+script = ExtResource("3_1oboy")
+blowjob_giver = 14
+blowjob_receiver = 0
+handjob_giver = 20
+handjob_receiver = 0
+cunnilingus_giver = 10
+cunnilingus_receiver = 20
+rimjob_giver = 7
+rimjob_receiver = 8
+fingering_vagina_giver = 12
+fingering_vagina_receiver = 26
+fingering_anus_giver = 6
+fingering_anus_receiver = 14
+boobjob_giver = 9
+boobjob_receiver = 0
+vaginal_giver = 0
+vaginal_receiver = 9
+anal_giver = 0
+anal_receiver = 6
+tribbing_giver = 5
+tribbing_receiver = 5
+been_raped = 1
+have_raped = 0
+tailjob_giver = 0
+tailjob_receiver = 0
+ovipositor_giver = 0
+ovipositor_receiver = 0
+domination = 30
+submissive = 30
+lesbian = 25
+gay = 0
+bi = 0
+femdom_giver = 1
+femdom_receiver = 2
+
+[sub_resource type="Resource" id="Resource_r8dvn"]
+script = ExtResource("1_i45v7")
+qarray = [0, 3]
+last_added = 3
+last_removed = 0
+
+[resource]
+script = ExtResource("2_q3mwo")
+butt_size = 0
+breast_size = 0
+penis = 0
+penis_size = 0
+vagina = 0
+ovipositor = 0
+testicle_size = 0
+anus_orifices = 0
+pregbelly = 0
+age = 0
+skin_color = 0
+back_hair = 0
+front_hair = 0
+piercing = SubResource("Resource_ao2ok")
+upper_body_wearable = SubResource("Resource_r8dvn")
+lower_body_wearable = SubResource("Resource_i5vy7")
+accessories = SubResource("Resource_5bsod")
+makeup = SubResource("Resource_5kcyq")
+view = 0
+name = &"Sara"
+type = 1
+race = 2
+gender = 0
+role = 4
+health = 100
+attack = 7
+strength = 4
+defense = 2
+agility = 6
+intelligence = 6
+magic_power = 1
+role_reputation = 75
+fertility = 0.5
+virility = 0.0
+pregnancy = false
+pregnancy_duration = 0
+relationship_with_player = 0
+depositable_eggs = 0
+eggs_in_vagina = 0
+eggs_in_vagina_duration = 0
+eggs_in_ass = 0
+eggs_in_ass_duration = 0
+children = 0
+monster_children = 0
+job = 3
+sex_ori = 3
+sex_tag = SubResource("Resource_6lj6c")

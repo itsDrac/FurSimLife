@@ -32,7 +32,7 @@ func when_ready():
 		InvMan.add_item(InvMan.ITEMS.Pants)
 	else:
 		for res in G.team:
-			Character.load_character(res)
+#			Character.load_character(res)
 			_add_char_in_dropdown(res)
 		InvMan.load_inv(SaveLoadMan.load_res)
 	teammate_option_button.item_selected.emit(0)
